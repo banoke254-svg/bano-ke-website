@@ -1,377 +1,485 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>BANO KE - Marble Battle Arena</title>
+  <title>BANO KE Pitch Deck</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
     * {
       box-sizing: border-box;
-      scroll-behavior: smooth;
     }
 
-    body {
+    html, body {
       margin: 0;
+      width: 100%;
+      height: 100%;
       background: #030006;
       color: white;
       font-family: Arial, sans-serif;
-      overflow-x: hidden;
+      overflow: hidden;
     }
 
-    .navbar {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      padding: 16px 7%;
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(190, 0, 255, 0.28), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(255, 0, 210, 0.18), transparent 35%),
+        #030006;
+    }
+
+    .top-bar {
+      height: 64px;
+      width: 100%;
+      padding: 0 26px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: rgba(5, 0, 14, 0.82);
-      border-bottom: 1px solid rgba(210, 70, 255, 0.35);
+      background: rgba(5, 0, 14, 0.86);
+      border-bottom: 1px solid rgba(220, 90, 255, 0.34);
       backdrop-filter: blur(16px);
-      box-shadow: 0 0 30px rgba(160, 0, 255, 0.25);
+      box-shadow: 0 0 28px rgba(180, 0, 255, 0.22);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 50;
     }
 
     .brand {
-      font-size: 24px;
       font-weight: 900;
       letter-spacing: 3px;
+      font-size: 22px;
       color: #ffffff;
       text-shadow:
         0 0 8px #ffffff,
         0 0 18px #b000ff,
-        0 0 35px #ff00e6;
+        0 0 32px #ff00d4;
     }
 
     .tabs {
       display: flex;
-      gap: 12px;
       align-items: center;
-      flex-wrap: wrap;
-      justify-content: flex-end;
+      gap: 10px;
     }
 
-    .tabs a {
+    .tab {
       color: white;
       text-decoration: none;
-      font-weight: 800;
-      font-size: 14px;
-      padding: 10px 15px;
-      border-radius: 999px;
-      border: 1px solid transparent;
+      font-weight: 900;
+      border: 1px solid rgba(220, 90, 255, 0.38);
+      background: rgba(255, 255, 255, 0.07);
+      padding: 10px 16px;
+      border-radius: 14px;
+      cursor: pointer;
       transition: 0.25s;
+      font-size: 14px;
     }
 
-    .tabs a:hover {
-      border-color: rgba(220, 90, 255, 0.7);
-      background: rgba(255, 255, 255, 0.08);
-      box-shadow: 0 0 20px rgba(190, 0, 255, 0.5);
+    .tab:hover,
+    .tab.active {
+      background: linear-gradient(135deg, #7a00ff, #ff00d4);
+      box-shadow: 0 0 22px rgba(190, 0, 255, 0.75);
       transform: translateY(-2px);
     }
 
-    .tabs .main-tab {
-      background: linear-gradient(135deg, #8a00ff, #ff00d4);
-      box-shadow: 0 0 22px rgba(190, 0, 255, 0.75);
-      border: 1px solid rgba(255, 255, 255, 0.25);
+    .deck-screen {
+      position: fixed;
+      top: 64px;
+      left: 0;
+      width: 100%;
+      height: calc(100vh - 64px);
+      display: grid;
+      grid-template-rows: 1fr auto auto;
+      padding: 18px 26px 18px;
+      gap: 12px;
     }
 
-    .hero {
-      min-height: 92vh;
-      padding: 70px 7%;
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
+    .slide-stage {
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+      display: flex;
       align-items: center;
-      gap: 40px;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(180, 0, 255, 0.35), transparent 28%),
-        radial-gradient(circle at 80% 55%, rgba(255, 0, 212, 0.18), transparent 32%),
-        linear-gradient(135deg, #050008, #140024 50%, #030006);
+      justify-content: center;
+      position: relative;
+    }
+
+    .slide-card {
+      width: 100%;
+      height: 100%;
+      max-width: 1280px;
+      max-height: 720px;
+      border-radius: 22px;
+      padding: 10px;
+      background: rgba(18, 0, 34, 0.78);
+      border: 1px solid rgba(220, 90, 255, 0.45);
+      box-shadow:
+        0 0 45px rgba(180, 0, 255, 0.42),
+        inset 0 0 28px rgba(255, 255, 255, 0.05);
       position: relative;
       overflow: hidden;
     }
 
-    .hero::before {
+    .slide-card::before {
       content: "";
       position: absolute;
       inset: 0;
       background:
-        repeating-linear-gradient(
-          90deg,
-          rgba(255, 255, 255, 0.025) 0px,
-          rgba(255, 255, 255, 0.025) 1px,
-          transparent 1px,
-          transparent 58px
-        ),
-        repeating-linear-gradient(
-          0deg,
-          rgba(255, 255, 255, 0.018) 0px,
-          rgba(255, 255, 255, 0.018) 1px,
-          transparent 1px,
-          transparent 58px
-        );
+        linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.06) 48%, transparent 58%);
       pointer-events: none;
-    }
-
-    .hero-content {
-      position: relative;
       z-index: 2;
     }
 
-    .eyebrow {
-      display: inline-block;
-      padding: 9px 16px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(220, 90, 255, 0.45);
-      color: #f3d6ff;
-      font-weight: bold;
-      margin-bottom: 20px;
-      box-shadow: inset 0 0 18px rgba(255, 255, 255, 0.04);
+    .main-slide {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      border-radius: 14px;
+      background: black;
+      transition:
+        opacity 0.35s ease,
+        transform 0.35s ease,
+        filter 0.35s ease;
     }
 
-    h1 {
-      font-size: clamp(54px, 9vw, 118px);
-      margin: 0;
-      line-height: 0.95;
-      letter-spacing: 4px;
+    .main-slide.changing {
+      opacity: 0;
+      transform: translateX(28px) scale(0.985);
+      filter: blur(3px);
+    }
+
+    .side-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.35);
       color: white;
-      text-shadow:
-        0 0 8px white,
-        0 0 25px #b000ff,
-        0 0 60px #ff00d4;
-    }
-
-    .hero h2 {
-      font-size: clamp(24px, 4vw, 44px);
-      margin: 20px 0;
-      color: #f4d6ff;
-    }
-
-    .hero p {
-      font-size: 19px;
-      line-height: 1.7;
-      color: #dddddd;
-      max-width: 700px;
-    }
-
-    .button-row {
-      margin-top: 32px;
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      padding: 16px 28px;
-      border-radius: 16px;
-      color: white;
-      text-decoration: none;
+      background: rgba(10, 0, 25, 0.72);
+      box-shadow: 0 0 22px rgba(190, 0, 255, 0.62);
+      font-size: 28px;
       font-weight: 900;
-      background: linear-gradient(135deg, #8a00ff, #ff00d4);
-      box-shadow: 0 0 28px rgba(190, 0, 255, 0.8);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      transition: 0.25s;
+      cursor: pointer;
+      z-index: 20;
+      transition: 0.2s;
     }
 
-    .btn:hover {
-      transform: translateY(-4px) scale(1.03);
+    .side-arrow:hover {
+      background: linear-gradient(135deg, #7a00ff, #ff00d4);
+      transform: translateY(-50%) scale(1.08);
     }
 
-    .btn.secondary {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(220, 90, 255, 0.5);
+    .side-arrow.left {
+      left: 30px;
     }
 
-    .hero-visual {
-      position: relative;
-      z-index: 2;
-      min-height: 430px;
+    .side-arrow.right {
+      right: 30px;
+    }
+
+    .controls {
       display: flex;
       align-items: center;
       justify-content: center;
+      gap: 16px;
+      height: 58px;
     }
 
-    .orb-card {
-      width: min(420px, 90vw);
-      height: min(420px, 90vw);
-      border-radius: 36px;
-      background: rgba(255, 255, 255, 0.06);
+    .control-btn {
+      border: none;
+      padding: 13px 28px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #7a00ff, #ff00d4);
+      color: white;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 0 25px rgba(190, 0, 255, 0.75);
+      font-size: 16px;
+      transition: 0.2s;
+    }
+
+    .control-btn:hover {
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 0 35px rgba(255, 0, 212, 0.95);
+    }
+
+    .counter {
+      font-weight: 900;
+      color: #f3d9ff;
+      min-width: 110px;
+      text-align: center;
+      text-shadow: 0 0 15px rgba(190, 0, 255, 0.9);
+    }
+
+    .thumb-strip {
+      height: 102px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 8px 4px 15px;
+      scroll-behavior: smooth;
+    }
+
+    .thumb-strip::-webkit-scrollbar {
+      height: 10px;
+    }
+
+    .thumb-strip::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.08);
+      border-radius: 999px;
+    }
+
+    .thumb-strip::-webkit-scrollbar-thumb {
+      background: linear-gradient(90deg, #7a00ff, #ff00d4);
+      border-radius: 999px;
+    }
+
+    .thumb-wrap {
+      position: relative;
+      flex: 0 0 auto;
+    }
+
+    .thumb {
+      width: 142px;
+      height: 80px;
+      border-radius: 12px;
+      object-fit: cover;
+      cursor: pointer;
+      opacity: 0.62;
+      border: 2px solid transparent;
+      background: black;
+      transition: 0.25s;
+      display: block;
+    }
+
+    .thumb-number {
+      position: absolute;
+      left: 8px;
+      bottom: 6px;
+      font-weight: 900;
+      font-size: 13px;
+      color: white;
+      background: rgba(0,0,0,0.55);
+      padding: 3px 7px;
+      border-radius: 7px;
+    }
+
+    .thumb.active {
+      opacity: 1;
+      border-color: #ff00d4;
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 0 25px rgba(255, 0, 212, 0.85);
+    }
+
+    .funding-panel {
+      position: fixed;
+      top: 64px;
+      left: 0;
+      width: 100%;
+      height: calc(100vh - 64px);
+      background:
+        radial-gradient(circle at top, rgba(180, 0, 255, 0.32), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(255, 0, 210, 0.18), transparent 36%),
+        #030006;
+      z-index: 40;
+      display: none;
+      padding: 30px;
+      overflow-y: auto;
+    }
+
+    .funding-panel.show {
+      display: block;
+      animation: fadeIn 0.35s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .funding-card {
+      max-width: 1180px;
+      margin: auto;
+      border-radius: 30px;
+      padding: 34px;
+      background: rgba(18, 0, 34, 0.78);
       border: 1px solid rgba(220, 90, 255, 0.45);
       box-shadow:
         0 0 45px rgba(180, 0, 255, 0.45),
-        inset 0 0 35px rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(16px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+        inset 0 0 30px rgba(255,255,255,0.05);
     }
 
-    .marble {
-      width: 250px;
-      height: 250px;
-      border-radius: 50%;
-      background:
-        radial-gradient(circle at 30% 22%, white, transparent 13%),
-        radial-gradient(circle at 70% 70%, #ff00d4, transparent 23%),
-        linear-gradient(135deg, #130026, #7a00ff, #ff00d4);
-      box-shadow:
-        0 0 35px #b000ff,
-        0 0 90px rgba(255, 0, 220, 0.75),
-        inset 0 0 45px rgba(255, 255, 255, 0.65);
-      animation: float 3s ease-in-out infinite;
-    }
-
-    .marble::after {
-      content: "B";
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 125px;
-      font-weight: 900;
-      color: #ffd45e;
-      text-shadow: 0 0 22px #ffb300;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-18px) rotate(7deg); }
-      100% { transform: translateY(0) rotate(0deg); }
-    }
-
-    .section {
-      padding: 85px 7%;
-      background: #050008;
-    }
-
-    .section.alt {
-      background:
-        radial-gradient(circle at top right, rgba(180, 0, 255, 0.2), transparent 30%),
-        #08000f;
-    }
-
-    .section-title {
-      font-size: clamp(36px, 6vw, 68px);
+    .funding-title {
+      font-size: clamp(38px, 7vw, 78px);
+      margin: 0;
       text-align: center;
-      margin: 0 0 18px;
-      text-shadow: 0 0 25px #b000ff;
+      color: white;
+      text-shadow:
+        0 0 8px white,
+        0 0 28px #b000ff,
+        0 0 65px #ff00d4;
     }
 
-    .section-subtitle {
+    .funding-subtitle {
       text-align: center;
-      max-width: 800px;
-      margin: 0 auto 42px;
-      color: #dddddd;
+      color: #e8d8ef;
       font-size: 18px;
-      line-height: 1.7;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 20px;
-      max-width: 1150px;
-      margin: auto;
-    }
-
-    .card {
-      padding: 26px;
-      border-radius: 24px;
-      background: rgba(255, 255, 255, 0.07);
-      border: 1px solid rgba(220, 90, 255, 0.35);
-      box-shadow:
-        0 0 25px rgba(180, 0, 255, 0.18),
-        inset 0 0 18px rgba(255, 255, 255, 0.04);
-      transition: 0.25s;
-    }
-
-    .card:hover {
-      transform: translateY(-7px);
-      box-shadow: 0 0 38px rgba(180, 0, 255, 0.45);
-    }
-
-    .card h3 {
-      color: #ffb7ff;
-      margin-top: 0;
-      font-size: 23px;
-    }
-
-    .card p {
-      color: #dddddd;
       line-height: 1.6;
-    }
-
-    .funding-box {
-      max-width: 900px;
-      margin: auto;
-      padding: 34px;
-      border-radius: 30px;
-      background: rgba(255, 255, 255, 0.07);
-      border: 1px solid rgba(220, 90, 255, 0.45);
-      box-shadow: 0 0 40px rgba(180, 0, 255, 0.35);
-      text-align: center;
+      max-width: 850px;
+      margin: 18px auto 28px;
     }
 
     .money {
-      font-size: clamp(44px, 8vw, 86px);
+      text-align: center;
+      font-size: clamp(44px, 8vw, 92px);
       font-weight: 900;
       color: white;
+      margin: 20px 0 30px;
       text-shadow:
         0 0 12px white,
         0 0 35px #b000ff,
-        0 0 70px #ff00d4;
+        0 0 75px #ff00d4;
     }
 
-    .footer {
-      padding: 45px 7%;
-      text-align: center;
-      color: #aaa;
-      border-top: 1px solid rgba(220, 90, 255, 0.25);
-      background: #030006;
+    .graph {
+      display: grid;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 270px 1fr 90px;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .bar-name {
+      color: #f4d7ff;
+      font-weight: 900;
+      line-height: 1.25;
+    }
+
+    .bar-bg {
+      height: 28px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(220,90,255,0.35);
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #7a00ff, #ff00d4, #ffd45e);
+      box-shadow: 0 0 22px rgba(255,0,212,0.9);
+      transform-origin: left;
+      animation: growBar 1s ease forwards;
+    }
+
+    @keyframes growBar {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
+    }
+
+    .bar-amount {
+      font-weight: 900;
+      color: white;
+      text-align: right;
+    }
+
+    .funding-note {
+      margin-top: 28px;
+      padding: 20px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(220,90,255,0.35);
+      color: #e8d8ef;
+      line-height: 1.6;
     }
 
     @media (max-width: 850px) {
-      .navbar {
-        align-items: flex-start;
-        gap: 14px;
+      .top-bar {
+        height: 72px;
+        padding: 10px 14px;
         flex-direction: column;
-      }
-
-      .tabs {
-        justify-content: flex-start;
-      }
-
-      .hero {
-        grid-template-columns: 1fr;
-        text-align: center;
-        padding-top: 50px;
-      }
-
-      .hero p {
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      .button-row {
+        gap: 8px;
         justify-content: center;
       }
 
-      .hero-visual {
-        min-height: 310px;
+      .brand {
+        font-size: 17px;
       }
 
-      .orb-card {
-        width: 300px;
-        height: 300px;
+      .tab {
+        padding: 8px 12px;
+        font-size: 12px;
       }
 
-      .marble {
-        width: 185px;
-        height: 185px;
+      .deck-screen,
+      .funding-panel {
+        top: 72px;
+        height: calc(100vh - 72px);
       }
 
-      .marble::after {
-        font-size: 92px;
+      .deck-screen {
+        padding: 10px;
+        grid-template-rows: 1fr auto auto;
+      }
+
+      .slide-card {
+        border-radius: 16px;
+        padding: 7px;
+      }
+
+      .controls {
+        height: 54px;
+        gap: 10px;
+      }
+
+      .control-btn {
+        padding: 11px 18px;
+        font-size: 14px;
+      }
+
+      .thumb-strip {
+        height: 84px;
+      }
+
+      .thumb {
+        width: 104px;
+        height: 59px;
+      }
+
+      .side-arrow {
+        display: none;
+      }
+
+      .funding-panel {
+        padding: 14px;
+      }
+
+      .funding-card {
+        padding: 22px;
+      }
+
+      .bar-row {
+        grid-template-columns: 1fr;
+        gap: 7px;
+        margin-bottom: 17px;
+      }
+
+      .bar-amount {
+        text-align: left;
       }
     }
   </style>
@@ -379,119 +487,273 @@
 
 <body>
 
-  <header class="navbar">
-    <div class="brand">BANO KE</div>
+  <header class="top-bar">
+    <div class="brand">BANO KE PITCH DECK</div>
 
     <nav class="tabs">
-      <a href="#home">Home</a>
-      <a href="pitch.html">Pitch Deck</a>
-      <a href="#features">Features</a>
-      <a href="#funding">Funding</a>
-      <a href="#contact">Contact</a>
-      <a class="main-tab" href="pitch.html">View Deck</a>
+      <button class="tab active" id="deckTab" onclick="showDeck()">Deck</button>
+      <button class="tab" id="fundingTab" onclick="showFunding()">Funding</button>
+      <a class="tab" href="index.html">Home</a>
     </nav>
   </header>
 
-  <section id="home" class="hero">
-    <div class="hero-content">
-      <div class="eyebrow">Futuristic Mobile Marble Battle Arena</div>
+  <main class="deck-screen" id="deckScreen">
 
-      <h1>BANO KE</h1>
+    <section class="slide-stage">
+      <button class="side-arrow left" onclick="prevSlide()">‹</button>
 
-      <h2>Built for mobile. Designed to compete.</h2>
+      <div class="slide-card">
+        <img id="mainSlide" class="main-slide" src="slides/Slider%20Banoke/1.png" alt="BANO KE pitch slide">
+      </div>
 
-      <p>
-        BANO KE is a neon 3D marble battle game where players aim, shoot,
-        eliminate opponents, unlock premium marbles, compete in online rooms,
-        and climb the ranking system.
+      <button class="side-arrow right" onclick="nextSlide()">›</button>
+    </section>
+
+    <section class="controls">
+      <button class="control-btn" onclick="prevSlide()">Back</button>
+
+      <div class="counter">
+        Slide <span id="currentNumber">1</span> / <span id="totalNumber">14</span>
+      </div>
+
+      <button class="control-btn" onclick="nextSlide()">Next</button>
+    </section>
+
+    <section id="thumbStrip" class="thumb-strip"></section>
+
+  </main>
+
+  <section class="funding-panel" id="fundingPanel">
+    <div class="funding-card">
+
+      <h1 class="funding-title">Funding Plan</h1>
+
+      <p class="funding-subtitle">
+        BANO KE is seeking funding and strategic support to complete development,
+        launch the game, operate online servers, market the product, and host professional live competitions.
       </p>
 
-      <div class="button-row">
-        <a class="btn" href="pitch.html">Open Pitch Deck</a>
-        <a class="btn secondary" href="#features">Explore Game</a>
-      </div>
-    </div>
+      <div class="money">KSh 25,000,000</div>
 
-    <div class="hero-visual">
-      <div class="orb-card">
-        <div class="marble"></div>
-      </div>
-    </div>
-  </section>
+      <div class="graph">
 
-  <section id="features" class="section">
-    <h2 class="section-title">Game Features</h2>
-    <p class="section-subtitle">
-      A simple-to-learn but competitive marble battle game with skill, strategy,
-      customization, and online competition.
-    </p>
+        <div class="bar-row">
+          <div class="bar-name">Game development and engineering</div>
+          <div class="bar-bg">
+            <div class="bar-fill" style="width: 28%;"></div>
+          </div>
+          <div class="bar-amount">KSh 7M</div>
+        </div>
 
-    <div class="cards">
-      <div class="card">
-        <h3>Online Rooms</h3>
-        <p>Create or join public and private rooms with other players.</p>
-      </div>
+        <div class="bar-row">
+          <div class="bar-name">Marketing and player acquisition</div>
+          <div class="bar-bg">
+            <div class="bar-fill" style="width: 20%;"></div>
+          </div>
+          <div class="bar-amount">KSh 5M</div>
+        </div>
 
-      <div class="card">
-        <h3>Premium Marbles</h3>
-        <p>Unlock glowing, glass, flag, neon, and special event marble skins.</p>
-      </div>
+        <div class="bar-row">
+          <div class="bar-name">Live events and tournaments</div>
+          <div class="bar-bg">
+            <div class="bar-fill" style="width: 16%;"></div>
+          </div>
+          <div class="bar-amount">KSh 4M</div>
+        </div>
 
-      <div class="card">
-        <h3>Ranking System</h3>
-        <p>Win matches, gain points, qualify for tournaments, and climb the leaderboard.</p>
-      </div>
+        <div class="bar-row">
+          <div class="bar-name">Art, animation, and visual polish</div>
+          <div class="bar-bg">
+            <div class="bar-fill" style="width: 12%;"></div>
+          </div>
+          <div class="bar-amount">KSh 3M</div>
+        </div>
 
-      <div class="card">
-        <h3>Live Events</h3>
-        <p>Future tournaments and live competitions with ranked player qualification.</p>
-      </div>
-    </div>
-  </section>
+        <div class="bar-row">
+          <div class="bar-name">Servers and infrastructure</div>
+          <div class="bar-bg">
+            <div class="bar-fill" style="width: 8%;"></div>
+          </div>
+          <div class="bar-amount">KSh 2M</div>
+        </div>
 
-  <section id="funding" class="section alt">
-    <h2 class="section-title">Funding Ask</h2>
-    <p class="section-subtitle">
-      BANO KE is seeking support to complete development, polish the game,
-      launch online systems, market the product, and host competitive events.
-    </p>
+        <div class="bar-row">
+          <div class="bar-name">Android testing and quality assurance</div>
+          <div class="bar-bg">
+            <div class="bar-fill" style="width: 8%;"></div>
+          </div>
+          <div class="bar-amount">KSh 2M</div>
+        </div>
 
-    <div class="funding-box">
-      <div class="money">KSh 25M</div>
-      <p>Approximately US$195,000 in funding and strategic support.</p>
-      <div class="button-row" style="justify-content:center;">
-        <a class="btn" href="pitch.html">See Funding Graph</a>
-      </div>
-    </div>
-  </section>
+        <div class="bar-row">
+          <div class="bar-name">Publishing and distribution support</div>
+          <div class="bar-bg">
+            <div class="bar-fill" style="width: 8%;"></div>
+          </div>
+          <div class="bar-amount">KSh 2M</div>
+        </div>
 
-  <section id="contact" class="section">
-    <h2 class="section-title">Contact</h2>
-    <p class="section-subtitle">
-      Reach out for investment, publishing support, partnerships, or game development support.
-    </p>
-
-    <div class="cards">
-      <div class="card">
-        <h3>Email</h3>
-        <p>bano.ke.254@gmail.com</p>
       </div>
 
-      <div class="card">
-        <h3>Phone</h3>
-        <p>+254 768317858</p>
+      <div class="funding-note">
+        This funding breakdown is designed to show investors how the KSh 25 million request can be used across
+        development, marketing, live events, servers, testing, polish, and publishing support.
       </div>
 
-      <div class="card">
-        <h3>Location</h3>
-        <p>Nairobi, Kenya</p>
-      </div>
     </div>
   </section>
 
-  <footer class="footer">
-    © 2026 BANO KE. Easy to learn. Exciting to master. Built in Africa for the global mobile market.
-  </footer>
+  <script>
+    const slides = [
+      "slides/Slider%20Banoke/1.png",
+      "slides/Slider%20Banoke/2.png",
+      "slides/Slider%20Banoke/3.png",
+      "slides/Slider%20Banoke/4.png",
+      "slides/Slider%20Banoke/5.png",
+      "slides/Slider%20Banoke/6.png",
+      "slides/Slider%20Banoke/7.png",
+      "slides/Slider%20Banoke/8.png",
+      "slides/Slider%20Banoke/9.png",
+      "slides/Slider%20Banoke/10.png",
+      "slides/Slider%20Banoke/11.png",
+      "slides/Slider%20Banoke/12.png",
+      "slides/Slider%20Banoke/13.png",
+      "slides/Slider%20Banoke/14.png"
+    ];
+
+    let current = 0;
+
+    const mainSlide = document.getElementById("mainSlide");
+    const currentNumber = document.getElementById("currentNumber");
+    const totalNumber = document.getElementById("totalNumber");
+    const thumbStrip = document.getElementById("thumbStrip");
+
+    const deckScreen = document.getElementById("deckScreen");
+    const fundingPanel = document.getElementById("fundingPanel");
+
+    const deckTab = document.getElementById("deckTab");
+    const fundingTab = document.getElementById("fundingTab");
+
+    totalNumber.textContent = slides.length;
+
+    slides.forEach(function(src, index) {
+      const wrap = document.createElement("div");
+      wrap.className = "thumb-wrap";
+
+      const img = document.createElement("img");
+      img.src = src;
+      img.className = "thumb";
+      img.alt = "Slide " + (index + 1);
+
+      const number = document.createElement("div");
+      number.className = "thumb-number";
+      number.textContent = index + 1;
+
+      img.onclick = function() {
+        showDeck();
+        showSlide(index);
+      };
+
+      wrap.appendChild(img);
+      wrap.appendChild(number);
+      thumbStrip.appendChild(wrap);
+    });
+
+    function showSlide(index) {
+      if (index < 0) {
+        current = slides.length - 1;
+      } else if (index >= slides.length) {
+        current = 0;
+      } else {
+        current = index;
+      }
+
+      mainSlide.classList.add("changing");
+
+      setTimeout(function() {
+        mainSlide.src = slides[current];
+        currentNumber.textContent = current + 1;
+
+        const thumbs = document.querySelectorAll(".thumb");
+
+        thumbs.forEach(function(thumb) {
+          thumb.classList.remove("active");
+        });
+
+        thumbs[current].classList.add("active");
+
+        thumbs[current].scrollIntoView({
+          behavior: "smooth",
+          inline: "center",
+          block: "nearest"
+        });
+
+        mainSlide.classList.remove("changing");
+      }, 180);
+    }
+
+    function nextSlide() {
+      showSlide(current + 1);
+    }
+
+    function prevSlide() {
+      showSlide(current - 1);
+    }
+
+    function showFunding() {
+      fundingPanel.classList.add("show");
+      deckScreen.style.display = "none";
+
+      fundingTab.classList.add("active");
+      deckTab.classList.remove("active");
+    }
+
+    function showDeck() {
+      fundingPanel.classList.remove("show");
+      deckScreen.style.display = "grid";
+
+      deckTab.classList.add("active");
+      fundingTab.classList.remove("active");
+    }
+
+    document.addEventListener("keydown", function(event) {
+      if (fundingPanel.classList.contains("show")) {
+        return;
+      }
+
+      if (event.key === "ArrowRight") {
+        nextSlide();
+      }
+
+      if (event.key === "ArrowLeft") {
+        prevSlide();
+      }
+    });
+
+    let touchStartX = 0;
+
+    document.addEventListener("touchstart", function(event) {
+      touchStartX = event.changedTouches[0].screenX;
+    });
+
+    document.addEventListener("touchend", function(event) {
+      if (fundingPanel.classList.contains("show")) {
+        return;
+      }
+
+      let touchEndX = event.changedTouches[0].screenX;
+
+      if (touchStartX - touchEndX > 60) {
+        nextSlide();
+      }
+
+      if (touchEndX - touchStartX > 60) {
+        prevSlide();
+      }
+    });
+
+    showSlide(0);
+  </script>
 
 </body>
 </html>
