@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>BANO KE Pitch Presentation</title>
+  <title>BANO KE Pitch Deck</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
@@ -11,379 +11,137 @@
 
     body {
       margin: 0;
-      background: #030006;
+      background: #050008;
       color: white;
       font-family: Arial, sans-serif;
       overflow-x: hidden;
     }
 
-    .nav {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      padding: 14px 22px;
+    .page {
+      min-height: 100vh;
+      padding: 25px;
+      background:
+        radial-gradient(circle at top, rgba(180, 0, 255, 0.25), transparent 35%),
+        radial-gradient(circle at bottom, rgba(255, 0, 200, 0.18), transparent 35%),
+        #050008;
+    }
+
+    .top-bar {
+      max-width: 1200px;
+      margin: 0 auto 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(5, 0, 14, 0.88);
-      border-bottom: 1px solid rgba(190, 0, 255, 0.4);
-      backdrop-filter: blur(14px);
     }
 
-    .brand {
+    .logo {
       font-weight: 900;
       letter-spacing: 2px;
-      color: #f4d9ff;
-      text-shadow: 0 0 15px #b000ff;
+      color: #f3d6ff;
+      text-shadow: 0 0 18px #b000ff;
     }
 
-    .nav a {
+    .home-link {
       color: white;
       text-decoration: none;
       font-weight: bold;
-      margin-left: 16px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(220,90,255,0.45);
+      padding: 10px 16px;
+      border-radius: 12px;
     }
 
-    .presentation {
-      min-height: calc(100vh - 58px);
-      padding: 25px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background:
-        radial-gradient(circle at top, rgba(190, 0, 255, 0.36), transparent 35%),
-        radial-gradient(circle at bottom, rgba(255, 0, 200, 0.22), transparent 35%),
-        linear-gradient(135deg, #050008, #140024, #030006);
-    }
-
-    .slide-frame {
-      width: min(1180px, 100%);
-      min-height: 675px;
-      border-radius: 34px;
-      border: 1px solid rgba(220, 90, 255, 0.55);
-      background:
-        linear-gradient(135deg, rgba(42, 0, 82, 0.92), rgba(8, 0, 20, 0.96)),
-        radial-gradient(circle at center, rgba(190, 0, 255, 0.35), transparent 45%);
-      box-shadow:
-        0 0 45px rgba(180, 0, 255, 0.55),
-        inset 0 0 35px rgba(255, 255, 255, 0.05);
-      overflow: hidden;
-      position: relative;
-    }
-
-    .slide-frame::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.08) 45%, transparent 55%),
-        repeating-linear-gradient(
-          90deg,
-          rgba(255, 255, 255, 0.03) 0px,
-          rgba(255, 255, 255, 0.03) 1px,
-          transparent 1px,
-          transparent 48px
-        );
-      pointer-events: none;
-    }
-
-    .slide-frame::after {
-      content: "";
-      position: absolute;
-      inset: 22px;
-      border-radius: 26px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      pointer-events: none;
-    }
-
-    .slide {
-      display: none;
-      min-height: 675px;
-      padding: 58px 58px 105px;
-      position: relative;
-      z-index: 2;
-      animation: slideIn 0.55s ease;
-    }
-
-    .slide.active {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateX(40px) scale(0.98);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0) scale(1);
-      }
-    }
-
-    .logo-title {
-      font-size: clamp(52px, 10vw, 120px);
-      font-weight: 900;
-      letter-spacing: 5px;
+    .viewer {
+      max-width: 1200px;
+      margin: auto;
       text-align: center;
-      color: white;
-      text-shadow:
-        0 0 10px white,
-        0 0 25px #b000ff,
-        0 0 60px #d000ff,
-        0 0 95px #ff00d4;
-      margin: 0;
     }
 
-    .slide h1 {
-      font-size: clamp(38px, 6vw, 78px);
-      margin: 0 0 22px;
-      color: white;
-      text-shadow: 0 0 25px #b000ff;
+    .slide-box {
+      width: 100%;
+      background: rgba(20, 0, 35, 0.65);
+      border: 1px solid rgba(220, 90, 255, 0.45);
+      border-radius: 22px;
+      padding: 12px;
+      box-shadow: 0 0 40px rgba(180, 0, 255, 0.45);
     }
 
-    .slide h2 {
-      color: #ffccff;
-      font-size: clamp(22px, 3vw, 34px);
-      margin: 14px 0 16px;
-    }
-
-    .slide p {
-      font-size: 20px;
-      line-height: 1.62;
-      color: #eeeeee;
-      max-width: 940px;
-    }
-
-    .slide ul {
-      font-size: 19px;
-      line-height: 1.72;
-      color: #eeeeee;
-      max-width: 950px;
-      margin-top: 8px;
-    }
-
-    .slide li {
-      margin-bottom: 4px;
-    }
-
-    .center {
-      text-align: center;
-      align-items: center;
-    }
-
-    .tagline {
-      font-size: clamp(22px, 4vw, 38px);
-      font-weight: bold;
-      color: #f1d3ff;
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .small-tag {
-      position: absolute;
-      left: 42px;
-      bottom: 34px;
-      color: rgba(255, 255, 255, 0.62);
-      font-size: 13px;
-      letter-spacing: 1px;
-    }
-
-    .marble {
-      width: 190px;
-      height: 190px;
-      margin: 35px auto;
-      border-radius: 50%;
-      background:
-        radial-gradient(circle at 28% 22%, white, transparent 13%),
-        radial-gradient(circle at 70% 70%, #ff00d4, transparent 22%),
-        linear-gradient(135deg, #130026, #7a00ff, #ff00d4);
-      box-shadow:
-        0 0 35px #b000ff,
-        0 0 85px rgba(255, 0, 220, 0.75),
-        inset 0 0 40px rgba(255, 255, 255, 0.65);
-      animation: float 3s ease-in-out infinite;
-    }
-
-    .marble::after {
-      content: "B";
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      font-size: 95px;
-      font-weight: 900;
-      color: #ffd45e;
-      text-shadow: 0 0 20px #ffb300;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-16px) rotate(6deg); }
-      100% { transform: translateY(0) rotate(0deg); }
-    }
-
-    .glass-box {
-      padding: 28px;
-      border-radius: 26px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(220, 90, 255, 0.4);
-      box-shadow: inset 0 0 25px rgba(255, 255, 255, 0.05);
-    }
-
-    .funding-total {
-      font-size: clamp(42px, 8vw, 90px);
-      font-weight: 900;
-      text-align: center;
-      color: white;
-      text-shadow:
-        0 0 12px white,
-        0 0 35px #b000ff,
-        0 0 75px #ff00d4;
-      margin: 10px 0 24px;
-    }
-
-    .bar-row {
-      margin: 14px 0;
-    }
-
-    .bar-label {
-      display: flex;
-      justify-content: space-between;
-      gap: 15px;
-      font-weight: bold;
-      color: #f5d8ff;
-      margin-bottom: 7px;
-      font-size: 15px;
-    }
-
-    .bar-bg {
-      height: 21px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(220, 90, 255, 0.4);
-      overflow: hidden;
-    }
-
-    .bar-fill {
-      height: 100%;
-      border-radius: 999px;
-      background: linear-gradient(90deg, #7a00ff, #ff00d4, #ffd45e);
-      box-shadow: 0 0 22px rgba(255, 0, 220, 0.9);
-      animation: grow 1.2s ease forwards;
-      transform-origin: left;
-    }
-
-    @keyframes grow {
-      from { transform: scaleX(0); }
-      to { transform: scaleX(1); }
+    .main-slide {
+      width: 100%;
+      max-height: 70vh;
+      object-fit: contain;
+      border-radius: 14px;
+      display: block;
+      background: black;
     }
 
     .controls {
-      position: absolute;
-      bottom: 24px;
-      left: 0;
-      right: 0;
-      z-index: 6;
+      margin: 18px 0;
       display: flex;
-      align-items: center;
       justify-content: center;
-      gap: 18px;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
     }
 
-    .control-btn {
-      padding: 14px 24px;
+    button {
+      border: none;
+      padding: 13px 24px;
       border-radius: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.35);
       background: linear-gradient(135deg, #7a00ff, #ff00d4);
       color: white;
       font-weight: 900;
       cursor: pointer;
-      box-shadow: 0 0 25px rgba(190, 0, 255, 0.75);
-      transition: 0.2s;
-    }
-
-    .control-btn:hover {
-      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 0 25px rgba(190, 0, 255, 0.7);
     }
 
     .counter {
       font-weight: bold;
-      color: #f5d8ff;
-      min-width: 62px;
-      text-align: center;
+      color: #f2d8ff;
     }
 
-    .dots {
-      position: absolute;
-      top: 24px;
-      right: 28px;
-      color: #f5d8ff;
-      font-weight: bold;
-      letter-spacing: 5px;
-      z-index: 5;
+    .thumbs {
+      max-width: 1200px;
+      margin: 18px auto 0;
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding: 12px 5px 18px;
     }
 
-    .hint {
-      position: absolute;
-      top: 24px;
-      left: 32px;
-      z-index: 5;
-      font-size: 13px;
-      color: rgba(255, 255, 255, 0.55);
+    .thumb {
+      min-width: 120px;
+      width: 120px;
+      height: 68px;
+      border-radius: 10px;
+      object-fit: cover;
+      cursor: pointer;
+      opacity: 0.65;
+      border: 2px solid transparent;
+      transition: 0.2s;
+      background: black;
     }
 
-    @media (max-width: 800px) {
-      .presentation {
+    .thumb.active {
+      opacity: 1;
+      border-color: #b000ff;
+      box-shadow: 0 0 18px #b000ff;
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 700px) {
+      .page {
         padding: 12px;
       }
 
-      .slide-frame {
-        min-height: 735px;
+      .main-slide {
+        max-height: 58vh;
       }
 
-      .slide {
-        min-height: 735px;
-        padding: 42px 22px 100px;
-      }
-
-      .slide p,
-      .slide ul {
-        font-size: 16px;
-      }
-
-      .slide ul {
-        padding-left: 20px;
-      }
-
-      .marble {
-        width: 135px;
-        height: 135px;
-      }
-
-      .marble::after {
-        font-size: 70px;
-      }
-
-      .controls {
-        gap: 10px;
-      }
-
-      .control-btn {
-        padding: 12px 18px;
-      }
-
-      .bar-label {
-        font-size: 13px;
-      }
-
-      .nav {
-        padding: 12px 14px;
-      }
-
-      .nav a {
-        margin-left: 10px;
+      .thumb {
+        min-width: 90px;
+        width: 90px;
+        height: 52px;
       }
     }
   </style>
@@ -391,409 +149,69 @@
 
 <body>
 
-  <div class="nav">
-    <div class="brand">BANO KE</div>
-    <div>
-      <a href="index.html">Home</a>
-      <a href="#presentation">Pitch</a>
+  <div class="page">
+
+    <div class="top-bar">
+      <div class="logo">BANO KE PITCH DECK</div>
+      <a class="home-link" href="index.html">Home</a>
     </div>
-  </div>
 
-  <main id="presentation" class="presentation">
-    <div class="slide-frame">
-
-      <div class="hint">Use Next / Back or arrow keys</div>
-      <div class="dots">•••</div>
-
-      <!-- SLIDE 1 -->
-      <section class="slide active center">
-        <h1 class="logo-title">BANO KE</h1>
-        <div class="marble"></div>
-        <p class="tagline">A futuristic mobile marble battle arena.</p>
-        <p>Built for mobile. Designed to compete.</p>
-      </section>
-
-      <!-- SLIDE 2 -->
-      <section class="slide">
-        <h1>Problem</h1>
-
-        <p>
-          Mobile players often have to choose between simple games that quickly become repetitive
-          and competitive games that require too much time to learn.
-        </p>
-
-        <h2>Players need a game that is:</h2>
-
-        <ul>
-          <li>Easy to understand and start playing</li>
-          <li>Competitive enough to reward skill</li>
-          <li>Short enough for quick mobile sessions</li>
-          <li>Social, replayable, and visually exciting</li>
-          <li>Built around meaningful progression</li>
-        </ul>
-
-        <div class="small-tag">A futuristic mobile marble battle arena.</div>
-      </section>
-
-      <!-- SLIDE 3 -->
-      <section class="slide">
-        <h1>Solution</h1>
-
-        <p>
-          BANO combines the accessibility of traditional marble games with the excitement
-          of a modern multiplayer battle arena.
-        </p>
-
-        <p>
-          Players aim, control their power, outsmart opponents, eliminate rivals,
-          and enter the hole to win. Every match rewards precision, strategy,
-          and intelligent decision-making.
-        </p>
-
-        <div class="small-tag">A futuristic mobile marble battle arena.</div>
-      </section>
-
-      <!-- SLIDE 4 -->
-      <section class="slide">
-        <h1>Game Overview</h1>
-
-        <p>
-          BANO transforms familiar marble gameplay into a competitive digital sport.
-        </p>
-
-        <h2>Players can:</h2>
-
-        <ul>
-          <li>Aim and control the power of every shot</li>
-          <li>Hit and eliminate opposing marbles</li>
-          <li>Use positioning and arena strategy</li>
-          <li>Enter the hole to score and win</li>
-          <li>Earn coins and gold</li>
-          <li>Unlock premium marbles and cosmetic items</li>
-          <li>Compete in online rooms</li>
-          <li>Climb the ranking system</li>
-        </ul>
-
-        <div class="small-tag">A futuristic mobile marble battle arena.</div>
-      </section>
-
-      <!-- SLIDE 5 -->
-      <section class="slide">
-        <h1>Target Audience</h1>
-
-        <p>BANO is designed for:</p>
-
-        <ul>
-          <li>Mobile gamers who enjoy short competitive matches</li>
-          <li>Casual players looking for deeper gameplay</li>
-          <li>Competitive players who enjoy rankings and mastery</li>
-          <li>African gamers seeking locally inspired experiences</li>
-          <li>Friends and online communities looking for social competition</li>
-          <li>Content creators interested in exciting challenges and tournaments</li>
-        </ul>
-
-        <div class="small-tag">A futuristic mobile marble battle arena.</div>
-      </section>
-
-      <!-- SLIDE 6 -->
-      <section class="slide">
-        <h1>Market Opportunity</h1>
-
-        <p>
-          Mobile gaming is the largest segment of the global games industry,
-          generating approximately $108 billion of the estimated $197 billion
-          global market in 2025.
-        </p>
-
-        <h2>BANO is positioned to benefit from:</h2>
-
-        <ul>
-          <li>The global popularity of free-to-play mobile games</li>
-          <li>Growing smartphone adoption across Africa</li>
-          <li>Demand for short, competitive multiplayer experiences</li>
-          <li>Increased interest in cosmetics and player customization</li>
-          <li>The limited number of globally competitive games built with an African identity</li>
-        </ul>
-
-        <div class="small-tag">A futuristic mobile marble battle arena.</div>
-      </section>
-
-      <!-- SLIDE 7 -->
-      <section class="slide">
-        <h1>Business Model</h1>
-
-        <p>
-          BANO will be free to download, reducing the barrier for new players.
-        </p>
-
-        <h2>Revenue opportunities include:</h2>
-
-        <ul>
-          <li>Premium marble skins</li>
-          <li>Trails, banners, nameplates, and arena themes</li>
-          <li>Gold and in-game currency purchases</li>
-          <li>Seasonal battle passes</li>
-          <li>Limited-edition cosmetic collections</li>
-          <li>Optional rewarded advertisements</li>
-          <li>Sponsored tournaments and live events</li>
-          <li>Future partnerships with creators and African brands</li>
-        </ul>
-
-        <p>
-          The model focuses on selling identity and progression without making
-          the game unfair or pay-to-win.
-        </p>
-
-        <div class="small-tag">A futuristic mobile marble battle arena.</div>
-      </section>
-
-      <!-- SLIDE 8 -->
-      <section class="slide">
-        <h1>Growth Strategy</h1>
-
-        <p>BANO can grow through a community-driven cycle:</p>
-
-        <ul>
-          <li>Players discover the game through creators, clips, and referrals</li>
-          <li>Quick onboarding converts interest into gameplay</li>
-          <li>Rankings and rivalries encourage continued competition</li>
-          <li>Custom marbles and victories generate shareable content</li>
-          <li>Tournaments and seasonal live events bring players back</li>
-          <li>Community engagement creates organic growth</li>
-        </ul>
-
-        <div class="small-tag">A futuristic mobile marble battle arena.</div>
-      </section>
-
-      <!-- SLIDE 9 -->
-      <section class="slide">
-        <h1>Progress So Far</h1>
-
-        <p>
-          The foundation of BANO has already been developed, including:
-        </p>
-
-        <ul>
-          <li>Core 3D marble gameplay</li>
-          <li>Aiming, shooting, scoring, and elimination systems</li>
-          <li>AI-controlled opponents</li>
-          <li>Online multiplayer rooms and relay server</li>
-          <li>Tutorial and rules experience</li>
-          <li>Showroom and marble customization</li>
-          <li>Coins, gold, and unlock systems</li>
-          <li>Settings and user-interface design</li>
-          <li>Multiple marbles, trails, banners, and arena themes</li>
-          <li>Android APK export development</li>
-        </ul>
-
-        <div class="small-tag">A futuristic mobile marble battle arena.</div>
-      </section>
-
-      <!-- SLIDE 10 -->
-      <section class="slide">
-        <h1>Roadmap</h1>
-
-        <p>The next development phase will focus on:</p>
-
-        <ul>
-          <li>Adding daily rewards and player challenges</li>
-          <li>Introducing seasons and battle passes</li>
-          <li>Expanding marbles, trails, arenas, and cultural themes</li>
-          <li>Running closed and open beta tests</li>
-          <li>Optimizing performance across Android devices</li>
-          <li>Building creator and gaming-community partnerships</li>
-          <li>Launching the polished Android version</li>
-        </ul>
-
-        <div class="small-tag">A futuristic mobile marble battle arena.</div>
-      </section>
-
-      <!-- SLIDE 11 -->
-      <section class="slide">
-        <h1>The Ask</h1>
-
-        <div class="funding-total">KSh 25M</div>
-
-        <p>
-          BANO is seeking KSh 25 million, approximately US$195,000, in funding
-          and strategic support to complete development, launch the game,
-          operate its online servers, market the product, and host a professional
-          live competition for at least 1,000 attendees.
-        </p>
-
-        <h2>The investment will support:</h2>
-
-        <ul>
-          <li>Game development and engineering</li>
-          <li>Multiplayer servers and infrastructure</li>
-          <li>Art, animation, and visual polish</li>
-          <li>Android optimization and quality assurance</li>
-          <li>Marketing and player acquisition</li>
-          <li>Community building and creator partnerships</li>
-          <li>Live events operations, tournaments, and new content</li>
-          <li>Publishing and distribution support</li>
-        </ul>
-
-        <div class="small-tag">A futuristic mobile marble battle arena.</div>
-      </section>
-
-      <!-- SLIDE 12 - EXTRA GRAPH SLIDE -->
-      <section class="slide">
-        <h1>Funding Graph</h1>
-
-        <p>
-          Suggested breakdown of the KSh 25 million investment request.
-        </p>
-
-        <div class="glass-box">
-          <div class="bar-row">
-            <div class="bar-label">
-              <span>Game development and engineering</span>
-              <span>KSh 7M</span>
-            </div>
-            <div class="bar-bg">
-              <div class="bar-fill" style="width: 28%;"></div>
-            </div>
-          </div>
-
-          <div class="bar-row">
-            <div class="bar-label">
-              <span>Marketing and player acquisition</span>
-              <span>KSh 5M</span>
-            </div>
-            <div class="bar-bg">
-              <div class="bar-fill" style="width: 20%;"></div>
-            </div>
-          </div>
-
-          <div class="bar-row">
-            <div class="bar-label">
-              <span>Live events and tournaments</span>
-              <span>KSh 4M</span>
-            </div>
-            <div class="bar-bg">
-              <div class="bar-fill" style="width: 16%;"></div>
-            </div>
-          </div>
-
-          <div class="bar-row">
-            <div class="bar-label">
-              <span>Art, animation, and visual polish</span>
-              <span>KSh 3M</span>
-            </div>
-            <div class="bar-bg">
-              <div class="bar-fill" style="width: 12%;"></div>
-            </div>
-          </div>
-
-          <div class="bar-row">
-            <div class="bar-label">
-              <span>Servers and infrastructure</span>
-              <span>KSh 2M</span>
-            </div>
-            <div class="bar-bg">
-              <div class="bar-fill" style="width: 8%;"></div>
-            </div>
-          </div>
-
-          <div class="bar-row">
-            <div class="bar-label">
-              <span>Android testing and QA</span>
-              <span>KSh 2M</span>
-            </div>
-            <div class="bar-bg">
-              <div class="bar-fill" style="width: 8%;"></div>
-            </div>
-          </div>
-
-          <div class="bar-row">
-            <div class="bar-label">
-              <span>Publishing and distribution support</span>
-              <span>KSh 2M</span>
-            </div>
-            <div class="bar-bg">
-              <div class="bar-fill" style="width: 8%;"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SLIDE 13 -->
-      <section class="slide">
-        <h1>Challenges and Opportunities</h1>
-
-        <p>
-          While BANO must overcome challenges such as attracting players and
-          building reliable multiplayer servers, it creates a strong opportunity
-          through competitive live events.
-        </p>
-
-        <p>
-          The top 30 ranked players will qualify for three live matches, with
-          10 players competing in each game for the chance to win real cash prizes.
-        </p>
-
-        <div class="small-tag">A futuristic mobile marble battle arena.</div>
-      </section>
-
-      <!-- SLIDE 14 -->
-      <section class="slide">
-        <h1>Contact Us</h1>
-
-        <p>Please reach us on Email, WhatsApp or Call.</p>
-
-        <div class="glass-box">
-          <h2>Email Address</h2>
-          <p>bano.ke.254@gmail.com</p>
-
-          <h2>Phone</h2>
-          <p>+254 768317858</p>
-
-          <h2>Address</h2>
-          <p>Nairobi, Kenya</p>
-        </div>
-
-        <div class="small-tag">A futuristic mobile marble battle arena.</div>
-      </section>
-
-      <!-- SLIDE 15 -->
-      <section class="slide center">
-        <h1 class="logo-title">BANO KE</h1>
-
-        <p class="tagline">
-          Easy to learn. Exciting to master.
-        </p>
-
-        <p>
-          Built in Africa for the global mobile market.
-        </p>
-      </section>
-
-      <div class="controls">
-        <button class="control-btn" onclick="prevSlide()">Back</button>
-        <div class="counter">
-          <span id="currentSlide">1</span> / <span id="totalSlides">15</span>
-        </div>
-        <button class="control-btn" onclick="nextSlide()">Next</button>
+    <div class="viewer">
+      <div class="slide-box">
+        <img id="mainSlide" class="main-slide" src="slides/slide1.png" alt="BANO KE pitch slide">
       </div>
 
+      <div class="controls">
+        <button onclick="prevSlide()">Back</button>
+        <div class="counter">
+          Slide <span id="currentNumber">1</span> / <span id="totalNumber">14</span>
+        </div>
+        <button onclick="nextSlide()">Next</button>
+      </div>
     </div>
-  </main>
+
+    <div id="thumbs" class="thumbs"></div>
+
+  </div>
 
   <script>
+    const slides = [
+      "slides/slide1.png",
+      "slides/slide2.png",
+      "slides/slide3.png",
+      "slides/slide4.png",
+      "slides/slide5.png",
+      "slides/slide6.png",
+      "slides/slide7.png",
+      "slides/slide8.png",
+      "slides/slide9.png",
+      "slides/slide10.png",
+      "slides/slide11.png",
+      "slides/slide12.png",
+      "slides/slide13.png",
+      "slides/slide14.png"
+    ];
+
     let current = 0;
 
-    const slides = document.querySelectorAll(".slide");
-    const currentSlideText = document.getElementById("currentSlide");
-    const totalSlidesText = document.getElementById("totalSlides");
+    const mainSlide = document.getElementById("mainSlide");
+    const currentNumber = document.getElementById("currentNumber");
+    const totalNumber = document.getElementById("totalNumber");
+    const thumbs = document.getElementById("thumbs");
 
-    totalSlidesText.textContent = slides.length;
+    totalNumber.textContent = slides.length;
+
+    slides.forEach(function(src, index) {
+      const img = document.createElement("img");
+      img.src = src;
+      img.className = "thumb";
+      img.onclick = function() {
+        showSlide(index);
+      };
+      thumbs.appendChild(img);
+    });
 
     function showSlide(index) {
-      slides.forEach(function(slide) {
-        slide.classList.remove("active");
-      });
-
       if (index < 0) {
         current = slides.length - 1;
       } else if (index >= slides.length) {
@@ -802,8 +220,20 @@
         current = index;
       }
 
-      slides[current].classList.add("active");
-      currentSlideText.textContent = current + 1;
+      mainSlide.src = slides[current];
+      currentNumber.textContent = current + 1;
+
+      const allThumbs = document.querySelectorAll(".thumb");
+      allThumbs.forEach(function(thumb) {
+        thumb.classList.remove("active");
+      });
+
+      allThumbs[current].classList.add("active");
+      allThumbs[current].scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest"
+      });
     }
 
     function nextSlide() {
@@ -824,23 +254,7 @@
       }
     });
 
-    let touchStartX = 0;
-
-    document.addEventListener("touchstart", function(event) {
-      touchStartX = event.changedTouches[0].screenX;
-    });
-
-    document.addEventListener("touchend", function(event) {
-      let touchEndX = event.changedTouches[0].screenX;
-
-      if (touchStartX - touchEndX > 60) {
-        nextSlide();
-      }
-
-      if (touchEndX - touchStartX > 60) {
-        prevSlide();
-      }
-    });
+    showSlide(0);
   </script>
 
 </body>
