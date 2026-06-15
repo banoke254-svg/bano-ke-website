@@ -25,7 +25,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(5, 0, 14, 0.85);
+      background: rgba(5, 0, 14, 0.88);
       border-bottom: 1px solid rgba(190, 0, 255, 0.4);
       backdrop-filter: blur(14px);
     }
@@ -45,24 +45,24 @@
     }
 
     .presentation {
-      min-height: calc(100vh - 60px);
+      min-height: calc(100vh - 58px);
       padding: 25px;
       display: flex;
       align-items: center;
       justify-content: center;
       background:
-        radial-gradient(circle at top, rgba(190, 0, 255, 0.35), transparent 35%),
-        radial-gradient(circle at bottom, rgba(255, 0, 200, 0.2), transparent 35%),
+        radial-gradient(circle at top, rgba(190, 0, 255, 0.36), transparent 35%),
+        radial-gradient(circle at bottom, rgba(255, 0, 200, 0.22), transparent 35%),
         linear-gradient(135deg, #050008, #140024, #030006);
     }
 
     .slide-frame {
-      width: min(1150px, 100%);
-      min-height: 650px;
+      width: min(1180px, 100%);
+      min-height: 675px;
       border-radius: 34px;
       border: 1px solid rgba(220, 90, 255, 0.55);
       background:
-        linear-gradient(135deg, rgba(40, 0, 80, 0.9), rgba(8, 0, 20, 0.95)),
+        linear-gradient(135deg, rgba(42, 0, 82, 0.92), rgba(8, 0, 20, 0.96)),
         radial-gradient(circle at center, rgba(190, 0, 255, 0.35), transparent 45%);
       box-shadow:
         0 0 45px rgba(180, 0, 255, 0.55),
@@ -76,24 +76,33 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.08) 45%, transparent 55%),
+        linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.08) 45%, transparent 55%),
         repeating-linear-gradient(
           90deg,
-          rgba(255,255,255,0.03) 0px,
-          rgba(255,255,255,0.03) 1px,
+          rgba(255, 255, 255, 0.03) 0px,
+          rgba(255, 255, 255, 0.03) 1px,
           transparent 1px,
-          transparent 45px
+          transparent 48px
         );
+      pointer-events: none;
+    }
+
+    .slide-frame::after {
+      content: "";
+      position: absolute;
+      inset: 22px;
+      border-radius: 26px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
       pointer-events: none;
     }
 
     .slide {
       display: none;
-      min-height: 650px;
-      padding: 55px;
+      min-height: 675px;
+      padding: 58px 58px 105px;
       position: relative;
       z-index: 2;
-      animation: slideIn 0.5s ease;
+      animation: slideIn 0.55s ease;
     }
 
     .slide.active {
@@ -105,7 +114,7 @@
     @keyframes slideIn {
       from {
         opacity: 0;
-        transform: translateX(35px) scale(0.98);
+        transform: translateX(40px) scale(0.98);
       }
       to {
         opacity: 1;
@@ -128,7 +137,7 @@
     }
 
     .slide h1 {
-      font-size: clamp(42px, 7vw, 82px);
+      font-size: clamp(38px, 6vw, 78px);
       margin: 0 0 22px;
       color: white;
       text-shadow: 0 0 25px #b000ff;
@@ -136,22 +145,27 @@
 
     .slide h2 {
       color: #ffccff;
-      font-size: clamp(22px, 4vw, 38px);
-      margin: 0 0 25px;
+      font-size: clamp(22px, 3vw, 34px);
+      margin: 14px 0 16px;
     }
 
     .slide p {
-      font-size: 21px;
-      line-height: 1.65;
+      font-size: 20px;
+      line-height: 1.62;
       color: #eeeeee;
-      max-width: 880px;
+      max-width: 940px;
     }
 
     .slide ul {
-      font-size: 20px;
-      line-height: 1.8;
+      font-size: 19px;
+      line-height: 1.72;
       color: #eeeeee;
-      max-width: 900px;
+      max-width: 950px;
+      margin-top: 8px;
+    }
+
+    .slide li {
+      margin-bottom: 4px;
     }
 
     .center {
@@ -167,6 +181,15 @@
       margin-top: 20px;
     }
 
+    .small-tag {
+      position: absolute;
+      left: 42px;
+      bottom: 34px;
+      color: rgba(255, 255, 255, 0.62);
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+
     .marble {
       width: 190px;
       height: 190px;
@@ -179,7 +202,7 @@
       box-shadow:
         0 0 35px #b000ff,
         0 0 85px rgba(255, 0, 220, 0.75),
-        inset 0 0 40px rgba(255,255,255,0.65);
+        inset 0 0 40px rgba(255, 255, 255, 0.65);
       animation: float 3s ease-in-out infinite;
     }
 
@@ -201,19 +224,12 @@
       100% { transform: translateY(0) rotate(0deg); }
     }
 
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 35px;
-      align-items: center;
-    }
-
     .glass-box {
       padding: 28px;
       border-radius: 26px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(220,90,255,0.4);
-      box-shadow: inset 0 0 25px rgba(255,255,255,0.05);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(220, 90, 255, 0.4);
+      box-shadow: inset 0 0 25px rgba(255, 255, 255, 0.05);
     }
 
     .funding-total {
@@ -225,11 +241,11 @@
         0 0 12px white,
         0 0 35px #b000ff,
         0 0 75px #ff00d4;
-      margin-bottom: 25px;
+      margin: 10px 0 24px;
     }
 
     .bar-row {
-      margin: 15px 0;
+      margin: 14px 0;
     }
 
     .bar-label {
@@ -238,15 +254,15 @@
       gap: 15px;
       font-weight: bold;
       color: #f5d8ff;
-      margin-bottom: 8px;
-      font-size: 16px;
+      margin-bottom: 7px;
+      font-size: 15px;
     }
 
     .bar-bg {
-      height: 22px;
+      height: 21px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(220,90,255,0.4);
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(220, 90, 255, 0.4);
       overflow: hidden;
     }
 
@@ -254,7 +270,7 @@
       height: 100%;
       border-radius: 999px;
       background: linear-gradient(90deg, #7a00ff, #ff00d4, #ffd45e);
-      box-shadow: 0 0 22px rgba(255,0,220,0.9);
+      box-shadow: 0 0 22px rgba(255, 0, 220, 0.9);
       animation: grow 1.2s ease forwards;
       transform-origin: left;
     }
@@ -269,7 +285,7 @@
       bottom: 24px;
       left: 0;
       right: 0;
-      z-index: 5;
+      z-index: 6;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -279,12 +295,12 @@
     .control-btn {
       padding: 14px 24px;
       border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.35);
+      border: 1px solid rgba(255, 255, 255, 0.35);
       background: linear-gradient(135deg, #7a00ff, #ff00d4);
       color: white;
       font-weight: 900;
       cursor: pointer;
-      box-shadow: 0 0 25px rgba(190,0,255,0.75);
+      box-shadow: 0 0 25px rgba(190, 0, 255, 0.75);
       transition: 0.2s;
     }
 
@@ -295,6 +311,8 @@
     .counter {
       font-weight: bold;
       color: #f5d8ff;
+      min-width: 62px;
+      text-align: center;
     }
 
     .dots {
@@ -304,29 +322,39 @@
       color: #f5d8ff;
       font-weight: bold;
       letter-spacing: 5px;
+      z-index: 5;
+    }
+
+    .hint {
+      position: absolute;
+      top: 24px;
+      left: 32px;
+      z-index: 5;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.55);
     }
 
     @media (max-width: 800px) {
       .presentation {
-        padding: 14px;
+        padding: 12px;
       }
 
       .slide-frame {
-        min-height: 720px;
+        min-height: 735px;
       }
 
       .slide {
-        min-height: 720px;
-        padding: 35px 22px 95px;
-      }
-
-      .two-col {
-        grid-template-columns: 1fr;
+        min-height: 735px;
+        padding: 42px 22px 100px;
       }
 
       .slide p,
       .slide ul {
-        font-size: 17px;
+        font-size: 16px;
+      }
+
+      .slide ul {
+        padding-left: 20px;
       }
 
       .marble {
@@ -345,6 +373,18 @@
       .control-btn {
         padding: 12px 18px;
       }
+
+      .bar-label {
+        font-size: 13px;
+      }
+
+      .nav {
+        padding: 12px 14px;
+      }
+
+      .nav a {
+        margin-left: 10px;
+      }
     }
   </style>
 </head>
@@ -362,147 +402,248 @@
   <main id="presentation" class="presentation">
     <div class="slide-frame">
 
+      <div class="hint">Use Next / Back or arrow keys</div>
       <div class="dots">•••</div>
 
+      <!-- SLIDE 1 -->
       <section class="slide active center">
         <h1 class="logo-title">BANO KE</h1>
         <div class="marble"></div>
-        <div class="tagline">A futuristic mobile marble battle arena.</div>
+        <p class="tagline">A futuristic mobile marble battle arena.</p>
         <p>Built for mobile. Designed to compete.</p>
       </section>
 
+      <!-- SLIDE 2 -->
       <section class="slide">
         <h1>Problem</h1>
+
         <p>
-          Mobile players often choose between simple games that quickly become repetitive
+          Mobile players often have to choose between simple games that quickly become repetitive
           and competitive games that require too much time to learn.
         </p>
+
+        <h2>Players need a game that is:</h2>
+
         <ul>
-          <li>Players want games that are easy to understand.</li>
-          <li>They want short matches for mobile sessions.</li>
-          <li>They want competition, social play, and progression.</li>
-          <li>They want a game that feels exciting and visually unique.</li>
+          <li>Easy to understand and start playing</li>
+          <li>Competitive enough to reward skill</li>
+          <li>Short enough for quick mobile sessions</li>
+          <li>Social, replayable, and visually exciting</li>
+          <li>Built around meaningful progression</li>
         </ul>
+
+        <div class="small-tag">A futuristic mobile marble battle arena.</div>
       </section>
 
+      <!-- SLIDE 3 -->
       <section class="slide">
         <h1>Solution</h1>
+
         <p>
-          BANO KE combines the accessibility of traditional marble games with the excitement
+          BANO combines the accessibility of traditional marble games with the excitement
           of a modern multiplayer battle arena.
         </p>
+
         <p>
-          Players aim, control power, outsmart opponents, eliminate rivals, and enter the hole
-          to win. Every match rewards precision, timing, and smart decision-making.
+          Players aim, control their power, outsmart opponents, eliminate rivals,
+          and enter the hole to win. Every match rewards precision, strategy,
+          and intelligent decision-making.
         </p>
+
+        <div class="small-tag">A futuristic mobile marble battle arena.</div>
       </section>
 
+      <!-- SLIDE 4 -->
       <section class="slide">
         <h1>Game Overview</h1>
+
+        <p>
+          BANO transforms familiar marble gameplay into a competitive digital sport.
+        </p>
+
+        <h2>Players can:</h2>
+
         <ul>
-          <li>Aim and control the power of every shot.</li>
-          <li>Hit and eliminate opposing marbles.</li>
-          <li>Use positioning and arena strategy.</li>
-          <li>Enter the hole to score and win.</li>
-          <li>Earn coins and gold.</li>
-          <li>Unlock premium marbles and cosmetics.</li>
-          <li>Compete in online rooms and rankings.</li>
+          <li>Aim and control the power of every shot</li>
+          <li>Hit and eliminate opposing marbles</li>
+          <li>Use positioning and arena strategy</li>
+          <li>Enter the hole to score and win</li>
+          <li>Earn coins and gold</li>
+          <li>Unlock premium marbles and cosmetic items</li>
+          <li>Compete in online rooms</li>
+          <li>Climb the ranking system</li>
         </ul>
+
+        <div class="small-tag">A futuristic mobile marble battle arena.</div>
       </section>
 
+      <!-- SLIDE 5 -->
       <section class="slide">
         <h1>Target Audience</h1>
+
+        <p>BANO is designed for:</p>
+
         <ul>
-          <li>Mobile gamers who enjoy short competitive matches.</li>
-          <li>Casual players looking for deeper gameplay.</li>
-          <li>Competitive players who enjoy rankings and mastery.</li>
-          <li>African gamers seeking locally inspired experiences.</li>
-          <li>Friends and online communities looking for social competition.</li>
-          <li>Content creators interested in tournaments and challenges.</li>
+          <li>Mobile gamers who enjoy short competitive matches</li>
+          <li>Casual players looking for deeper gameplay</li>
+          <li>Competitive players who enjoy rankings and mastery</li>
+          <li>African gamers seeking locally inspired experiences</li>
+          <li>Friends and online communities looking for social competition</li>
+          <li>Content creators interested in exciting challenges and tournaments</li>
         </ul>
+
+        <div class="small-tag">A futuristic mobile marble battle arena.</div>
       </section>
 
+      <!-- SLIDE 6 -->
       <section class="slide">
         <h1>Market Opportunity</h1>
+
         <p>
-          Mobile gaming is one of the biggest entertainment markets in the world.
-          BANO KE is positioned for quick mobile play, online competition, cosmetics,
-          cultural identity, and creator-led growth.
+          Mobile gaming is the largest segment of the global games industry,
+          generating approximately $108 billion of the estimated $197 billion
+          global market in 2025.
         </p>
+
+        <h2>BANO is positioned to benefit from:</h2>
+
         <ul>
-          <li>Free-to-play mobile games are easy to share.</li>
-          <li>Smartphone adoption is growing across Africa.</li>
-          <li>Players enjoy short competitive multiplayer experiences.</li>
-          <li>Cosmetics and personalization create strong revenue opportunities.</li>
+          <li>The global popularity of free-to-play mobile games</li>
+          <li>Growing smartphone adoption across Africa</li>
+          <li>Demand for short, competitive multiplayer experiences</li>
+          <li>Increased interest in cosmetics and player customization</li>
+          <li>The limited number of globally competitive games built with an African identity</li>
         </ul>
+
+        <div class="small-tag">A futuristic mobile marble battle arena.</div>
       </section>
 
+      <!-- SLIDE 7 -->
       <section class="slide">
         <h1>Business Model</h1>
+
         <p>
-          BANO KE will be free to download, reducing the barrier for new players.
+          BANO will be free to download, reducing the barrier for new players.
         </p>
+
+        <h2>Revenue opportunities include:</h2>
+
         <ul>
-          <li>Premium marble skins.</li>
-          <li>Trails, banners, nameplates, and arena themes.</li>
-          <li>Gold and in-game currency purchases.</li>
-          <li>Seasonal battle passes.</li>
-          <li>Optional rewarded advertisements.</li>
-          <li>Sponsored tournaments and live events.</li>
-          <li>Creator and African brand partnerships.</li>
+          <li>Premium marble skins</li>
+          <li>Trails, banners, nameplates, and arena themes</li>
+          <li>Gold and in-game currency purchases</li>
+          <li>Seasonal battle passes</li>
+          <li>Limited-edition cosmetic collections</li>
+          <li>Optional rewarded advertisements</li>
+          <li>Sponsored tournaments and live events</li>
+          <li>Future partnerships with creators and African brands</li>
         </ul>
+
+        <p>
+          The model focuses on selling identity and progression without making
+          the game unfair or pay-to-win.
+        </p>
+
+        <div class="small-tag">A futuristic mobile marble battle arena.</div>
       </section>
 
+      <!-- SLIDE 8 -->
       <section class="slide">
         <h1>Growth Strategy</h1>
+
+        <p>BANO can grow through a community-driven cycle:</p>
+
         <ul>
-          <li>Players discover the game through creators, clips, and referrals.</li>
-          <li>Quick onboarding converts interest into gameplay.</li>
-          <li>Rankings and rivalries encourage players to return.</li>
-          <li>Custom marbles and wins create shareable moments.</li>
-          <li>Tournaments and seasonal events bring players back.</li>
-          <li>Community engagement creates organic growth.</li>
+          <li>Players discover the game through creators, clips, and referrals</li>
+          <li>Quick onboarding converts interest into gameplay</li>
+          <li>Rankings and rivalries encourage continued competition</li>
+          <li>Custom marbles and victories generate shareable content</li>
+          <li>Tournaments and seasonal live events bring players back</li>
+          <li>Community engagement creates organic growth</li>
         </ul>
+
+        <div class="small-tag">A futuristic mobile marble battle arena.</div>
       </section>
 
+      <!-- SLIDE 9 -->
       <section class="slide">
         <h1>Progress So Far</h1>
+
+        <p>
+          The foundation of BANO has already been developed, including:
+        </p>
+
         <ul>
-          <li>Core 3D marble gameplay.</li>
-          <li>Aiming, shooting, scoring, and elimination systems.</li>
-          <li>AI-controlled opponents.</li>
-          <li>Online multiplayer rooms and relay server.</li>
-          <li>Tutorial and rules experience.</li>
-          <li>Showroom and marble customization.</li>
-          <li>Coins, gold, unlock systems, settings, and UI design.</li>
-          <li>Android APK export development.</li>
+          <li>Core 3D marble gameplay</li>
+          <li>Aiming, shooting, scoring, and elimination systems</li>
+          <li>AI-controlled opponents</li>
+          <li>Online multiplayer rooms and relay server</li>
+          <li>Tutorial and rules experience</li>
+          <li>Showroom and marble customization</li>
+          <li>Coins, gold, and unlock systems</li>
+          <li>Settings and user-interface design</li>
+          <li>Multiple marbles, trails, banners, and arena themes</li>
+          <li>Android APK export development</li>
         </ul>
+
+        <div class="small-tag">A futuristic mobile marble battle arena.</div>
       </section>
 
+      <!-- SLIDE 10 -->
       <section class="slide">
         <h1>Roadmap</h1>
+
+        <p>The next development phase will focus on:</p>
+
         <ul>
-          <li>Add daily rewards and player challenges.</li>
-          <li>Introduce seasons and battle passes.</li>
-          <li>Expand marbles, trails, arenas, and cultural themes.</li>
-          <li>Run closed and open beta tests.</li>
-          <li>Optimize performance across Android devices.</li>
-          <li>Build creator and gaming-community partnerships.</li>
-          <li>Launch the polished Android version.</li>
+          <li>Adding daily rewards and player challenges</li>
+          <li>Introducing seasons and battle passes</li>
+          <li>Expanding marbles, trails, arenas, and cultural themes</li>
+          <li>Running closed and open beta tests</li>
+          <li>Optimizing performance across Android devices</li>
+          <li>Building creator and gaming-community partnerships</li>
+          <li>Launching the polished Android version</li>
         </ul>
+
+        <div class="small-tag">A futuristic mobile marble battle arena.</div>
       </section>
 
+      <!-- SLIDE 11 -->
       <section class="slide">
         <h1>The Ask</h1>
+
         <div class="funding-total">KSh 25M</div>
+
         <p>
-          BANO KE is seeking KSh 25 million to complete development, launch the game,
-          operate online servers, market the product, and host a professional live competition.
+          BANO is seeking KSh 25 million, approximately US$195,000, in funding
+          and strategic support to complete development, launch the game,
+          operate its online servers, market the product, and host a professional
+          live competition for at least 1,000 attendees.
         </p>
+
+        <h2>The investment will support:</h2>
+
+        <ul>
+          <li>Game development and engineering</li>
+          <li>Multiplayer servers and infrastructure</li>
+          <li>Art, animation, and visual polish</li>
+          <li>Android optimization and quality assurance</li>
+          <li>Marketing and player acquisition</li>
+          <li>Community building and creator partnerships</li>
+          <li>Live events operations, tournaments, and new content</li>
+          <li>Publishing and distribution support</li>
+        </ul>
+
+        <div class="small-tag">A futuristic mobile marble battle arena.</div>
       </section>
 
+      <!-- SLIDE 12 - EXTRA GRAPH SLIDE -->
       <section class="slide">
         <h1>Funding Graph</h1>
+
+        <p>
+          Suggested breakdown of the KSh 25 million investment request.
+        </p>
 
         <div class="glass-box">
           <div class="bar-row">
@@ -510,7 +651,9 @@
               <span>Game development and engineering</span>
               <span>KSh 7M</span>
             </div>
-            <div class="bar-bg"><div class="bar-fill" style="width: 28%;"></div></div>
+            <div class="bar-bg">
+              <div class="bar-fill" style="width: 28%;"></div>
+            </div>
           </div>
 
           <div class="bar-row">
@@ -518,7 +661,9 @@
               <span>Marketing and player acquisition</span>
               <span>KSh 5M</span>
             </div>
-            <div class="bar-bg"><div class="bar-fill" style="width: 20%;"></div></div>
+            <div class="bar-bg">
+              <div class="bar-fill" style="width: 20%;"></div>
+            </div>
           </div>
 
           <div class="bar-row">
@@ -526,7 +671,9 @@
               <span>Live events and tournaments</span>
               <span>KSh 4M</span>
             </div>
-            <div class="bar-bg"><div class="bar-fill" style="width: 16%;"></div></div>
+            <div class="bar-bg">
+              <div class="bar-fill" style="width: 16%;"></div>
+            </div>
           </div>
 
           <div class="bar-row">
@@ -534,7 +681,9 @@
               <span>Art, animation, and visual polish</span>
               <span>KSh 3M</span>
             </div>
-            <div class="bar-bg"><div class="bar-fill" style="width: 12%;"></div></div>
+            <div class="bar-bg">
+              <div class="bar-fill" style="width: 12%;"></div>
+            </div>
           </div>
 
           <div class="bar-row">
@@ -542,7 +691,9 @@
               <span>Servers and infrastructure</span>
               <span>KSh 2M</span>
             </div>
-            <div class="bar-bg"><div class="bar-fill" style="width: 8%;"></div></div>
+            <div class="bar-bg">
+              <div class="bar-fill" style="width: 8%;"></div>
+            </div>
           </div>
 
           <div class="bar-row">
@@ -550,7 +701,9 @@
               <span>Android testing and QA</span>
               <span>KSh 2M</span>
             </div>
-            <div class="bar-bg"><div class="bar-fill" style="width: 8%;"></div></div>
+            <div class="bar-bg">
+              <div class="bar-fill" style="width: 8%;"></div>
+            </div>
           </div>
 
           <div class="bar-row">
@@ -558,41 +711,59 @@
               <span>Publishing and distribution support</span>
               <span>KSh 2M</span>
             </div>
-            <div class="bar-bg"><div class="bar-fill" style="width: 8%;"></div></div>
+            <div class="bar-bg">
+              <div class="bar-fill" style="width: 8%;"></div>
+            </div>
           </div>
         </div>
       </section>
 
+      <!-- SLIDE 13 -->
       <section class="slide">
-        <h1>Challenges & Opportunities</h1>
+        <h1>Challenges and Opportunities</h1>
+
         <p>
-          BANO KE must overcome challenges such as attracting players and building reliable
-          multiplayer servers, but it creates a strong opportunity through competitive live events.
+          While BANO must overcome challenges such as attracting players and
+          building reliable multiplayer servers, it creates a strong opportunity
+          through competitive live events.
         </p>
+
         <p>
-          The top ranked players can qualify for live matches, tournaments, and cash-prize competitions.
+          The top 30 ranked players will qualify for three live matches, with
+          10 players competing in each game for the chance to win real cash prizes.
         </p>
+
+        <div class="small-tag">A futuristic mobile marble battle arena.</div>
       </section>
 
+      <!-- SLIDE 14 -->
       <section class="slide">
         <h1>Contact Us</h1>
+
+        <p>Please reach us on Email, WhatsApp or Call.</p>
+
         <div class="glass-box">
-          <h2>Email</h2>
+          <h2>Email Address</h2>
           <p>bano.ke.254@gmail.com</p>
 
           <h2>Phone</h2>
           <p>+254 768317858</p>
 
-          <h2>Location</h2>
+          <h2>Address</h2>
           <p>Nairobi, Kenya</p>
         </div>
+
+        <div class="small-tag">A futuristic mobile marble battle arena.</div>
       </section>
 
+      <!-- SLIDE 15 -->
       <section class="slide center">
         <h1 class="logo-title">BANO KE</h1>
+
         <p class="tagline">
           Easy to learn. Exciting to master.
         </p>
+
         <p>
           Built in Africa for the global mobile market.
         </p>
@@ -611,6 +782,7 @@
 
   <script>
     let current = 0;
+
     const slides = document.querySelectorAll(".slide");
     const currentSlideText = document.getElementById("currentSlide");
     const totalSlidesText = document.getElementById("totalSlides");
@@ -618,7 +790,9 @@
     totalSlidesText.textContent = slides.length;
 
     function showSlide(index) {
-      slides.forEach(slide => slide.classList.remove("active"));
+      slides.forEach(function(slide) {
+        slide.classList.remove("active");
+      });
 
       if (index < 0) {
         current = slides.length - 1;
