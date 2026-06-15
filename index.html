@@ -1,46 +1,464 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>BANO KE</title>
+  <title>BANO KE Pitch Deck</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
-      background: #050008;
+      background:
+        radial-gradient(circle at top, rgba(190, 0, 255, 0.35), transparent 35%),
+        radial-gradient(circle at bottom, rgba(255, 0, 180, 0.18), transparent 35%),
+        #030006;
       color: white;
       font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 60px 20px;
+      overflow-x: hidden;
     }
 
-    h1 {
-      color: #c000ff;
-      font-size: 48px;
-      text-shadow: 0 0 20px #c000ff;
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(8, 0, 18, 0.75);
+      border-bottom: 1px solid rgba(210, 80, 255, 0.35);
+      backdrop-filter: blur(14px);
     }
 
-    p {
-      font-size: 20px;
-      max-width: 700px;
-      margin: 20px auto;
-      line-height: 1.5;
-    }
-
-    .button {
-      display: inline-block;
-      margin-top: 25px;
-      padding: 15px 30px;
-      background: #8a00ff;
+    .nav a {
       color: white;
       text-decoration: none;
-      border-radius: 12px;
-      box-shadow: 0 0 20px #8a00ff;
       font-weight: bold;
+      margin-left: 18px;
+    }
+
+    .brand {
+      color: #f1d7ff;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-shadow: 0 0 12px #b300ff;
+    }
+
+    .hero {
+      min-height: 90vh;
+      padding: 70px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-card {
+      width: 100%;
+      max-width: 1050px;
+      padding: 45px 25px;
+      border-radius: 34px;
+      background: rgba(20, 0, 35, 0.65);
+      border: 1px solid rgba(220, 90, 255, 0.45);
+      box-shadow:
+        0 0 45px rgba(180, 0, 255, 0.45),
+        inset 0 0 30px rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(14px);
+      animation: fadeUp 1s ease forwards;
+    }
+
+    .logo {
+      font-size: clamp(46px, 9vw, 105px);
+      font-weight: 900;
+      letter-spacing: 5px;
+      color: white;
+      text-shadow:
+        0 0 8px #ffffff,
+        0 0 25px #b300ff,
+        0 0 55px #b300ff,
+        0 0 90px #ff00f2;
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      font-size: clamp(18px, 4vw, 30px);
+      color: #f5d6ff;
+      font-weight: bold;
+      margin-bottom: 24px;
+    }
+
+    .hero-text {
+      max-width: 760px;
+      margin: auto;
+      color: #ddd;
+      line-height: 1.7;
+      font-size: 18px;
+    }
+
+    .button-row {
+      margin-top: 34px;
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 16px 28px;
+      border-radius: 16px;
+      color: white;
+      text-decoration: none;
+      font-weight: 900;
+      background: linear-gradient(135deg, #8a00ff, #ff00f2);
+      box-shadow: 0 0 28px rgba(180, 0, 255, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      transition: 0.25s;
+    }
+
+    .btn:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 0 45px rgba(255, 0, 242, 0.9);
+    }
+
+    .btn.secondary {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(220, 90, 255, 0.5);
+    }
+
+    .section {
+      padding: 80px 20px;
+      max-width: 1150px;
+      margin: auto;
+      animation: fadeUp 1s ease forwards;
+    }
+
+    .section-title {
+      font-size: clamp(34px, 6vw, 64px);
+      text-align: center;
+      margin-bottom: 20px;
+      text-shadow: 0 0 25px #b300ff;
+    }
+
+    .section-text {
+      text-align: center;
+      max-width: 850px;
+      margin: 0 auto 35px;
+      color: #ddd;
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    .pdf-box {
+      width: 100%;
+      height: 780px;
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid rgba(220, 90, 255, 0.55);
+      box-shadow:
+        0 0 45px rgba(180, 0, 255, 0.55),
+        inset 0 0 25px rgba(255, 255, 255, 0.06);
+      background: rgba(20, 0, 35, 0.7);
+    }
+
+    .pdf-box iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: white;
+    }
+
+    .money-card {
+      background: rgba(20, 0, 35, 0.7);
+      border: 1px solid rgba(220, 90, 255, 0.45);
+      border-radius: 30px;
+      padding: 28px;
+      box-shadow:
+        0 0 40px rgba(180, 0, 255, 0.45),
+        inset 0 0 25px rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(12px);
+    }
+
+    .total-money {
+      text-align: center;
+      font-size: clamp(34px, 7vw, 72px);
+      font-weight: 900;
+      color: white;
+      text-shadow:
+        0 0 15px #ffffff,
+        0 0 35px #b300ff,
+        0 0 70px #ff00f2;
+      margin: 20px 0 40px;
+    }
+
+    .bar-row {
+      margin: 18px 0;
+    }
+
+    .bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #f2d7ff;
+    }
+
+    .bar-bg {
+      width: 100%;
+      height: 24px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(220, 90, 255, 0.35);
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #7a00ff, #ff00f2, #ffd36b);
+      box-shadow: 0 0 22px rgba(255, 0, 242, 0.9);
+      animation: growBar 1.8s ease forwards;
+      transform-origin: left;
+    }
+
+    .slide-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 18px;
+      margin-top: 35px;
+    }
+
+    .mini-slide {
+      padding: 24px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(220, 90, 255, 0.35);
+      transition: 0.25s;
+    }
+
+    .mini-slide:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 0 30px rgba(180, 0, 255, 0.45);
+    }
+
+    .mini-slide h3 {
+      color: #ffb7ff;
+      margin-top: 0;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 45px 20px;
+      color: #aaa;
+      border-top: 1px solid rgba(220, 90, 255, 0.25);
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(35px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes growBar {
+      from {
+        transform: scaleX(0);
+      }
+      to {
+        transform: scaleX(1);
+      }
+    }
+
+    @media (max-width: 700px) {
+      .nav {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .pdf-box {
+        height: 560px;
+      }
+
+      .hero-card {
+        padding: 34px 18px;
+      }
+
+      .section {
+        padding: 55px 16px;
+      }
     }
   </style>
 </head>
+
 <body>
-  <h1>BANO KE</h1>
-  <p>A futuristic mobile marble battle arena with neon marbles, online rooms, rankings, coins, and premium customization.</p>
-  <a class="button" href="#">Coming Soon</a>
+
+  <div class="nav">
+    <div class="brand">BANO KE</div>
+    <div>
+      <a href="index.html">Home</a>
+      <a href="#deck">Deck</a>
+      <a href="#funding">Funding</a>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="hero-card">
+      <div class="logo">BANO KE</div>
+      <div class="subtitle">Investor Pitch Deck</div>
+
+      <p class="hero-text">
+        A futuristic mobile marble battle arena built for mobile players,
+        competitive matches, online rooms, premium marbles, live tournaments,
+        and ranking-based progression.
+      </p>
+
+      <div class="button-row">
+        <a class="btn" href="#deck">View Pitch Deck</a>
+        <a class="btn secondary" href="bano-ke-pitch.pdf" download>Download PDF</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h1 class="section-title">What This Deck Shows</h1>
+    <p class="section-text">
+      This presentation explains the problem, solution, gameplay, audience,
+      business model, growth strategy, progress so far, roadmap, funding ask,
+      live competition opportunity, and contact information.
+    </p>
+
+    <div class="slide-grid">
+      <div class="mini-slide">
+        <h3>Game Vision</h3>
+        <p>BANO KE turns marble gameplay into a futuristic competitive mobile arena.</p>
+      </div>
+
+      <div class="mini-slide">
+        <h3>Online Competition</h3>
+        <p>Players can compete in rooms, climb rankings, and qualify for live events.</p>
+      </div>
+
+      <div class="mini-slide">
+        <h3>Monetization</h3>
+        <p>Revenue comes from premium marbles, cosmetics, gold, battle passes, ads, and tournaments.</p>
+      </div>
+
+      <div class="mini-slide">
+        <h3>Investment Ask</h3>
+        <p>BANO KE is seeking KSh 25 million to complete, launch, market, and scale the game.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="funding" class="section">
+    <h1 class="section-title">Money Needed</h1>
+    <p class="section-text">
+      The pitch asks for KSh 25 million to support game development, multiplayer servers,
+      art polish, Android optimization, marketing, community growth, live events, and publishing.
+    </p>
+
+    <div class="money-card">
+      <div class="total-money">KSh 25,000,000</div>
+
+      <div class="bar-row">
+        <div class="bar-label">
+          <span>Game development and engineering</span>
+          <span>KSh 7M</span>
+        </div>
+        <div class="bar-bg">
+          <div class="bar-fill" style="width: 28%;"></div>
+        </div>
+      </div>
+
+      <div class="bar-row">
+        <div class="bar-label">
+          <span>Marketing and player acquisition</span>
+          <span>KSh 5M</span>
+        </div>
+        <div class="bar-bg">
+          <div class="bar-fill" style="width: 20%;"></div>
+        </div>
+      </div>
+
+      <div class="bar-row">
+        <div class="bar-label">
+          <span>Live events and tournaments</span>
+          <span>KSh 4M</span>
+        </div>
+        <div class="bar-bg">
+          <div class="bar-fill" style="width: 16%;"></div>
+        </div>
+      </div>
+
+      <div class="bar-row">
+        <div class="bar-label">
+          <span>Art, animation, and visual polish</span>
+          <span>KSh 3M</span>
+        </div>
+        <div class="bar-bg">
+          <div class="bar-fill" style="width: 12%;"></div>
+        </div>
+      </div>
+
+      <div class="bar-row">
+        <div class="bar-label">
+          <span>Servers and infrastructure</span>
+          <span>KSh 2M</span>
+        </div>
+        <div class="bar-bg">
+          <div class="bar-fill" style="width: 8%;"></div>
+        </div>
+      </div>
+
+      <div class="bar-row">
+        <div class="bar-label">
+          <span>Android testing and QA</span>
+          <span>KSh 2M</span>
+        </div>
+        <div class="bar-bg">
+          <div class="bar-fill" style="width: 8%;"></div>
+        </div>
+      </div>
+
+      <div class="bar-row">
+        <div class="bar-label">
+          <span>Publishing and distribution support</span>
+          <span>KSh 2M</span>
+        </div>
+        <div class="bar-bg">
+          <div class="bar-fill" style="width: 8%;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="deck" class="section">
+    <h1 class="section-title">Pitch Deck PDF</h1>
+    <p class="section-text">
+      View the full BANO KE investor presentation below.
+    </p>
+
+    <div class="pdf-box">
+      <iframe src="bano-ke-pitch.pdf"></iframe>
+    </div>
+
+    <div class="button-row">
+      <a class="btn" href="bano-ke-pitch.pdf" target="_blank">Open Full Screen</a>
+      <a class="btn secondary" href="bano-ke-pitch.pdf" download>Download PDF</a>
+    </div>
+  </section>
+
+  <div class="footer">
+    © 2026 BANO KE. Built for mobile. Designed to compete.
+  </div>
+
 </body>
 </html>
