@@ -4,6 +4,10 @@
   <title>BANO KE Pitch Deck</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+
   <style>
     * {
       box-sizing: border-box;
@@ -15,7 +19,7 @@
       height: 100%;
       background: #030006;
       color: white;
-      font-family: Arial, sans-serif;
+      font-family: "Luckiest Guy", Arial, sans-serif;
       overflow: hidden;
     }
 
@@ -33,7 +37,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: rgba(5, 0, 14, 0.86);
+      background: rgba(5, 0, 14, 0.88);
       border-bottom: 1px solid rgba(220, 90, 255, 0.34);
       backdrop-filter: blur(16px);
       box-shadow: 0 0 28px rgba(180, 0, 255, 0.22);
@@ -46,7 +50,7 @@
     .brand {
       font-weight: 900;
       letter-spacing: 3px;
-      font-size: 22px;
+      font-size: 24px;
       color: #ffffff;
       text-shadow:
         0 0 8px #ffffff,
@@ -61,16 +65,18 @@
     }
 
     .tab {
+      font-family: "Luckiest Guy", Arial, sans-serif;
       color: white;
       text-decoration: none;
       font-weight: 900;
       border: 1px solid rgba(220, 90, 255, 0.38);
       background: rgba(255, 255, 255, 0.07);
-      padding: 10px 16px;
+      padding: 10px 18px;
       border-radius: 14px;
       cursor: pointer;
       transition: 0.25s;
-      font-size: 14px;
+      font-size: 16px;
+      letter-spacing: 1px;
     }
 
     .tab:hover,
@@ -158,7 +164,7 @@
       color: white;
       background: rgba(10, 0, 25, 0.72);
       box-shadow: 0 0 22px rgba(190, 0, 255, 0.62);
-      font-size: 28px;
+      font-size: 34px;
       font-weight: 900;
       cursor: pointer;
       z-index: 20;
@@ -187,15 +193,17 @@
     }
 
     .control-btn {
+      font-family: "Luckiest Guy", Arial, sans-serif;
       border: none;
-      padding: 13px 28px;
+      padding: 13px 30px;
       border-radius: 16px;
       background: linear-gradient(135deg, #7a00ff, #ff00d4);
       color: white;
       font-weight: 900;
       cursor: pointer;
       box-shadow: 0 0 25px rgba(190, 0, 255, 0.75);
-      font-size: 16px;
+      font-size: 17px;
+      letter-spacing: 1px;
       transition: 0.2s;
     }
 
@@ -207,9 +215,11 @@
     .counter {
       font-weight: 900;
       color: #f3d9ff;
-      min-width: 110px;
+      min-width: 120px;
       text-align: center;
       text-shadow: 0 0 15px rgba(190, 0, 255, 0.9);
+      font-size: 18px;
+      letter-spacing: 1px;
     }
 
     .thumb-strip {
@@ -307,7 +317,7 @@
     }
 
     .funding-card {
-      max-width: 1180px;
+      max-width: 1250px;
       margin: auto;
       border-radius: 30px;
       padding: 34px;
@@ -327,89 +337,167 @@
         0 0 8px white,
         0 0 28px #b000ff,
         0 0 65px #ff00d4;
+      letter-spacing: 2px;
     }
 
     .funding-subtitle {
       text-align: center;
       color: #e8d8ef;
-      font-size: 18px;
+      font-size: 20px;
       line-height: 1.6;
-      max-width: 850px;
+      max-width: 900px;
       margin: 18px auto 28px;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
     }
 
-    .money {
-      text-align: center;
-      font-size: clamp(44px, 8vw, 92px);
-      font-weight: 900;
+    .funding-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 16px;
+      margin: 28px 0;
+    }
+
+    .stat-box {
+      padding: 20px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(220, 90, 255, 0.38);
+      box-shadow:
+        0 0 22px rgba(180, 0, 255, 0.25),
+        inset 0 0 18px rgba(255, 255, 255, 0.04);
+    }
+
+    .stat-box span {
+      display: block;
+      color: #d8b7e8;
+      font-size: 14px;
+      margin-bottom: 8px;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+    }
+
+    .stat-box strong {
+      display: block;
+      font-size: 28px;
       color: white;
-      margin: 20px 0 30px;
-      text-shadow:
-        0 0 12px white,
-        0 0 35px #b000ff,
-        0 0 75px #ff00d4;
+      text-shadow: 0 0 18px #b000ff;
+      letter-spacing: 1px;
     }
 
-    .graph {
-      display: grid;
-      gap: 16px;
-      margin-top: 24px;
-    }
-
-    .bar-row {
-      display: grid;
-      grid-template-columns: 270px 1fr 90px;
-      gap: 16px;
-      align-items: center;
-    }
-
-    .bar-name {
-      color: #f4d7ff;
-      font-weight: 900;
-      line-height: 1.25;
-    }
-
-    .bar-bg {
-      height: 28px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(220,90,255,0.35);
+    .chart-box {
+      position: relative;
+      width: 100%;
+      height: 460px;
+      padding: 18px;
+      border-radius: 26px;
+      background:
+        linear-gradient(135deg, rgba(5, 0, 14, 0.96), rgba(25, 0, 45, 0.95));
+      border: 1px solid rgba(220, 90, 255, 0.45);
+      box-shadow:
+        0 0 40px rgba(180, 0, 255, 0.32),
+        inset 0 0 24px rgba(255, 255, 255, 0.04);
       overflow: hidden;
     }
 
-    .bar-fill {
-      height: 100%;
-      border-radius: 999px;
-      background: linear-gradient(90deg, #7a00ff, #ff00d4, #ffd45e);
-      box-shadow: 0 0 22px rgba(255,0,212,0.9);
-      transform-origin: left;
-      animation: growBar 1s ease forwards;
-    }
-
-    @keyframes growBar {
-      from { transform: scaleX(0); }
-      to { transform: scaleX(1); }
-    }
-
-    .bar-amount {
+    .chart-top-label {
+      position: absolute;
+      top: 16px;
+      right: 24px;
+      z-index: 2;
+      color: #ffd6ff;
       font-weight: 900;
-      color: white;
-      text-align: right;
+      font-size: 15px;
+      text-shadow: 0 0 12px #ff00d4;
+      letter-spacing: 1px;
     }
 
-    .funding-note {
-      margin-top: 28px;
+    #fundingChart {
+      width: 100%;
+      height: 100%;
+    }
+
+    .grid-line {
+      stroke: rgba(255, 255, 255, 0.12);
+      stroke-width: 1;
+    }
+
+    .axis-label {
+      fill: rgba(255, 255, 255, 0.7);
+      font-size: 17px;
+      font-weight: 900;
+      font-family: Arial, sans-serif;
+    }
+
+    .goal-line {
+      stroke: #ff4fd8;
+      stroke-width: 4;
+      stroke-dasharray: 12 10;
+      filter: drop-shadow(0 0 10px #ff00d4);
+    }
+
+    .deadline-line {
+      stroke: rgba(255, 211, 94, 0.9);
+      stroke-width: 3;
+      stroke-dasharray: 8 8;
+      filter: drop-shadow(0 0 8px #ffd45e);
+    }
+
+    .deadline-text {
+      fill: #ffd45e;
+      font-size: 18px;
+      font-weight: 900;
+      font-family: Arial, sans-serif;
+      filter: drop-shadow(0 0 8px #ffd45e);
+    }
+
+    .progress-line {
+      fill: none;
+      stroke: #00ff99;
+      stroke-width: 7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: drop-shadow(0 0 12px #00ff99);
+      stroke-dasharray: 2000;
+      stroke-dashoffset: 2000;
+      animation: drawLine 1.6s ease forwards;
+    }
+
+    .progress-area {
+      fill: rgba(0, 255, 153, 0.12);
+      filter: drop-shadow(0 0 10px rgba(0, 255, 153, 0.35));
+    }
+
+    .progress-dot {
+      fill: #ffffff;
+      stroke: #00ff99;
+      stroke-width: 5;
+      filter: drop-shadow(0 0 10px #00ff99);
+    }
+
+    .funding-message {
+      margin-top: 22px;
       padding: 20px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(220,90,255,0.35);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(220, 90, 255, 0.35);
       color: #e8d8ef;
+      font-size: 18px;
       line-height: 1.6;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+    }
+
+    @keyframes drawLine {
+      to {
+        stroke-dashoffset: 0;
+      }
     }
 
     @media (max-width: 850px) {
       .top-bar {
-        height: 72px;
+        height: 76px;
         padding: 10px 14px;
         flex-direction: column;
         gap: 8px;
@@ -427,13 +515,12 @@
 
       .deck-screen,
       .funding-panel {
-        top: 72px;
-        height: calc(100vh - 72px);
+        top: 76px;
+        height: calc(100vh - 76px);
       }
 
       .deck-screen {
         padding: 10px;
-        grid-template-rows: 1fr auto auto;
       }
 
       .slide-card {
@@ -472,14 +559,21 @@
         padding: 22px;
       }
 
-      .bar-row {
-        grid-template-columns: 1fr;
-        gap: 7px;
-        margin-bottom: 17px;
+      .chart-box {
+        height: 390px;
+        padding: 10px;
       }
 
-      .bar-amount {
-        text-align: left;
+      .axis-label {
+        font-size: 13px;
+      }
+
+      .deadline-text {
+        font-size: 12px;
+      }
+
+      .stat-box strong {
+        font-size: 22px;
       }
     }
   </style>
@@ -526,78 +620,74 @@
   <section class="funding-panel" id="fundingPanel">
     <div class="funding-card">
 
-      <h1 class="funding-title">Funding Plan</h1>
+      <h1 class="funding-title">BANO KE Funding Tracker</h1>
 
       <p class="funding-subtitle">
-        BANO KE is seeking funding and strategic support to complete development,
-        launch the game, operate online servers, market the product, and host professional live competitions.
+        Tracking the money currently raised for BANO KE against the KSh 25 million goal.
+        Deadline: January 2027.
       </p>
 
-      <div class="money">KSh 25,000,000</div>
-
-      <div class="graph">
-
-        <div class="bar-row">
-          <div class="bar-name">Game development and engineering</div>
-          <div class="bar-bg">
-            <div class="bar-fill" style="width: 28%;"></div>
-          </div>
-          <div class="bar-amount">KSh 7M</div>
+      <div class="funding-stats">
+        <div class="stat-box">
+          <span>Money in BANO</span>
+          <strong id="currentMoney">KSh 0</strong>
         </div>
 
-        <div class="bar-row">
-          <div class="bar-name">Marketing and player acquisition</div>
-          <div class="bar-bg">
-            <div class="bar-fill" style="width: 20%;"></div>
-          </div>
-          <div class="bar-amount">KSh 5M</div>
+        <div class="stat-box">
+          <span>Funding Goal</span>
+          <strong>KSh 25M</strong>
         </div>
 
-        <div class="bar-row">
-          <div class="bar-name">Live events and tournaments</div>
-          <div class="bar-bg">
-            <div class="bar-fill" style="width: 16%;"></div>
-          </div>
-          <div class="bar-amount">KSh 4M</div>
+        <div class="stat-box">
+          <span>Deadline</span>
+          <strong>Jan 2027</strong>
         </div>
 
-        <div class="bar-row">
-          <div class="bar-name">Art, animation, and visual polish</div>
-          <div class="bar-bg">
-            <div class="bar-fill" style="width: 12%;"></div>
-          </div>
-          <div class="bar-amount">KSh 3M</div>
+        <div class="stat-box">
+          <span>Progress</span>
+          <strong id="progressPercent">0%</strong>
         </div>
-
-        <div class="bar-row">
-          <div class="bar-name">Servers and infrastructure</div>
-          <div class="bar-bg">
-            <div class="bar-fill" style="width: 8%;"></div>
-          </div>
-          <div class="bar-amount">KSh 2M</div>
-        </div>
-
-        <div class="bar-row">
-          <div class="bar-name">Android testing and quality assurance</div>
-          <div class="bar-bg">
-            <div class="bar-fill" style="width: 8%;"></div>
-          </div>
-          <div class="bar-amount">KSh 2M</div>
-        </div>
-
-        <div class="bar-row">
-          <div class="bar-name">Publishing and distribution support</div>
-          <div class="bar-bg">
-            <div class="bar-fill" style="width: 8%;"></div>
-          </div>
-          <div class="bar-amount">KSh 2M</div>
-        </div>
-
       </div>
 
-      <div class="funding-note">
-        This funding breakdown is designed to show investors how the KSh 25 million request can be used across
-        development, marketing, live events, servers, testing, polish, and publishing support.
+      <div class="chart-box">
+        <div class="chart-top-label">Goal line: KSh 25,000,000</div>
+
+        <svg id="fundingChart" viewBox="0 0 1000 420" preserveAspectRatio="none">
+
+          <line x1="70" y1="60" x2="950" y2="60" class="grid-line"></line>
+          <line x1="70" y1="130" x2="950" y2="130" class="grid-line"></line>
+          <line x1="70" y1="200" x2="950" y2="200" class="grid-line"></line>
+          <line x1="70" y1="270" x2="950" y2="270" class="grid-line"></line>
+          <line x1="70" y1="340" x2="950" y2="340" class="grid-line"></line>
+
+          <text x="15" y="65" class="axis-label">25M</text>
+          <text x="15" y="135" class="axis-label">20M</text>
+          <text x="15" y="205" class="axis-label">15M</text>
+          <text x="15" y="275" class="axis-label">10M</text>
+          <text x="25" y="345" class="axis-label">0</text>
+
+          <text x="70" y="390" class="axis-label">Now</text>
+          <text x="280" y="390" class="axis-label">Apr 2026</text>
+          <text x="500" y="390" class="axis-label">Jul 2026</text>
+          <text x="710" y="390" class="axis-label">Oct 2026</text>
+          <text x="885" y="390" class="axis-label">Jan 2027</text>
+
+          <line x1="70" y1="60" x2="950" y2="60" class="goal-line"></line>
+
+          <polygon id="progressArea" class="progress-area" points=""></polygon>
+
+          <polyline id="progressLine" class="progress-line" points=""></polyline>
+
+          <g id="progressDots"></g>
+
+          <line x1="950" y1="50" x2="950" y2="350" class="deadline-line"></line>
+          <text x="820" y="42" class="deadline-text">January 2027 Deadline</text>
+
+        </svg>
+      </div>
+
+      <div class="funding-message" id="fundingMessage">
+        BANO KE is at 0% of the funding goal.
       </div>
 
     </div>
@@ -706,6 +796,8 @@
 
       fundingTab.classList.add("active");
       deckTab.classList.remove("active");
+
+      buildFundingChart();
     }
 
     function showDeck() {
@@ -714,6 +806,86 @@
 
       deckTab.classList.add("active");
       fundingTab.classList.remove("active");
+    }
+
+    const fundingGoal = 25000000;
+
+    /*
+      CHANGE THIS NUMBER WHEN MONEY COMES IN.
+
+      Example:
+      If BANO has KSh 500,000, write:
+      const currentRaised = 500000;
+
+      If BANO has KSh 3,000,000, write:
+      const currentRaised = 3000000;
+    */
+    const currentRaised = 0;
+
+    function formatMoney(amount) {
+      if (amount >= 1000000) {
+        return "KSh " + (amount / 1000000).toFixed(1).replace(".0", "") + "M";
+      }
+
+      if (amount >= 1000) {
+        return "KSh " + (amount / 1000).toFixed(0) + "K";
+      }
+
+      return "KSh " + amount.toLocaleString();
+    }
+
+    function moneyToY(amount) {
+      const topY = 60;
+      const bottomY = 340;
+      const percent = Math.max(0, Math.min(amount / fundingGoal, 1));
+      return bottomY - percent * (bottomY - topY);
+    }
+
+    function buildFundingChart() {
+      const currentPercent = Math.round((currentRaised / fundingGoal) * 100);
+
+      document.getElementById("currentMoney").textContent = formatMoney(currentRaised);
+      document.getElementById("progressPercent").textContent = currentPercent + "%";
+
+      const points = [
+        { x: 70, amount: 0 },
+        { x: 245, amount: currentRaised * 0.25 },
+        { x: 420, amount: currentRaised * 0.45 },
+        { x: 595, amount: currentRaised * 0.7 },
+        { x: 770, amount: currentRaised },
+        { x: 950, amount: fundingGoal }
+      ];
+
+      const linePoints = points.map(function(point) {
+        return point.x + "," + moneyToY(point.amount);
+      }).join(" ");
+
+      const areaPoints =
+        "70,340 " +
+        points.map(function(point) {
+          return point.x + "," + moneyToY(point.amount);
+        }).join(" ") +
+        " 950,340";
+
+      document.getElementById("progressLine").setAttribute("points", linePoints);
+      document.getElementById("progressArea").setAttribute("points", areaPoints);
+
+      const dots = document.getElementById("progressDots");
+      dots.innerHTML = "";
+
+      points.forEach(function(point) {
+        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        circle.setAttribute("cx", point.x);
+        circle.setAttribute("cy", moneyToY(point.amount));
+        circle.setAttribute("r", 8);
+        circle.setAttribute("class", "progress-dot");
+        dots.appendChild(circle);
+      });
+
+      document.getElementById("fundingMessage").textContent =
+        "BANO KE currently has " + formatMoney(currentRaised) +
+        " and needs " + formatMoney(fundingGoal - currentRaised) +
+        " more to reach the KSh 25 million goal before January 2027.";
     }
 
     document.addEventListener("keydown", function(event) {
@@ -753,6 +925,7 @@
     });
 
     showSlide(0);
+    buildFundingChart();
   </script>
 
 </body>
