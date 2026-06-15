@@ -25,7 +25,7 @@
 
     body {
       background:
-        radial-gradient(circle at top left, rgba(190, 0, 255, 0.28), transparent 35%),
+        radial-gradient(circle at top left, rgba(190, 0, 255, 0.30), transparent 35%),
         radial-gradient(circle at bottom right, rgba(255, 0, 210, 0.18), transparent 35%),
         #030006;
     }
@@ -37,7 +37,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: rgba(5, 0, 14, 0.88);
+      background: rgba(5, 0, 14, 0.9);
       border-bottom: 1px solid rgba(220, 90, 255, 0.34);
       backdrop-filter: blur(16px);
       box-shadow: 0 0 28px rgba(180, 0, 255, 0.22);
@@ -56,6 +56,7 @@
         0 0 8px #ffffff,
         0 0 18px #b000ff,
         0 0 32px #ff00d4;
+      white-space: nowrap;
     }
 
     .tabs {
@@ -296,7 +297,7 @@
         #030006;
       z-index: 40;
       display: none;
-      padding: 30px;
+      padding: 26px;
       overflow-y: auto;
     }
 
@@ -320,58 +321,59 @@
       max-width: 1250px;
       margin: auto;
       border-radius: 30px;
-      padding: 34px;
-      background: rgba(18, 0, 34, 0.78);
-      border: 1px solid rgba(220, 90, 255, 0.45);
+      padding: 30px;
+      background: rgba(5, 10, 14, 0.88);
+      border: 1px solid rgba(0, 255, 210, 0.24);
       box-shadow:
-        0 0 45px rgba(180, 0, 255, 0.45),
-        inset 0 0 30px rgba(255,255,255,0.05);
+        0 0 45px rgba(0, 255, 200, 0.12),
+        0 0 65px rgba(180, 0, 255, 0.25),
+        inset 0 0 30px rgba(255,255,255,0.04);
     }
 
     .funding-title {
-      font-size: clamp(38px, 7vw, 78px);
+      font-size: clamp(34px, 6vw, 70px);
       margin: 0;
       text-align: center;
       color: white;
       text-shadow:
         0 0 8px white,
-        0 0 28px #b000ff,
-        0 0 65px #ff00d4;
+        0 0 28px #00ffd5,
+        0 0 65px #b000ff;
       letter-spacing: 2px;
     }
 
     .funding-subtitle {
       text-align: center;
-      color: #e8d8ef;
-      font-size: 20px;
+      color: #dce8e8;
+      font-size: 18px;
       line-height: 1.6;
       max-width: 900px;
-      margin: 18px auto 28px;
+      margin: 14px auto 24px;
       font-family: Arial, sans-serif;
       font-weight: bold;
     }
 
     .funding-stats {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-      gap: 16px;
-      margin: 28px 0;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin: 24px 0;
     }
 
     .stat-box {
-      padding: 20px;
+      padding: 18px;
       border-radius: 20px;
-      background: rgba(255, 255, 255, 0.07);
-      border: 1px solid rgba(220, 90, 255, 0.38);
+      background: rgba(255, 255, 255, 0.055);
+      border: 1px solid rgba(0, 255, 210, 0.24);
       box-shadow:
-        0 0 22px rgba(180, 0, 255, 0.25),
+        0 0 22px rgba(0, 255, 210, 0.08),
         inset 0 0 18px rgba(255, 255, 255, 0.04);
     }
 
     .stat-box span {
       display: block;
-      color: #d8b7e8;
-      font-size: 14px;
+      color: #c8e6e3;
+      font-size: 13px;
       margin-bottom: 8px;
       font-family: Arial, sans-serif;
       font-weight: bold;
@@ -379,37 +381,50 @@
 
     .stat-box strong {
       display: block;
-      font-size: 28px;
+      font-size: 25px;
       color: white;
-      text-shadow: 0 0 18px #b000ff;
+      text-shadow: 0 0 18px #00ffd5;
       letter-spacing: 1px;
     }
 
     .chart-box {
       position: relative;
       width: 100%;
-      height: 460px;
+      height: 430px;
       padding: 18px;
       border-radius: 26px;
       background:
-        linear-gradient(135deg, rgba(5, 0, 14, 0.96), rgba(25, 0, 45, 0.95));
-      border: 1px solid rgba(220, 90, 255, 0.45);
+        radial-gradient(circle at 55% 35%, rgba(0, 255, 210, 0.08), transparent 32%),
+        linear-gradient(135deg, rgba(1, 9, 12, 0.98), rgba(5, 12, 18, 0.96));
+      border: 1px solid rgba(0, 255, 210, 0.28);
       box-shadow:
-        0 0 40px rgba(180, 0, 255, 0.32),
-        inset 0 0 24px rgba(255, 255, 255, 0.04);
+        0 0 35px rgba(0, 255, 210, 0.08),
+        inset 0 0 24px rgba(255, 255, 255, 0.03);
       overflow: hidden;
     }
 
-    .chart-top-label {
+    .chart-header {
+      position: absolute;
+      top: 16px;
+      left: 24px;
+      z-index: 5;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      font-weight: 900;
+      font-size: 18px;
+      letter-spacing: 1px;
+    }
+
+    .chart-goal-label {
       position: absolute;
       top: 16px;
       right: 24px;
-      z-index: 2;
-      color: #ffd6ff;
+      z-index: 5;
+      color: #00ffd5;
+      font-family: Arial, sans-serif;
       font-weight: 900;
       font-size: 15px;
-      text-shadow: 0 0 12px #ff00d4;
-      letter-spacing: 1px;
+      text-shadow: 0 0 12px #00ffd5;
     }
 
     #fundingChart {
@@ -418,73 +433,146 @@
     }
 
     .grid-line {
-      stroke: rgba(255, 255, 255, 0.12);
+      stroke: rgba(255, 255, 255, 0.13);
       stroke-width: 1;
+      stroke-dasharray: 6 8;
+    }
+
+    .axis-line {
+      stroke: rgba(255, 255, 255, 0.22);
+      stroke-width: 2;
     }
 
     .axis-label {
-      fill: rgba(255, 255, 255, 0.7);
-      font-size: 17px;
+      fill: rgba(255, 255, 255, 0.72);
+      font-size: 16px;
+      font-weight: 900;
+      font-family: Arial, sans-serif;
+    }
+
+    .date-label {
+      fill: rgba(255, 255, 255, 0.62);
+      font-size: 16px;
       font-weight: 900;
       font-family: Arial, sans-serif;
     }
 
     .goal-line {
-      stroke: #ff4fd8;
-      stroke-width: 4;
-      stroke-dasharray: 12 10;
-      filter: drop-shadow(0 0 10px #ff00d4);
-    }
-
-    .deadline-line {
-      stroke: rgba(255, 211, 94, 0.9);
+      stroke: rgba(255, 255, 255, 0.86);
       stroke-width: 3;
-      stroke-dasharray: 8 8;
-      filter: drop-shadow(0 0 8px #ffd45e);
+      stroke-dasharray: 11 10;
+      filter: drop-shadow(0 0 8px rgba(255,255,255,0.6));
     }
 
-    .deadline-text {
-      fill: #ffd45e;
-      font-size: 18px;
-      font-weight: 900;
-      font-family: Arial, sans-serif;
-      filter: drop-shadow(0 0 8px #ffd45e);
+    .goal-dot {
+      fill: #ffffff;
+      stroke: #ffffff;
+      stroke-width: 4;
+      filter: drop-shadow(0 0 10px #ffffff);
+    }
+
+    .progress-area-one {
+      fill: rgba(0, 255, 213, 0.32);
+      filter: blur(0.2px);
+    }
+
+    .progress-area-two {
+      fill: rgba(0, 255, 213, 0.14);
     }
 
     .progress-line {
       fill: none;
-      stroke: #00ff99;
-      stroke-width: 7;
+      stroke: #ffffff;
+      stroke-width: 5;
       stroke-linecap: round;
       stroke-linejoin: round;
-      filter: drop-shadow(0 0 12px #00ff99);
+      filter: drop-shadow(0 0 10px rgba(255,255,255,0.95));
       stroke-dasharray: 2000;
       stroke-dashoffset: 2000;
       animation: drawLine 1.6s ease forwards;
     }
 
-    .progress-area {
-      fill: rgba(0, 255, 153, 0.12);
-      filter: drop-shadow(0 0 10px rgba(0, 255, 153, 0.35));
+    .current-dot {
+      fill: #00ffd5;
+      stroke: #ffffff;
+      stroke-width: 5;
+      filter: drop-shadow(0 0 14px #00ffd5);
     }
 
-    .progress-dot {
-      fill: #ffffff;
-      stroke: #00ff99;
-      stroke-width: 5;
-      filter: drop-shadow(0 0 10px #00ff99);
+    .small-dot {
+      fill: rgba(255,255,255,0.3);
+    }
+
+    .deadline-line {
+      stroke: rgba(255, 255, 255, 0.75);
+      stroke-width: 2;
+      stroke-dasharray: 7 8;
+    }
+
+    .deadline-text {
+      fill: #00ffd5;
+      font-size: 18px;
+      font-weight: 900;
+      font-family: Arial, sans-serif;
+      filter: drop-shadow(0 0 8px #00ffd5);
     }
 
     .funding-message {
-      margin-top: 22px;
-      padding: 20px;
+      margin-top: 20px;
+      padding: 18px;
       border-radius: 18px;
-      background: rgba(255, 255, 255, 0.07);
-      border: 1px solid rgba(220, 90, 255, 0.35);
-      color: #e8d8ef;
-      font-size: 18px;
+      background: rgba(255, 255, 255, 0.055);
+      border: 1px solid rgba(0, 255, 210, 0.24);
+      color: #dce8e8;
+      font-size: 17px;
       line-height: 1.6;
       text-align: center;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+    }
+
+    .help-title {
+      margin: 28px 0 16px;
+      text-align: center;
+      font-size: clamp(28px, 5vw, 48px);
+      color: white;
+      text-shadow:
+        0 0 8px white,
+        0 0 25px #b000ff,
+        0 0 50px #00ffd5;
+      letter-spacing: 2px;
+    }
+
+    .help-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .help-card {
+      border-radius: 20px;
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.055);
+      border: 1px solid rgba(220, 90, 255, 0.24);
+      box-shadow:
+        0 0 24px rgba(180, 0, 255, 0.15),
+        inset 0 0 18px rgba(255,255,255,0.03);
+    }
+
+    .help-card h3 {
+      margin: 0 0 8px;
+      color: #ffffff;
+      font-size: 20px;
+      letter-spacing: 1px;
+      text-shadow: 0 0 14px #b000ff;
+    }
+
+    .help-card p {
+      margin: 0;
+      color: #dce8e8;
+      font-size: 14px;
+      line-height: 1.5;
       font-family: Arial, sans-serif;
       font-weight: bold;
     }
@@ -495,7 +583,7 @@
       }
     }
 
-    @media (max-width: 850px) {
+    @media (max-width: 950px) {
       .top-bar {
         height: 76px;
         padding: 10px 14px;
@@ -521,6 +609,7 @@
 
       .deck-screen {
         padding: 10px;
+        gap: 8px;
       }
 
       .slide-card {
@@ -529,17 +618,22 @@
       }
 
       .controls {
-        height: 54px;
-        gap: 10px;
+        height: 52px;
+        gap: 8px;
       }
 
       .control-btn {
-        padding: 11px 18px;
-        font-size: 14px;
+        padding: 10px 16px;
+        font-size: 13px;
+      }
+
+      .counter {
+        min-width: 95px;
+        font-size: 13px;
       }
 
       .thumb-strip {
-        height: 84px;
+        height: 82px;
       }
 
       .thumb {
@@ -552,28 +646,73 @@
       }
 
       .funding-panel {
-        padding: 14px;
+        padding: 12px;
       }
 
       .funding-card {
-        padding: 22px;
+        padding: 18px;
+      }
+
+      .funding-stats {
+        grid-template-columns: repeat(2, 1fr);
       }
 
       .chart-box {
-        height: 390px;
-        padding: 10px;
+        height: 380px;
+        padding: 8px;
       }
 
-      .axis-label {
-        font-size: 13px;
+      .axis-label,
+      .date-label {
+        font-size: 12px;
       }
 
       .deadline-text {
         font-size: 12px;
       }
 
+      .chart-header {
+        font-size: 13px;
+        left: 14px;
+      }
+
+      .chart-goal-label {
+        font-size: 12px;
+        right: 14px;
+      }
+
+      .stat-box {
+        padding: 14px;
+      }
+
       .stat-box strong {
-        font-size: 22px;
+        font-size: 20px;
+      }
+
+      .funding-subtitle {
+        font-size: 14px;
+      }
+
+      .help-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .help-card h3 {
+        font-size: 18px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .funding-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .chart-box {
+        height: 330px;
+      }
+
+      .funding-message {
+        font-size: 14px;
       }
     }
   </style>
@@ -623,8 +762,8 @@
       <h1 class="funding-title">BANO KE Funding Tracker</h1>
 
       <p class="funding-subtitle">
-        Tracking the money currently raised for BANO KE against the KSh 25 million goal.
-        Deadline: January 2027.
+        This chart shows how much money is currently in BANO KE, how far it is from the KSh 25 million goal,
+        and the climb needed before the January 2027 deadline.
       </p>
 
       <div class="funding-stats">
@@ -639,55 +778,113 @@
         </div>
 
         <div class="stat-box">
-          <span>Deadline</span>
-          <strong>Jan 2027</strong>
+          <span>Still Needed</span>
+          <strong id="moneyNeeded">KSh 25M</strong>
         </div>
 
         <div class="stat-box">
-          <span>Progress</span>
-          <strong id="progressPercent">0%</strong>
+          <span>Deadline</span>
+          <strong>Jan 2027</strong>
         </div>
       </div>
 
       <div class="chart-box">
-        <div class="chart-top-label">Goal line: KSh 25,000,000</div>
+        <div class="chart-header">FUNDING GROWTH - KSh</div>
+        <div class="chart-goal-label">Goal: KSh 25,000,000</div>
 
         <svg id="fundingChart" viewBox="0 0 1000 420" preserveAspectRatio="none">
 
+          <!-- horizontal grid -->
           <line x1="70" y1="60" x2="950" y2="60" class="grid-line"></line>
           <line x1="70" y1="130" x2="950" y2="130" class="grid-line"></line>
           <line x1="70" y1="200" x2="950" y2="200" class="grid-line"></line>
           <line x1="70" y1="270" x2="950" y2="270" class="grid-line"></line>
           <line x1="70" y1="340" x2="950" y2="340" class="grid-line"></line>
 
-          <text x="15" y="65" class="axis-label">25M</text>
-          <text x="15" y="135" class="axis-label">20M</text>
-          <text x="15" y="205" class="axis-label">15M</text>
-          <text x="15" y="275" class="axis-label">10M</text>
-          <text x="25" y="345" class="axis-label">0</text>
+          <!-- axis lines -->
+          <line x1="70" y1="55" x2="70" y2="345" class="axis-line"></line>
+          <line x1="70" y1="340" x2="950" y2="340" class="axis-line"></line>
 
-          <text x="70" y="390" class="axis-label">Now</text>
-          <text x="280" y="390" class="axis-label">Apr 2026</text>
-          <text x="500" y="390" class="axis-label">Jul 2026</text>
-          <text x="710" y="390" class="axis-label">Oct 2026</text>
-          <text x="885" y="390" class="axis-label">Jan 2027</text>
+          <!-- left labels -->
+          <text x="14" y="65" class="axis-label">25M</text>
+          <text x="14" y="135" class="axis-label">20M</text>
+          <text x="14" y="205" class="axis-label">15M</text>
+          <text x="14" y="275" class="axis-label">10M</text>
+          <text x="30" y="345" class="axis-label">0</text>
 
+          <!-- bottom dates -->
+          <text x="62" y="390" class="date-label">Now</text>
+          <text x="250" y="390" class="date-label">Apr</text>
+          <text x="475" y="390" class="date-label">Jul</text>
+          <text x="690" y="390" class="date-label">Oct</text>
+          <text x="880" y="390" class="date-label">Jan 2027</text>
+
+          <!-- goal line -->
           <line x1="70" y1="60" x2="950" y2="60" class="goal-line"></line>
 
-          <polygon id="progressArea" class="progress-area" points=""></polygon>
+          <!-- wave areas -->
+          <path id="waveAreaTwo" class="progress-area-two" d=""></path>
+          <path id="waveAreaOne" class="progress-area-one" d=""></path>
 
-          <polyline id="progressLine" class="progress-line" points=""></polyline>
+          <!-- white trading line -->
+          <path id="progressLine" class="progress-line" d=""></path>
 
+          <!-- dots -->
           <g id="progressDots"></g>
 
+          <!-- deadline -->
           <line x1="950" y1="50" x2="950" y2="350" class="deadline-line"></line>
-          <text x="820" y="42" class="deadline-text">January 2027 Deadline</text>
+          <text x="790" y="43" class="deadline-text">January 2027 Deadline</text>
 
         </svg>
       </div>
 
       <div class="funding-message" id="fundingMessage">
-        BANO KE is at 0% of the funding goal.
+        BANO KE currently has KSh 0 and needs KSh 25M more to reach the goal.
+      </div>
+
+      <h2 class="help-title">What The Funding Will Help With</h2>
+
+      <div class="help-grid">
+        <div class="help-card">
+          <h3>Development</h3>
+          <p>Complete the game systems, fix bugs, improve online play, polish the rules, and prepare the game for launch.</p>
+        </div>
+
+        <div class="help-card">
+          <h3>Servers</h3>
+          <p>Pay for multiplayer hosting, online rooms, account systems, rankings, and stable live gameplay.</p>
+        </div>
+
+        <div class="help-card">
+          <h3>Art Polish</h3>
+          <p>Create better marbles, trails, animations, menus, UI, loading screens, and premium visual effects.</p>
+        </div>
+
+        <div class="help-card">
+          <h3>Marketing</h3>
+          <p>Promote BANO KE through creators, ads, social media, trailers, community campaigns, and launch content.</p>
+        </div>
+
+        <div class="help-card">
+          <h3>Android Testing</h3>
+          <p>Optimize the game for mobile phones, reduce lag, test many Android devices, and prepare for release.</p>
+        </div>
+
+        <div class="help-card">
+          <h3>Live Events</h3>
+          <p>Host tournaments, ranked competitions, player meetups, and cash-prize events for top players.</p>
+        </div>
+
+        <div class="help-card">
+          <h3>Publishing</h3>
+          <p>Support app store release, branding, legal setup, distribution, and possible publishing partnerships.</p>
+        </div>
+
+        <div class="help-card">
+          <h3>Community</h3>
+          <p>Build a strong player base with rankings, referrals, challenges, rewards, and creator partnerships.</p>
+        </div>
       </div>
 
     </div>
@@ -813,12 +1010,10 @@
     /*
       CHANGE THIS NUMBER WHEN MONEY COMES IN.
 
-      Example:
-      If BANO has KSh 500,000, write:
-      const currentRaised = 500000;
-
-      If BANO has KSh 3,000,000, write:
-      const currentRaised = 3000000;
+      Examples:
+      KSh 500,000  = 500000
+      KSh 1,500,000 = 1500000
+      KSh 3,000,000 = 3000000
     */
     const currentRaised = 0;
 
@@ -843,49 +1038,85 @@
 
     function buildFundingChart() {
       const currentPercent = Math.round((currentRaised / fundingGoal) * 100);
+      const stillNeeded = fundingGoal - currentRaised;
 
       document.getElementById("currentMoney").textContent = formatMoney(currentRaised);
-      document.getElementById("progressPercent").textContent = currentPercent + "%";
+      document.getElementById("moneyNeeded").textContent = formatMoney(stillNeeded);
 
-      const points = [
-        { x: 70, amount: 0 },
-        { x: 245, amount: currentRaised * 0.25 },
-        { x: 420, amount: currentRaised * 0.45 },
-        { x: 595, amount: currentRaised * 0.7 },
-        { x: 770, amount: currentRaised },
-        { x: 950, amount: fundingGoal }
-      ];
+      const nowY = moneyToY(currentRaised);
 
-      const linePoints = points.map(function(point) {
-        return point.x + "," + moneyToY(point.amount);
-      }).join(" ");
+      /*
+        This makes a trading-style wave.
+        The line starts at the current money, moves up and down, then climbs toward the goal by January 2027.
+      */
+      const p1 = { x: 70, y: moneyToY(currentRaised) };
+      const p2 = { x: 180, y: moneyToY(currentRaised + stillNeeded * 0.15) };
+      const p3 = { x: 310, y: moneyToY(currentRaised + stillNeeded * 0.38) };
+      const p4 = { x: 440, y: moneyToY(currentRaised + stillNeeded * 0.22) };
+      const p5 = { x: 590, y: moneyToY(currentRaised + stillNeeded * 0.62) };
+      const p6 = { x: 730, y: moneyToY(currentRaised + stillNeeded * 0.31) };
+      const p7 = { x: 850, y: moneyToY(currentRaised + stillNeeded * 0.50) };
+      const p8 = { x: 950, y: moneyToY(fundingGoal) };
 
-      const areaPoints =
-        "70,340 " +
-        points.map(function(point) {
-          return point.x + "," + moneyToY(point.amount);
-        }).join(" ") +
-        " 950,340";
+      const linePath =
+        "M " + p1.x + " " + p1.y +
+        " C 125 " + p1.y + ", 130 " + p2.y + ", " + p2.x + " " + p2.y +
+        " C 250 " + p2.y + ", 245 " + p3.y + ", " + p3.x + " " + p3.y +
+        " C 365 " + p3.y + ", 360 " + p4.y + ", " + p4.x + " " + p4.y +
+        " C 505 " + p4.y + ", 500 " + p5.y + ", " + p5.x + " " + p5.y +
+        " C 660 " + p5.y + ", 650 " + p6.y + ", " + p6.x + " " + p6.y +
+        " C 795 " + p6.y + ", 795 " + p7.y + ", " + p7.x + " " + p7.y +
+        " C 900 " + p7.y + ", 900 " + p8.y + ", " + p8.x + " " + p8.y;
 
-      document.getElementById("progressLine").setAttribute("points", linePoints);
-      document.getElementById("progressArea").setAttribute("points", areaPoints);
+      const areaPath =
+        linePath +
+        " L 950 340 L 70 340 Z";
+
+      const waveOne =
+        "M 70 340 " +
+        "C 150 250, 220 255, 300 330 " +
+        "C 390 235, 460 240, 520 325 " +
+        "C 610 140, 710 150, 760 315 " +
+        "C 825 240, 880 250, 950 340 " +
+        "L 950 340 L 70 340 Z";
+
+      document.getElementById("progressLine").setAttribute("d", linePath);
+      document.getElementById("waveAreaOne").setAttribute("d", areaPath);
+      document.getElementById("waveAreaTwo").setAttribute("d", waveOne);
 
       const dots = document.getElementById("progressDots");
       dots.innerHTML = "";
 
-      points.forEach(function(point) {
+      const currentDot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      currentDot.setAttribute("cx", p1.x);
+      currentDot.setAttribute("cy", p1.y);
+      currentDot.setAttribute("r", 10);
+      currentDot.setAttribute("class", "current-dot");
+      dots.appendChild(currentDot);
+
+      const goalDot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      goalDot.setAttribute("cx", p8.x);
+      goalDot.setAttribute("cy", p8.y);
+      goalDot.setAttribute("r", 10);
+      goalDot.setAttribute("class", "goal-dot");
+      dots.appendChild(goalDot);
+
+      const smallDots = [p2, p3, p4, p5, p6, p7];
+
+      smallDots.forEach(function(point) {
         const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
         circle.setAttribute("cx", point.x);
-        circle.setAttribute("cy", moneyToY(point.amount));
-        circle.setAttribute("r", 8);
-        circle.setAttribute("class", "progress-dot");
+        circle.setAttribute("cy", 340);
+        circle.setAttribute("r", 5);
+        circle.setAttribute("class", "small-dot");
         dots.appendChild(circle);
       });
 
       document.getElementById("fundingMessage").textContent =
         "BANO KE currently has " + formatMoney(currentRaised) +
-        " and needs " + formatMoney(fundingGoal - currentRaised) +
-        " more to reach the KSh 25 million goal before January 2027.";
+        ". The goal is " + formatMoney(fundingGoal) +
+        ", meaning " + formatMoney(stillNeeded) +
+        " is still needed before January 2027.";
     }
 
     document.addEventListener("keydown", function(event) {
