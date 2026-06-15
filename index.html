@@ -1,176 +1,377 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>BANO KE Pitch Deck</title>
+  <title>BANO KE - Marble Battle Arena</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
     * {
       box-sizing: border-box;
+      scroll-behavior: smooth;
     }
 
     body {
       margin: 0;
-      background: #050008;
+      background: #030006;
       color: white;
       font-family: Arial, sans-serif;
       overflow-x: hidden;
     }
 
-    .page {
-      min-height: 100vh;
-      padding: 25px;
-      background:
-        radial-gradient(circle at top, rgba(180, 0, 255, 0.28), transparent 35%),
-        radial-gradient(circle at bottom, rgba(255, 0, 200, 0.18), transparent 35%),
-        #050008;
-    }
-
-    .top-bar {
-      max-width: 1250px;
-      margin: 0 auto 20px;
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 16px 7%;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+      background: rgba(5, 0, 14, 0.82);
+      border-bottom: 1px solid rgba(210, 70, 255, 0.35);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 0 30px rgba(160, 0, 255, 0.25);
     }
 
-    .logo {
+    .brand {
+      font-size: 24px;
       font-weight: 900;
       letter-spacing: 3px;
-      color: #f3d6ff;
-      text-shadow: 0 0 18px #b000ff;
-      font-size: 24px;
+      color: #ffffff;
+      text-shadow:
+        0 0 8px #ffffff,
+        0 0 18px #b000ff,
+        0 0 35px #ff00e6;
     }
 
-    .home-link {
+    .tabs {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .tabs a {
       color: white;
       text-decoration: none;
-      font-weight: bold;
+      font-weight: 800;
+      font-size: 14px;
+      padding: 10px 15px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: 0.25s;
+    }
+
+    .tabs a:hover {
+      border-color: rgba(220, 90, 255, 0.7);
       background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(220, 90, 255, 0.55);
-      padding: 12px 20px;
-      border-radius: 14px;
+      box-shadow: 0 0 20px rgba(190, 0, 255, 0.5);
+      transform: translateY(-2px);
     }
 
-    .viewer {
-      max-width: 1250px;
-      margin: auto;
-      text-align: center;
+    .tabs .main-tab {
+      background: linear-gradient(135deg, #8a00ff, #ff00d4);
+      box-shadow: 0 0 22px rgba(190, 0, 255, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.25);
     }
 
-    .slide-box {
-      width: 100%;
-      background: rgba(20, 0, 35, 0.65);
-      border: 1px solid rgba(220, 90, 255, 0.55);
-      border-radius: 24px;
-      padding: 14px;
-      box-shadow:
-        0 0 45px rgba(180, 0, 255, 0.45),
-        inset 0 0 25px rgba(255, 255, 255, 0.04);
-    }
-
-    .main-slide {
-      width: 100%;
-      max-height: 72vh;
-      object-fit: contain;
-      border-radius: 16px;
-      display: block;
-      background: black;
-    }
-
-    .controls {
-      margin: 20px 0;
-      display: flex;
-      justify-content: center;
+    .hero {
+      min-height: 92vh;
+      padding: 70px 7%;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
       align-items: center;
+      gap: 40px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(180, 0, 255, 0.35), transparent 28%),
+        radial-gradient(circle at 80% 55%, rgba(255, 0, 212, 0.18), transparent 32%),
+        linear-gradient(135deg, #050008, #140024 50%, #030006);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.025) 0px,
+          rgba(255, 255, 255, 0.025) 1px,
+          transparent 1px,
+          transparent 58px
+        ),
+        repeating-linear-gradient(
+          0deg,
+          rgba(255, 255, 255, 0.018) 0px,
+          rgba(255, 255, 255, 0.018) 1px,
+          transparent 1px,
+          transparent 58px
+        );
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 9px 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(220, 90, 255, 0.45);
+      color: #f3d6ff;
+      font-weight: bold;
+      margin-bottom: 20px;
+      box-shadow: inset 0 0 18px rgba(255, 255, 255, 0.04);
+    }
+
+    h1 {
+      font-size: clamp(54px, 9vw, 118px);
+      margin: 0;
+      line-height: 0.95;
+      letter-spacing: 4px;
+      color: white;
+      text-shadow:
+        0 0 8px white,
+        0 0 25px #b000ff,
+        0 0 60px #ff00d4;
+    }
+
+    .hero h2 {
+      font-size: clamp(24px, 4vw, 44px);
+      margin: 20px 0;
+      color: #f4d6ff;
+    }
+
+    .hero p {
+      font-size: 19px;
+      line-height: 1.7;
+      color: #dddddd;
+      max-width: 700px;
+    }
+
+    .button-row {
+      margin-top: 32px;
+      display: flex;
       gap: 16px;
       flex-wrap: wrap;
     }
 
-    button {
-      border: none;
-      padding: 14px 28px;
+    .btn {
+      padding: 16px 28px;
       border-radius: 16px;
-      background: linear-gradient(135deg, #7a00ff, #ff00d4);
       color: white;
+      text-decoration: none;
       font-weight: 900;
-      cursor: pointer;
-      box-shadow: 0 0 25px rgba(190, 0, 255, 0.75);
-      font-size: 16px;
+      background: linear-gradient(135deg, #8a00ff, #ff00d4);
+      box-shadow: 0 0 28px rgba(190, 0, 255, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      transition: 0.25s;
     }
 
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 35px rgba(255, 0, 212, 0.9);
+    .btn:hover {
+      transform: translateY(-4px) scale(1.03);
     }
 
-    .counter {
-      font-weight: bold;
-      color: #f2d8ff;
-      font-size: 18px;
+    .btn.secondary {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(220, 90, 255, 0.5);
     }
 
-    .thumbs {
-      max-width: 1250px;
-      margin: 18px auto 0;
+    .hero-visual {
+      position: relative;
+      z-index: 2;
+      min-height: 430px;
       display: flex;
-      gap: 12px;
-      overflow-x: auto;
-      padding: 12px 5px 20px;
+      align-items: center;
+      justify-content: center;
     }
 
-    .thumb {
-      min-width: 130px;
-      width: 130px;
-      height: 74px;
-      border-radius: 12px;
-      object-fit: cover;
-      cursor: pointer;
-      opacity: 0.65;
-      border: 2px solid transparent;
-      transition: 0.2s;
-      background: black;
+    .orb-card {
+      width: min(420px, 90vw);
+      height: min(420px, 90vw);
+      border-radius: 36px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(220, 90, 255, 0.45);
+      box-shadow:
+        0 0 45px rgba(180, 0, 255, 0.45),
+        inset 0 0 35px rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(16px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .thumb.active {
-      opacity: 1;
-      border-color: #d400ff;
-      box-shadow: 0 0 20px #b000ff;
-      transform: scale(1.06);
+    .marble {
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 30% 22%, white, transparent 13%),
+        radial-gradient(circle at 70% 70%, #ff00d4, transparent 23%),
+        linear-gradient(135deg, #130026, #7a00ff, #ff00d4);
+      box-shadow:
+        0 0 35px #b000ff,
+        0 0 90px rgba(255, 0, 220, 0.75),
+        inset 0 0 45px rgba(255, 255, 255, 0.65);
+      animation: float 3s ease-in-out infinite;
     }
 
-    .hint {
+    .marble::after {
+      content: "B";
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 125px;
+      font-weight: 900;
+      color: #ffd45e;
+      text-shadow: 0 0 22px #ffb300;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-18px) rotate(7deg); }
+      100% { transform: translateY(0) rotate(0deg); }
+    }
+
+    .section {
+      padding: 85px 7%;
+      background: #050008;
+    }
+
+    .section.alt {
+      background:
+        radial-gradient(circle at top right, rgba(180, 0, 255, 0.2), transparent 30%),
+        #08000f;
+    }
+
+    .section-title {
+      font-size: clamp(36px, 6vw, 68px);
       text-align: center;
-      color: rgba(255, 255, 255, 0.65);
-      margin-top: 10px;
-      font-size: 14px;
+      margin: 0 0 18px;
+      text-shadow: 0 0 25px #b000ff;
     }
 
-    @media (max-width: 700px) {
-      .page {
-        padding: 12px;
+    .section-subtitle {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 42px;
+      color: #dddddd;
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
+      max-width: 1150px;
+      margin: auto;
+    }
+
+    .card {
+      padding: 26px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(220, 90, 255, 0.35);
+      box-shadow:
+        0 0 25px rgba(180, 0, 255, 0.18),
+        inset 0 0 18px rgba(255, 255, 255, 0.04);
+      transition: 0.25s;
+    }
+
+    .card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 0 38px rgba(180, 0, 255, 0.45);
+    }
+
+    .card h3 {
+      color: #ffb7ff;
+      margin-top: 0;
+      font-size: 23px;
+    }
+
+    .card p {
+      color: #dddddd;
+      line-height: 1.6;
+    }
+
+    .funding-box {
+      max-width: 900px;
+      margin: auto;
+      padding: 34px;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(220, 90, 255, 0.45);
+      box-shadow: 0 0 40px rgba(180, 0, 255, 0.35);
+      text-align: center;
+    }
+
+    .money {
+      font-size: clamp(44px, 8vw, 86px);
+      font-weight: 900;
+      color: white;
+      text-shadow:
+        0 0 12px white,
+        0 0 35px #b000ff,
+        0 0 70px #ff00d4;
+    }
+
+    .footer {
+      padding: 45px 7%;
+      text-align: center;
+      color: #aaa;
+      border-top: 1px solid rgba(220, 90, 255, 0.25);
+      background: #030006;
+    }
+
+    @media (max-width: 850px) {
+      .navbar {
+        align-items: flex-start;
+        gap: 14px;
+        flex-direction: column;
       }
 
-      .top-bar {
-        gap: 12px;
+      .tabs {
+        justify-content: flex-start;
       }
 
-      .logo {
-        font-size: 18px;
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding-top: 50px;
       }
 
-      .main-slide {
-        max-height: 58vh;
+      .hero p {
+        margin-left: auto;
+        margin-right: auto;
       }
 
-      .thumb {
-        min-width: 90px;
-        width: 90px;
-        height: 52px;
+      .button-row {
+        justify-content: center;
       }
 
-      button {
-        padding: 12px 20px;
+      .hero-visual {
+        min-height: 310px;
+      }
+
+      .orb-card {
+        width: 300px;
+        height: 300px;
+      }
+
+      .marble {
+        width: 185px;
+        height: 185px;
+      }
+
+      .marble::after {
+        font-size: 92px;
       }
     }
   </style>
@@ -178,142 +379,119 @@
 
 <body>
 
-  <div class="page">
+  <header class="navbar">
+    <div class="brand">BANO KE</div>
 
-    <div class="top-bar">
-      <div class="logo">BANO KE PITCH DECK</div>
-      <a class="home-link" href="index.html">Home</a>
+    <nav class="tabs">
+      <a href="#home">Home</a>
+      <a href="pitch.html">Pitch Deck</a>
+      <a href="#features">Features</a>
+      <a href="#funding">Funding</a>
+      <a href="#contact">Contact</a>
+      <a class="main-tab" href="pitch.html">View Deck</a>
+    </nav>
+  </header>
+
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <div class="eyebrow">Futuristic Mobile Marble Battle Arena</div>
+
+      <h1>BANO KE</h1>
+
+      <h2>Built for mobile. Designed to compete.</h2>
+
+      <p>
+        BANO KE is a neon 3D marble battle game where players aim, shoot,
+        eliminate opponents, unlock premium marbles, compete in online rooms,
+        and climb the ranking system.
+      </p>
+
+      <div class="button-row">
+        <a class="btn" href="pitch.html">Open Pitch Deck</a>
+        <a class="btn secondary" href="#features">Explore Game</a>
+      </div>
     </div>
 
-    <div class="viewer">
-      <div class="slide-box">
-        <img id="mainSlide" class="main-slide" src="slides/Slider%20Banoke/1.png" alt="BANO KE pitch slide">
-      </div>
-
-      <div class="controls">
-        <button onclick="prevSlide()">Back</button>
-
-        <div class="counter">
-          Slide <span id="currentNumber">1</span> / <span id="totalNumber">14</span>
-        </div>
-
-        <button onclick="nextSlide()">Next</button>
-      </div>
-
-      <div class="hint">
-        You can also use keyboard arrow keys or swipe on mobile.
+    <div class="hero-visual">
+      <div class="orb-card">
+        <div class="marble"></div>
       </div>
     </div>
+  </section>
 
-    <div id="thumbs" class="thumbs"></div>
+  <section id="features" class="section">
+    <h2 class="section-title">Game Features</h2>
+    <p class="section-subtitle">
+      A simple-to-learn but competitive marble battle game with skill, strategy,
+      customization, and online competition.
+    </p>
 
-  </div>
+    <div class="cards">
+      <div class="card">
+        <h3>Online Rooms</h3>
+        <p>Create or join public and private rooms with other players.</p>
+      </div>
 
-  <script>
-    const slides = [
-      "slides/Slider%20Banoke/1.png",
-      "slides/Slider%20Banoke/2.png",
-      "slides/Slider%20Banoke/3.png",
-      "slides/Slider%20Banoke/4.png",
-      "slides/Slider%20Banoke/5.png",
-      "slides/Slider%20Banoke/6.png",
-      "slides/Slider%20Banoke/7.png",
-      "slides/Slider%20Banoke/8.png",
-      "slides/Slider%20Banoke/9.png",
-      "slides/Slider%20Banoke/10.png",
-      "slides/Slider%20Banoke/11.png",
-      "slides/Slider%20Banoke/12.png",
-      "slides/Slider%20Banoke/13.png",
-      "slides/Slider%20Banoke/14.png"
-    ];
+      <div class="card">
+        <h3>Premium Marbles</h3>
+        <p>Unlock glowing, glass, flag, neon, and special event marble skins.</p>
+      </div>
 
-    let current = 0;
+      <div class="card">
+        <h3>Ranking System</h3>
+        <p>Win matches, gain points, qualify for tournaments, and climb the leaderboard.</p>
+      </div>
 
-    const mainSlide = document.getElementById("mainSlide");
-    const currentNumber = document.getElementById("currentNumber");
-    const totalNumber = document.getElementById("totalNumber");
-    const thumbs = document.getElementById("thumbs");
+      <div class="card">
+        <h3>Live Events</h3>
+        <p>Future tournaments and live competitions with ranked player qualification.</p>
+      </div>
+    </div>
+  </section>
 
-    totalNumber.textContent = slides.length;
+  <section id="funding" class="section alt">
+    <h2 class="section-title">Funding Ask</h2>
+    <p class="section-subtitle">
+      BANO KE is seeking support to complete development, polish the game,
+      launch online systems, market the product, and host competitive events.
+    </p>
 
-    slides.forEach(function(src, index) {
-      const img = document.createElement("img");
-      img.src = src;
-      img.className = "thumb";
-      img.alt = "Slide " + (index + 1);
+    <div class="funding-box">
+      <div class="money">KSh 25M</div>
+      <p>Approximately US$195,000 in funding and strategic support.</p>
+      <div class="button-row" style="justify-content:center;">
+        <a class="btn" href="pitch.html">See Funding Graph</a>
+      </div>
+    </div>
+  </section>
 
-      img.onclick = function() {
-        showSlide(index);
-      };
+  <section id="contact" class="section">
+    <h2 class="section-title">Contact</h2>
+    <p class="section-subtitle">
+      Reach out for investment, publishing support, partnerships, or game development support.
+    </p>
 
-      thumbs.appendChild(img);
-    });
+    <div class="cards">
+      <div class="card">
+        <h3>Email</h3>
+        <p>bano.ke.254@gmail.com</p>
+      </div>
 
-    function showSlide(index) {
-      if (index < 0) {
-        current = slides.length - 1;
-      } else if (index >= slides.length) {
-        current = 0;
-      } else {
-        current = index;
-      }
+      <div class="card">
+        <h3>Phone</h3>
+        <p>+254 768317858</p>
+      </div>
 
-      mainSlide.src = slides[current];
-      currentNumber.textContent = current + 1;
+      <div class="card">
+        <h3>Location</h3>
+        <p>Nairobi, Kenya</p>
+      </div>
+    </div>
+  </section>
 
-      const allThumbs = document.querySelectorAll(".thumb");
-
-      allThumbs.forEach(function(thumb) {
-        thumb.classList.remove("active");
-      });
-
-      allThumbs[current].classList.add("active");
-
-      allThumbs[current].scrollIntoView({
-        behavior: "smooth",
-        inline: "center",
-        block: "nearest"
-      });
-    }
-
-    function nextSlide() {
-      showSlide(current + 1);
-    }
-
-    function prevSlide() {
-      showSlide(current - 1);
-    }
-
-    document.addEventListener("keydown", function(event) {
-      if (event.key === "ArrowRight") {
-        nextSlide();
-      }
-
-      if (event.key === "ArrowLeft") {
-        prevSlide();
-      }
-    });
-
-    let touchStartX = 0;
-
-    document.addEventListener("touchstart", function(event) {
-      touchStartX = event.changedTouches[0].screenX;
-    });
-
-    document.addEventListener("touchend", function(event) {
-      let touchEndX = event.changedTouches[0].screenX;
-
-      if (touchStartX - touchEndX > 60) {
-        nextSlide();
-      }
-
-      if (touchEndX - touchStartX > 60) {
-        prevSlide();
-      }
-    });
-
-    showSlide(0);
-  </script>
+  <footer class="footer">
+    © 2026 BANO KE. Easy to learn. Exciting to master. Built in Africa for the global mobile market.
+  </footer>
 
 </body>
 </html>
