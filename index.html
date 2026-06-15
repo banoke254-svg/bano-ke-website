@@ -21,13 +21,13 @@
       min-height: 100vh;
       padding: 25px;
       background:
-        radial-gradient(circle at top, rgba(180, 0, 255, 0.25), transparent 35%),
+        radial-gradient(circle at top, rgba(180, 0, 255, 0.28), transparent 35%),
         radial-gradient(circle at bottom, rgba(255, 0, 200, 0.18), transparent 35%),
         #050008;
     }
 
     .top-bar {
-      max-width: 1200px;
+      max-width: 1250px;
       margin: 0 auto 20px;
       display: flex;
       justify-content: space-between;
@@ -36,23 +36,24 @@
 
     .logo {
       font-weight: 900;
-      letter-spacing: 2px;
+      letter-spacing: 3px;
       color: #f3d6ff;
       text-shadow: 0 0 18px #b000ff;
+      font-size: 24px;
     }
 
     .home-link {
       color: white;
       text-decoration: none;
       font-weight: bold;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(220,90,255,0.45);
-      padding: 10px 16px;
-      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(220, 90, 255, 0.55);
+      padding: 12px 20px;
+      border-radius: 14px;
     }
 
     .viewer {
-      max-width: 1200px;
+      max-width: 1250px;
       margin: auto;
       text-align: center;
     }
@@ -60,60 +61,69 @@
     .slide-box {
       width: 100%;
       background: rgba(20, 0, 35, 0.65);
-      border: 1px solid rgba(220, 90, 255, 0.45);
-      border-radius: 22px;
-      padding: 12px;
-      box-shadow: 0 0 40px rgba(180, 0, 255, 0.45);
+      border: 1px solid rgba(220, 90, 255, 0.55);
+      border-radius: 24px;
+      padding: 14px;
+      box-shadow:
+        0 0 45px rgba(180, 0, 255, 0.45),
+        inset 0 0 25px rgba(255, 255, 255, 0.04);
     }
 
     .main-slide {
       width: 100%;
-      max-height: 70vh;
+      max-height: 72vh;
       object-fit: contain;
-      border-radius: 14px;
+      border-radius: 16px;
       display: block;
       background: black;
     }
 
     .controls {
-      margin: 18px 0;
+      margin: 20px 0;
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 14px;
+      gap: 16px;
       flex-wrap: wrap;
     }
 
     button {
       border: none;
-      padding: 13px 24px;
-      border-radius: 14px;
+      padding: 14px 28px;
+      border-radius: 16px;
       background: linear-gradient(135deg, #7a00ff, #ff00d4);
       color: white;
       font-weight: 900;
       cursor: pointer;
-      box-shadow: 0 0 25px rgba(190, 0, 255, 0.7);
+      box-shadow: 0 0 25px rgba(190, 0, 255, 0.75);
+      font-size: 16px;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 35px rgba(255, 0, 212, 0.9);
     }
 
     .counter {
       font-weight: bold;
       color: #f2d8ff;
+      font-size: 18px;
     }
 
     .thumbs {
-      max-width: 1200px;
+      max-width: 1250px;
       margin: 18px auto 0;
       display: flex;
       gap: 12px;
       overflow-x: auto;
-      padding: 12px 5px 18px;
+      padding: 12px 5px 20px;
     }
 
     .thumb {
-      min-width: 120px;
-      width: 120px;
-      height: 68px;
-      border-radius: 10px;
+      min-width: 130px;
+      width: 130px;
+      height: 74px;
+      border-radius: 12px;
       object-fit: cover;
       cursor: pointer;
       opacity: 0.65;
@@ -124,14 +134,29 @@
 
     .thumb.active {
       opacity: 1;
-      border-color: #b000ff;
-      box-shadow: 0 0 18px #b000ff;
-      transform: scale(1.05);
+      border-color: #d400ff;
+      box-shadow: 0 0 20px #b000ff;
+      transform: scale(1.06);
+    }
+
+    .hint {
+      text-align: center;
+      color: rgba(255, 255, 255, 0.65);
+      margin-top: 10px;
+      font-size: 14px;
     }
 
     @media (max-width: 700px) {
       .page {
         padding: 12px;
+      }
+
+      .top-bar {
+        gap: 12px;
+      }
+
+      .logo {
+        font-size: 18px;
       }
 
       .main-slide {
@@ -142,6 +167,10 @@
         min-width: 90px;
         width: 90px;
         height: 52px;
+      }
+
+      button {
+        padding: 12px 20px;
       }
     }
   </style>
@@ -158,15 +187,21 @@
 
     <div class="viewer">
       <div class="slide-box">
-        <img id="mainSlide" class="main-slide" src="slides/slide1.png" alt="BANO KE pitch slide">
+        <img id="mainSlide" class="main-slide" src="slides/Slider%20Banoke/1.png" alt="BANO KE pitch slide">
       </div>
 
       <div class="controls">
         <button onclick="prevSlide()">Back</button>
+
         <div class="counter">
           Slide <span id="currentNumber">1</span> / <span id="totalNumber">14</span>
         </div>
+
         <button onclick="nextSlide()">Next</button>
+      </div>
+
+      <div class="hint">
+        You can also use keyboard arrow keys or swipe on mobile.
       </div>
     </div>
 
@@ -176,20 +211,20 @@
 
   <script>
     const slides = [
-      "slides/slide1.png",
-      "slides/slide2.png",
-      "slides/slide3.png",
-      "slides/slide4.png",
-      "slides/slide5.png",
-      "slides/slide6.png",
-      "slides/slide7.png",
-      "slides/slide8.png",
-      "slides/slide9.png",
-      "slides/slide10.png",
-      "slides/slide11.png",
-      "slides/slide12.png",
-      "slides/slide13.png",
-      "slides/slide14.png"
+      "slides/Slider%20Banoke/1.png",
+      "slides/Slider%20Banoke/2.png",
+      "slides/Slider%20Banoke/3.png",
+      "slides/Slider%20Banoke/4.png",
+      "slides/Slider%20Banoke/5.png",
+      "slides/Slider%20Banoke/6.png",
+      "slides/Slider%20Banoke/7.png",
+      "slides/Slider%20Banoke/8.png",
+      "slides/Slider%20Banoke/9.png",
+      "slides/Slider%20Banoke/10.png",
+      "slides/Slider%20Banoke/11.png",
+      "slides/Slider%20Banoke/12.png",
+      "slides/Slider%20Banoke/13.png",
+      "slides/Slider%20Banoke/14.png"
     ];
 
     let current = 0;
@@ -205,9 +240,12 @@
       const img = document.createElement("img");
       img.src = src;
       img.className = "thumb";
+      img.alt = "Slide " + (index + 1);
+
       img.onclick = function() {
         showSlide(index);
       };
+
       thumbs.appendChild(img);
     });
 
@@ -224,11 +262,13 @@
       currentNumber.textContent = current + 1;
 
       const allThumbs = document.querySelectorAll(".thumb");
+
       allThumbs.forEach(function(thumb) {
         thumb.classList.remove("active");
       });
 
       allThumbs[current].classList.add("active");
+
       allThumbs[current].scrollIntoView({
         behavior: "smooth",
         inline: "center",
@@ -250,6 +290,24 @@
       }
 
       if (event.key === "ArrowLeft") {
+        prevSlide();
+      }
+    });
+
+    let touchStartX = 0;
+
+    document.addEventListener("touchstart", function(event) {
+      touchStartX = event.changedTouches[0].screenX;
+    });
+
+    document.addEventListener("touchend", function(event) {
+      let touchEndX = event.changedTouches[0].screenX;
+
+      if (touchStartX - touchEndX > 60) {
+        nextSlide();
+      }
+
+      if (touchEndX - touchStartX > 60) {
         prevSlide();
       }
     });
