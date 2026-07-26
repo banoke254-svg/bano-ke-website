@@ -1,35 +1,35 @@
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
 
 body{
 
-    width:100%;
-    height:100vh;
+width:100%;
+height:100vh;
 
-    overflow:hidden;
+overflow:hidden;
 
-    background:#020005;
+background:#020005;
 
-    color:white;
+color:white;
 
-    font-family:Arial,sans-serif;
+font-family:Arial,sans-serif;
 
 }
 
 
 
-/* WEBSITE AREA */
+/* WEBSITE */
 
 #website{
 
-    width:100%;
-    height:100vh;
+width:100%;
+height:100vh;
 
-    position:relative;
+position:relative;
 
 }
 
@@ -37,20 +37,16 @@ body{
 
 .page{
 
-    position:absolute;
+position:absolute;
 
-    width:100%;
-    height:100%;
+width:100%;
+height:100%;
 
-    opacity:0;
+opacity:0;
 
-    transform:scale(.95);
+pointer-events:none;
 
-    pointer-events:none;
-
-    transition:
-    opacity .8s ease,
-    transform .8s ease;
+transition:.8s ease;
 
 }
 
@@ -58,11 +54,9 @@ body{
 
 .page.active{
 
-    opacity:1;
+opacity:1;
 
-    transform:scale(1);
-
-    pointer-events:auto;
+pointer-events:auto;
 
 }
 
@@ -78,19 +72,23 @@ width:100%;
 height:100%;
 
 
+
 background:
 
 linear-gradient(
 90deg,
 rgba(0,0,0,.85),
-rgba(0,0,0,.3)
+rgba(0,0,0,.2)
 ),
 
 url("./assets/background.png");
 
+
+
 background-size:cover;
 
 background-position:center;
+
 
 position:relative;
 
@@ -101,108 +99,24 @@ position:relative;
 
 
 
+
 /* OBJECTS */
 
 
-.object{
-
+.editable{
 
 position:absolute;
+
+cursor:pointer;
 
 user-select:none;
 
 touch-action:none;
 
-cursor:pointer;
-
 
 }
 
 
-
-
-
-.textObject{
-
-
-font-family:"Luckiest Guy";
-
-letter-spacing:4px;
-
-
-text-shadow:
-
-0 0 20px purple,
-0 0 50px #ff00dd;
-
-
-}
-
-
-
-
-
-h1.textObject{
-
-
-left:8%;
-
-top:30%;
-
-
-font-size:150px;
-
-
-}
-
-
-
-p.textObject{
-
-
-left:10%;
-
-top:50%;
-
-
-font-size:32px;
-
-
-color:#ff00dd;
-
-
-}
-
-
-
-
-
-
-.imageObject{
-
-
-width:500px;
-
-
-left:55%;
-
-top:15%;
-
-
-filter:
-
-drop-shadow(
-0 0 60px #5b00ff
-);
-
-
-}
-
-
-
-
-
-/* SELECTED OBJECT */
 
 
 .selected{
@@ -219,29 +133,176 @@ outline:
 
 
 
-/* RESIZE HANDLE */
+/* TEXT */
+
+
+.text{
+
+
+font-family:"Luckiest Guy";
+
+
+letter-spacing:5px;
+
+
+text-shadow:
+
+
+0 0 20px purple,
+
+0 0 50px #ff00dd;
+
+
+}
+
+
+
+h1.text{
+
+
+left:8%;
+
+top:30%;
+
+
+font-size:150px;
+
+
+}
+
+
+
+p.text{
+
+
+left:10%;
+
+top:50%;
+
+
+font-size:30px;
+
+
+color:#ff00dd;
+
+
+}
+
+
+
+
+
+/* IMAGE */
+
+
+.image{
+
+
+width:500px;
+
+
+left:55%;
+
+top:15%;
+
+
+filter:
+
+drop-shadow(
+0 0 60px blue
+);
+
+
+}
+
+
+
+
+
+/* RESIZE BOX */
+
+
+.resizeBox{
+
+
+position:absolute;
+
+
+border:2px dashed #ff00ff;
+
+
+pointer-events:none;
+
+
+}
+
+
 
 
 .resizeHandle{
 
 
-position:absolute;
+width:15px;
 
-width:14px;
-
-height:14px;
+height:15px;
 
 background:white;
 
 border-radius:50%;
 
-right:-7px;
+position:absolute;
 
-bottom:-7px;
+
+}
+
+
+
+.handleBR{
+
+
+right:-8px;
+
+bottom:-8px;
 
 cursor:nwse-resize;
 
-z-index:999;
+}
+
+
+
+
+
+/* GLASS PANEL */
+
+
+.glass{
+
+
+position:absolute;
+
+
+width:300px;
+
+height:180px;
+
+
+background:
+
+rgba(255,255,255,.18);
+
+
+backdrop-filter:
+
+blur(20px);
+
+
+border:
+
+1px solid rgba(255,255,255,.5);
+
+
+border-radius:30px;
+
 
 
 }
@@ -251,8 +312,7 @@ z-index:999;
 
 
 
-
-/* EDITOR BUTTON */
+/* EDITOR */
 
 
 #editorToggle{
@@ -266,6 +326,9 @@ top:20px;
 left:20px;
 
 
+z-index:99999;
+
+
 width:55px;
 
 height:55px;
@@ -277,11 +340,14 @@ border-radius:50%;
 border:none;
 
 
+font-size:25px;
+
+
 background:
 
 linear-gradient(
 135deg,
-#7a00ff,
+#7000ff,
 #ff00cc
 );
 
@@ -289,13 +355,7 @@ linear-gradient(
 color:white;
 
 
-font-size:25px;
-
-
 cursor:pointer;
-
-
-z-index:99999;
 
 
 box-shadow:
@@ -311,10 +371,10 @@ box-shadow:
 
 
 
-/* EDITOR PANEL */
-
-
 #editorPanel{
+
+
+display:none;
 
 
 position:fixed;
@@ -326,23 +386,20 @@ top:90px;
 left:20px;
 
 
-width:260px;
+width:270px;
 
 
-max-height:85vh;
+max-height:90vh;
 
 
-overflow:auto;
+overflow-y:auto;
 
-
-display:none;
 
 
 padding:20px;
 
 
 border-radius:25px;
-
 
 
 background:
@@ -353,21 +410,20 @@ rgba(20,0,40,.45);
 
 backdrop-filter:
 
-blur(20px);
+blur(25px);
 
+
+opacity:.55;
 
 
 border:
 
-1px solid rgba(255,0,255,.4);
-
-
-
-opacity:.65;
+1px solid rgba(255,0,255,.5);
 
 
 
 z-index:99999;
+
 
 
 }
@@ -378,7 +434,9 @@ z-index:99999;
 
 #editorPanel:hover{
 
+
 opacity:1;
+
 
 }
 
@@ -389,11 +447,7 @@ opacity:1;
 #editorPanel h2{
 
 
-font-size:22px;
-
-
 color:#ff00dd;
-
 
 margin-bottom:15px;
 
@@ -409,9 +463,8 @@ margin-bottom:15px;
 
 margin-top:15px;
 
-font-size:14px;
 
-color:#ddd;
+font-size:14px;
 
 
 }
@@ -435,7 +488,7 @@ margin:5px 0;
 border:none;
 
 
-border-radius:12px;
+border-radius:15px;
 
 
 background:
@@ -447,6 +500,7 @@ linear-gradient(
 );
 
 
+
 color:white;
 
 
@@ -454,7 +508,6 @@ cursor:pointer;
 
 
 }
-
 
 
 
@@ -470,7 +523,6 @@ margin:8px 0;
 
 
 }
-
 
 
 
@@ -494,59 +546,7 @@ margin:15px 0;
 
 
 
-/* GLASS PANELS */
-
-
-.glassPanel{
-
-
-position:absolute;
-
-
-width:300px;
-
-height:180px;
-
-
-
-background:
-
-rgba(255,255,255,.15);
-
-
-
-backdrop-filter:
-
-blur(20px);
-
-
-
-border:
-
-1px solid rgba(255,255,255,.4);
-
-
-
-border-radius:30px;
-
-
-
-box-shadow:
-
-0 0 30px rgba(180,0,255,.4);
-
-
-}
-
-
-
-
-
-
-
-
 /* ANIMATIONS */
-
 
 
 .bounce{
@@ -554,17 +554,17 @@ box-shadow:
 
 animation:
 
-bounceObject 3s infinite ease-in-out;
+bounce 2s infinite;
 
 
 }
 
 
 
-@keyframes bounceObject{
+@keyframes bounce{
 
 
-0%{
+0%,100%{
 
 transform:translateY(0);
 
@@ -573,19 +573,13 @@ transform:translateY(0);
 
 50%{
 
-transform:translateY(-35px);
-
-}
-
-
-100%{
-
-transform:translateY(0);
+transform:translateY(-40px);
 
 }
 
 
 }
+
 
 
 
@@ -596,16 +590,14 @@ transform:translateY(0);
 
 animation:
 
-floatObject 5s infinite ease-in-out;
+floating 5s infinite ease-in-out;
 
 
 }
 
 
 
-
-
-@keyframes floatObject{
+@keyframes floating{
 
 
 50%{
@@ -614,6 +606,36 @@ transform:
 
 translateY(-25px)
 rotate(5deg);
+
+}
+
+
+}
+
+
+
+
+
+
+.pulse{
+
+
+animation:
+
+pulse 1.5s infinite;
+
+
+}
+
+
+
+@keyframes pulse{
+
+
+50%{
+
+
+scale:1.08;
 
 
 }
@@ -630,54 +652,20 @@ rotate(5deg);
 /* PAGE TRANSITIONS */
 
 
+
 .fade{
 
+
 animation:
 
-fadePage .8s;
+fade .8s;
 
 
 }
 
 
 
-.zoom{
-
-
-animation:
-
-zoomPage .8s;
-
-
-}
-
-
-
-.morph{
-
-
-animation:
-
-morphPage 1s;
-
-
-}
-
-
-
-.slide{
-
-
-animation:
-
-slidePage .8s;
-
-
-}
-
-
-
-@keyframes fadePage{
+@keyframes fade{
 
 
 from{
@@ -685,6 +673,7 @@ from{
 opacity:0;
 
 }
+
 
 to{
 
@@ -697,7 +686,21 @@ opacity:1;
 
 
 
-@keyframes zoomPage{
+
+
+.zoom{
+
+
+animation:
+
+zoom .8s;
+
+
+}
+
+
+
+@keyframes zoom{
 
 
 from{
@@ -722,15 +725,29 @@ opacity:1;
 
 
 
-@keyframes morphPage{
+
+
+
+.morph{
+
+
+animation:
+
+morph 1s;
+
+
+}
+
+
+
+@keyframes morph{
 
 
 from{
 
-
 border-radius:50%;
 
-transform:scale(.2) rotate(180deg);
+transform:scale(.2);
 
 
 }
@@ -738,10 +755,9 @@ transform:scale(.2) rotate(180deg);
 
 to{
 
-
 border-radius:0;
 
-transform:scale(1) rotate(0);
+transform:scale(1);
 
 
 }
@@ -751,7 +767,22 @@ transform:scale(1) rotate(0);
 
 
 
-@keyframes slidePage{
+
+
+
+.slide{
+
+
+animation:
+
+slide .8s;
+
+
+}
+
+
+
+@keyframes slide{
 
 
 from{
@@ -777,13 +808,12 @@ transform:translateX(0);
 
 
 
-/* MOBILE */
-
 
 @media(max-width:900px){
 
 
-h1.textObject{
+
+h1.text{
 
 
 font-size:70px;
@@ -793,7 +823,7 @@ font-size:70px;
 
 
 
-p.textObject{
+p.text{
 
 
 font-size:18px;
@@ -803,13 +833,14 @@ font-size:18px;
 
 
 
-.imageObject{
+
+.image{
 
 
 width:320px;
 
 
-left:20%;
+left:25%;
 
 
 top:25%;
@@ -826,7 +857,6 @@ width:220px;
 
 
 }
-
 
 
 }
