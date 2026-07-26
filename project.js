@@ -41,8 +41,7 @@ let pageData = {
 
 
 background:
-page.style.backgroundImage || "",
-
+page.dataset.background || "",
 
 
 objects: []
