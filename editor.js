@@ -2,7 +2,10 @@ let editorMode = false;
 
 let selectedObject = null;
 
-let resizeHandle = null;
+let startX = 0;
+let startY = 0;
+
+let resizing = false;
 
 
 
@@ -17,8 +20,10 @@ document.getElementById("editorPanel");
 
 
 
-editorToggle.onclick = function(){
+/* OPEN EDITOR */
 
+
+editorToggle.onclick = function(){
 
 editorMode = !editorMode;
 
@@ -27,21 +32,6 @@ editorPanel.style.display =
 editorMode ? "block" : "none";
 
 
-
-if(editorMode){
-
-enableObjects();
-
-}
-
-else{
-
-disableObjects();
-
-}
-
-
-
 };
 
 
@@ -49,27 +39,30 @@ disableObjects();
 
 
 
-
-function enableObjects(){
-
-
-document
-.querySelectorAll(".object")
-.forEach(obj=>{
+/* SELECT OBJECT */
 
 
-obj.onclick=function(e){
-
-e.stopPropagation();
-
-selectObject(this);
+document.addEventListener(
+"click",
+function(e){
 
 
-};
+if(!editorMode)
+return;
 
 
 
-dragObject(obj);
+if(
+e.target.classList.contains("editable")
+||
+e.target.classList.contains("glass")
+){
+
+
+selectObject(e.target);
+
+
+}
 
 
 
@@ -77,42 +70,12 @@ dragObject(obj);
 
 
 
-}
-
-
-
-
-
-
-
-
-function disableObjects(){
-
-
-document
-.querySelectorAll(".object")
-.forEach(obj=>{
-
-
-obj.classList.remove(
-"selected"
-);
-
-
-obj.onclick=null;
-
-
-});
-
-
-}
 
 
 
 
 
 function selectObject(obj){
-
 
 
 if(selectedObject)
@@ -132,7 +95,7 @@ obj.classList.add(
 
 
 
-addResizeHandle(obj);
+updateSliders();
 
 
 
@@ -142,83 +105,42 @@ addResizeHandle(obj);
 
 
 
-function addResizeHandle(obj){
+/* DRAG SYSTEM */
 
 
-removeResizeHandle();
-
-
-
-resizeHandle =
-document.createElement(
-"div"
-);
+document.addEventListener(
+"mousedown",
+function(e){
 
 
 
-resizeHandle.className=
-"resizeHandle";
-
-
-
-obj.appendChild(
-resizeHandle
-);
-
-
-
-resizeHandle.onmousedown =
-resizeStart;
-
-
-
-}
-
-
-
-
-
-function removeResizeHandle(){
-
-
-if(resizeHandle){
-
-resizeHandle.remove();
-
-resizeHandle=null;
-
-}
-
-
-}
-
-
-
-
-
-
-
-function dragObject(obj){
-
-
-obj.onmousedown=function(e){
-
-
-if(!editorMode)return;
-
-
-if(e.target.className==="resizeHandle")
+if(!editorMode)
 return;
 
 
 
-let startX =
-e.clientX - obj.offsetLeft;
+if(
+!e.target.classList.contains("editable")
+&&
+!e.target.classList.contains("glass")
+)
+
+return;
 
 
-let startY =
-e.clientY - obj.offsetTop;
 
+selectedObject=e.target;
+
+
+
+startX =
+e.clientX -
+selectedObject.offsetLeft;
+
+
+startY =
+e.clientY -
+selectedObject.offsetTop;
 
 
 
@@ -226,12 +148,14 @@ document.onmousemove=function(e){
 
 
 
-obj.style.left =
+selectedObject.style.left =
+
 (e.clientX-startX)+"px";
 
 
 
-obj.style.top =
+selectedObject.style.top =
+
 (e.clientY-startY)+"px";
 
 
@@ -240,7 +164,6 @@ obj.style.top =
 
 
 
-
 document.onmouseup=function(){
 
 
@@ -251,7 +174,220 @@ document.onmousemove=null;
 
 
 
+});
+
+
+
+
+
+
+
+/* RESIZE CONTROLS */
+
+
+
+document
+.getElementById("widthSlider")
+.oninput=function(){
+
+
+if(!selectedObject)
+return;
+
+
+
+selectedObject.style.width =
+this.value+"px";
+
+
+
 };
+
+
+
+
+
+
+document
+.getElementById("heightSlider")
+.oninput=function(){
+
+
+
+if(!selectedObject)
+return;
+
+
+
+selectedObject.style.height =
+this.value+"px";
+
+
+};
+
+
+
+
+
+
+/* TEXT SIZE */
+
+
+document
+.getElementById("fontSlider")
+.oninput=function(){
+
+
+
+if(
+selectedObject &&
+selectedObject.classList.contains("text")
+){
+
+
+selectedObject.style.fontSize =
+this.value+"px";
+
+
+}
+
+
+};
+
+
+
+
+
+
+
+
+
+/* GLASS OPACITY */
+
+
+
+document
+.getElementById("opacitySlider")
+.oninput=function(){
+
+
+if(!selectedObject)
+return;
+
+
+
+selectedObject.style.background =
+
+`rgba(255,255,255,${this.value/100})`;
+
+
+
+};
+
+
+
+
+
+
+
+/* BLUR */
+
+
+document
+.getElementById("blurSlider")
+.oninput=function(){
+
+
+if(!selectedObject)
+return;
+
+
+
+selectedObject.style.backdropFilter =
+
+`blur(${this.value}px)`;
+
+
+};
+
+
+
+
+
+
+/* ROUND CORNERS */
+
+
+
+document
+.getElementById("radiusSlider")
+.oninput=function(){
+
+
+if(!selectedObject)
+return;
+
+
+
+selectedObject.style.borderRadius =
+
+this.value+"px";
+
+
+};
+
+
+
+
+
+
+
+
+/* UPDATE CONTROLS */
+
+
+function updateSliders(){
+
+
+if(!selectedObject)
+return;
+
+
+
+document
+.getElementById("widthSlider")
+.value =
+
+selectedObject.offsetWidth;
+
+
+
+document
+.getElementById("heightSlider")
+.value =
+
+selectedObject.offsetHeight;
+
+
+
+if(
+selectedObject.classList.contains("text")
+){
+
+
+let size =
+parseInt(
+window.getComputedStyle(selectedObject)
+.fontSize
+);
+
+
+document
+.getElementById("fontSlider")
+.value=size;
+
+
+}
 
 
 
@@ -263,92 +399,13 @@ document.onmousemove=null;
 
 
 
-function resizeStart(e){
 
 
-e.stopPropagation();
+/* DELETE */
 
-
-
-let obj =
-selectedObject;
-
-
-
-let startWidth =
-obj.offsetWidth;
-
-
-let startHeight =
-obj.offsetHeight;
-
-
-
-let startX =
-e.clientX;
-
-
-let startY =
-e.clientY;
-
-
-
-
-
-document.onmousemove=function(e){
-
-
-let newWidth =
-startWidth +
-(e.clientX-startX);
-
-
-
-let newHeight =
-startHeight +
-(e.clientY-startY);
-
-
-
-obj.style.width =
-newWidth+"px";
-
-
-
-obj.style.height =
-newHeight+"px";
-
-
-
-};
-
-
-
-
-
-document.onmouseup=function(){
-
-
-document.onmousemove=null;
-
-
-};
-
-
-
-}
-
-
-
-
-
-
-
-
-
-// DELETE
 
 function deleteSelected(){
+
 
 
 if(selectedObject){
@@ -363,6 +420,7 @@ selectedObject=null;
 }
 
 
+
 }
 
 
@@ -372,43 +430,38 @@ selectedObject=null;
 
 
 
-// DUPLICATE
+/* DUPLICATE */
+
 
 
 function duplicateSelected(){
 
 
-if(!selectedObject)return;
+if(!selectedObject)
+return;
 
 
 
-let clone =
+let copy =
 selectedObject.cloneNode(true);
 
 
 
-clone.style.left =
-(selectedObject.offsetLeft+40)+"px";
+copy.style.left =
 
-
-clone.style.top =
-(selectedObject.offsetTop+40)+"px";
+(selectedObject.offsetLeft+50)+"px";
 
 
 
-clone.classList.add(
-"object"
-);
+copy.style.top =
+
+(selectedObject.offsetTop+50)+"px";
 
 
 
 document
 .querySelector(".page.active")
-.appendChild(clone);
-
-
-
-dragObject(clone);
+.appendChild(copy);
 
 
 
@@ -422,35 +475,32 @@ dragObject(clone);
 
 
 
-// ADD TEXT
+/* ADD TEXT */
+
 
 
 function addText(){
 
 
+
 let text =
-document.createElement(
-"div"
-);
+document.createElement("h1");
 
 
 
-text.innerHTML=
+text.innerHTML =
 "NEW TEXT";
 
 
 
-text.className=
-"object textObject";
+text.className =
+"editable text";
 
 
 
-text.style.position=
-"absolute";
-
+text.style.position="absolute";
 
 text.style.left="50%";
-
 
 text.style.top="50%";
 
@@ -462,10 +512,6 @@ document
 
 
 
-dragObject(text);
-
-
-
 }
 
 
@@ -475,35 +521,29 @@ dragObject(text);
 
 
 
+/* ADD EMOJI */
 
-
-// ADD EMOJI
 
 
 function addEmoji(){
 
 
 let emoji =
-document.createElement(
-"div"
-);
+document.createElement("div");
 
 
 
 emoji.innerHTML="🔥";
 
 
-emoji.className=
-"object";
+
+emoji.className="editable";
 
 
-
-emoji.style.position=
-"absolute";
+emoji.style.position="absolute";
 
 
-emoji.style.fontSize=
-"100px";
+emoji.style.fontSize="100px";
 
 
 emoji.style.left="50%";
@@ -519,9 +559,6 @@ document
 
 
 
-dragObject(emoji);
-
-
 }
 
 
@@ -532,17 +569,16 @@ dragObject(emoji);
 
 
 
-// IMAGE UPLOAD
+/* ADD IMAGE */
+
 
 
 function addImage(){
 
 
-
 let input =
-document.createElement(
-"input"
-);
+document.createElement("input");
+
 
 
 input.type="file";
@@ -555,9 +591,6 @@ input.accept="image/*";
 input.onchange=function(e){
 
 
-let file =
-e.target.files[0];
-
 
 let reader =
 new FileReader();
@@ -568,34 +601,31 @@ reader.onload=function(){
 
 
 let img =
-document.createElement(
-"img"
-);
+document.createElement("img");
 
 
 
-img.src=
+img.src =
 reader.result;
 
 
 
-img.className=
-"object";
+img.className =
+"editable image";
 
 
 
-img.style.width=
-"300px";
+img.style.position="absolute";
 
 
-img.style.position=
-"absolute";
+
+img.style.width="300px";
 
 
-img.style.left="40%";
+img.style.left="50%";
 
 
-img.style.top="40%";
+img.style.top="50%";
 
 
 
@@ -605,15 +635,13 @@ document
 
 
 
-dragObject(img);
-
-
-
 };
 
 
 
-reader.readAsDataURL(file);
+reader.readAsDataURL(
+e.target.files[0]
+);
 
 
 
@@ -622,6 +650,7 @@ reader.readAsDataURL(file);
 
 
 input.click();
+
 
 
 }
@@ -634,21 +663,21 @@ input.click();
 
 
 
-// GLASS PANEL
+/* ADD GLASS PANEL */
 
 
-function addGlassPanel(){
+
+function addGlass(){
+
 
 
 let panel =
-document.createElement(
-"div"
-);
+document.createElement("div");
 
 
 
-panel.className=
-"glassPanel object";
+panel.className =
+"glass";
 
 
 
@@ -665,10 +694,6 @@ document
 
 
 
-dragObject(panel);
-
-
-
 }
 
 
@@ -678,123 +703,29 @@ dragObject(panel);
 
 
 
-// GLASS CONTROLS
 
+/* KEY DELETE */
 
 
-document
-.getElementById("opacityControl")
-.oninput=function(){
 
+document.addEventListener(
+"keydown",
+function(e){
 
-if(selectedObject)
 
-selectedObject.style.background =
-`rgba(255,255,255,${this.value/100})`;
 
+if(
+e.key==="Delete"
+&&
+selectedObject
+){
 
-};
 
-
-
-
-
-
-document
-.getElementById("blurControl")
-.oninput=function(){
-
-
-if(selectedObject)
-
-selectedObject.style.backdropFilter =
-`blur(${this.value}px)`;
-
-
-};
-
-
-
-
-
-document
-.getElementById("radiusControl")
-.oninput=function(){
-
-
-if(selectedObject)
-
-selectedObject.style.borderRadius =
-this.value+"px";
-
-
-};
-
-
-
-
-
-
-
-
-
-// SIZE CONTROLS
-
-
-document
-.getElementById("widthControl")
-.oninput=function(){
-
-
-if(selectedObject)
-
-selectedObject.style.width =
-this.value+"px";
-
-
-};
-
-
-
-
-
-
-document
-.getElementById("heightControl")
-.oninput=function(){
-
-
-if(selectedObject)
-
-selectedObject.style.height =
-this.value+"px";
-
-
-};
-
-
-
-
-
-
-
-
-// SAVE
-
-
-function saveWebsite(){
-
-
-localStorage.setItem(
-"banoWebsite",
-document.body.innerHTML
-);
-
-
-
-alert(
-"Website Saved"
-);
+deleteSelected();
 
 
 }
+
+
+
+});
