@@ -1,43 +1,63 @@
-let currentPage=1;
+// ===========================
+// BANO PAGE SYSTEM
+// ===========================
 
 
-let pages=1;
+let pageNumber = 1;
+
+
+let currentPage = 1;
 
 
 
 
 
 
-function newPage(){
+function createPage(){
 
 
-pages++;
+pageNumber++;
 
 
-let page =
+
+let newPage =
 document.createElement(
 "section"
 );
 
 
 
-page.className=
+newPage.className =
 "page";
 
 
-page.id=
-"page"+pages;
+
+newPage.innerHTML = `
+
+<div class="hero">
+
+<h1 class="editable text">
+
+NEW PAGE
+
+</h1>
 
 
+</div>
 
-page.innerHTML=
-`<div class="hero"></div>`;
+`;
 
 
 
 document
 .getElementById("website")
-.appendChild(page);
+.appendChild(newPage);
+
+
+
+alert(
+"Created Page "+pageNumber
+);
 
 
 
@@ -45,19 +65,26 @@ document
 
 
 
+
+
+
+
+
 function nextPage(){
 
 
-let allPages =
-document.querySelectorAll(".page");
+
+let pages =
+document.querySelectorAll(
+".page"
+);
 
 
 
-allPages.forEach(p=>{
-
-p.classList.remove("active");
-
-});
+pages[currentPage-1]
+.classList.remove(
+"active"
+);
 
 
 
@@ -65,15 +92,18 @@ currentPage++;
 
 
 
-if(currentPage>allPages.length)
+if(currentPage > pages.length){
 
 currentPage=1;
 
+}
 
 
 
-allPages[currentPage-1]
-.classList.add("active");
+pages[currentPage-1]
+.classList.add(
+"active"
+);
 
 
 
@@ -85,13 +115,22 @@ allPages[currentPage-1]
 
 
 
-function changePage(){
+
+function applyTransition(){
 
 
-let effect =
+
+let transition =
 document.getElementById(
-"transitionSelect"
+"transition"
 ).value;
+
+
+
+let pages =
+document.querySelectorAll(
+".page"
+);
 
 
 
@@ -102,22 +141,97 @@ document.querySelector(
 
 
 
-active.classList.add(
-effect
-);
-
-
-
-setTimeout(()=>{
-
-
 active.classList.remove(
-effect
+"fade",
+"zoom",
+"morph",
+"slide"
 );
 
 
-},1000);
+
+void active.offsetWidth;
+
+
+
+active.classList.add(
+transition
+);
 
 
 
 }
+
+
+
+
+
+
+
+
+
+// SAVE PAGES
+
+
+function savePages(){
+
+
+localStorage.setItem(
+
+"banoPages",
+
+document.getElementById(
+"website"
+).innerHTML
+
+);
+
+
+
+alert(
+"Pages saved"
+);
+
+
+
+}
+
+
+
+
+
+
+
+
+
+// LOAD PAGES
+
+
+window.addEventListener(
+"load",
+()=>{
+
+
+let saved =
+localStorage.getItem(
+"banoPages"
+);
+
+
+
+if(saved){
+
+
+
+document.getElementById(
+"website"
+).innerHTML=saved;
+
+
+
+}
+
+
+}
+
+);
