@@ -15,7 +15,10 @@
 <body>
 
 
-<!-- EDIT BUTTON -->
+<!-- ==========================
+EDITOR BUTTON
+========================== -->
+
 
 <button id="editorToggle">
 🛠
@@ -23,85 +26,38 @@
 
 
 
-<!-- TOOL PANEL -->
+
+
+<!-- ==========================
+EDITOR PANEL
+========================== -->
+
 
 <div id="editorPanel">
 
 
-<h2>BANO BUILDER</h2>
+<h2>
+BANO BUILDER
+</h2>
 
 
-<button onclick="addText()">
-+ TEXT
+
+<!-- PROJECT -->
+
+
+<h3>
+PROJECT
+</h3>
+
+
+<button onclick="saveProject()">
+💾 SAVE PROJECT
 </button>
 
 
-<button onclick="addEmoji()">
-+ EMOJI
+<button onclick="loadProject()">
+📂 LOAD PROJECT
 </button>
-
-
-<button onclick="addImage()">
-+ IMAGE
-</button>
-
-
-<button onclick="addGlass()">
-+ GLASS PANEL
-</button>
-
-
-
-<hr>
-
-
-<h3>OBJECT</h3>
-
-
-<button onclick="deleteSelected()">
-DELETE
-</button>
-
-
-
-<button onclick="duplicateSelected()">
-DUPLICATE
-</button>
-
-
-
-
-<hr>
-
-
-<h3>SIZE</h3>
-
-
-<label>
-Width
-</label>
-
-<input id="widthSlider" type="range" min="20" max="1000">
-
-
-
-<label>
-Height
-</label>
-
-<input id="heightSlider" type="range" min="20" max="1000">
-
-
-
-
-
-<label>
-Text Size
-</label>
-
-
-<input id="fontSlider" type="range" min="10" max="200">
-
 
 
 
@@ -110,85 +66,41 @@ Text Size
 <hr>
 
 
-<h3>GLASS</h3>
 
 
-<label>
-Opacity
-</label>
+<!-- PAGES -->
 
 
-<input id="opacitySlider" type="range" min="0" max="100">
+<h3>
+PAGES
+</h3>
 
 
-
-<label>
-Blur
-</label>
-
-
-<input id="blurSlider" type="range" min="0" max="50">
-
-
-
-<label>
-Corners
-</label>
-
-
-<input id="radiusSlider" type="range" min="0" max="100">
-
-
-
-
-
-<hr>
-
-
-<h3>ANIMATION</h3>
-
-
-<button onclick="bounceObject()">
-🪂 BOUNCE
+<button onclick="addPage()">
+➕ NEW PAGE
 </button>
 
 
-<button onclick="floatObject()">
-🌊 FLOAT
+<button onclick="removePage()">
+🗑 REMOVE PAGE
 </button>
 
 
-<button onclick="pulseObject()">
-✨ PULSE
-</button>
-
-
-
-<button onclick="stopAnimation()">
-STOP
-</button>
-
-
-
-
-<hr>
-
-
-<h3>PAGES</h3>
-
-
-<button onclick="createPage()">
-+ NEW PAGE
+<button onclick="previousPage()">
+⬅ PREVIOUS
 </button>
 
 
 <button onclick="nextPage()">
-NEXT PAGE
+NEXT ➡
 </button>
 
 
 
-<select id="transition">
+
+
+<select id="pageTransition">
+
 
 <option value="fade">
 Fade
@@ -214,9 +126,252 @@ Slide
 
 
 
-<button onclick="applyTransition()">
-APPLY
+
+
+
+
+<hr>
+
+
+
+
+<!-- BACKGROUND -->
+
+
+<h3>
+BACKGROUND
+</h3>
+
+
+
+<input 
+type="file"
+id="backgroundUpload"
+accept="image/*"
+>
+
+
+
+<button onclick="applyBackground()">
+SET BACKGROUND
 </button>
+
+
+
+<button onclick="removeBackground()">
+REMOVE BACKGROUND
+</button>
+
+
+
+
+
+
+
+<hr>
+
+
+
+
+
+<!-- OBJECTS -->
+
+
+<h3>
+OBJECTS
+</h3>
+
+
+
+<button onclick="addText()">
+➕ TEXT
+</button>
+
+
+<button onclick="addEmoji()">
+🔥 EMOJI
+</button>
+
+
+<button onclick="addImage()">
+🖼 IMAGE
+</button>
+
+
+<button onclick="addGlassPanel()">
+⬜ GLASS PANEL
+</button>
+
+
+
+
+
+<button onclick="deleteSelected()">
+🗑 DELETE SELECTED
+</button>
+
+
+
+
+
+
+
+<hr>
+
+
+
+
+
+<!-- SIZE -->
+
+
+<h3>
+SIZE
+</h3>
+
+
+
+<label>
+Width
+</label>
+
+
+<input 
+type="range"
+id="widthControl"
+min="20"
+max="1200"
+>
+
+
+
+<label>
+Height
+</label>
+
+
+<input 
+type="range"
+id="heightControl"
+min="20"
+max="1000"
+>
+
+
+
+<label>
+Text Size
+</label>
+
+
+<input 
+type="range"
+id="fontControl"
+min="10"
+max="200"
+>
+
+
+
+
+
+
+
+<hr>
+
+
+
+
+
+
+<!-- GLASS SETTINGS -->
+
+
+<h3>
+GLASS
+</h3>
+
+
+<label>
+Opacity
+</label>
+
+
+<input 
+type="range"
+id="opacityControl"
+min="0"
+max="100"
+>
+
+
+
+<label>
+Blur
+</label>
+
+
+<input 
+type="range"
+id="blurControl"
+min="0"
+max="60"
+>
+
+
+
+<label>
+Radius
+</label>
+
+
+<input 
+type="range"
+id="radiusControl"
+min="0"
+max="100"
+>
+
+
+
+
+
+
+
+
+<hr>
+
+
+
+
+
+<!-- ANIMATION -->
+
+
+<h3>
+ANIMATION
+</h3>
+
+
+<button onclick="addBounce()">
+🪂 BOUNCE
+</button>
+
+
+<button onclick="addFloat()">
+🌊 FLOAT
+</button>
+
+
+<button onclick="addPulse()">
+✨ PULSE
+</button>
+
+
+<button onclick="stopAnimation()">
+STOP
+</button>
+
 
 
 
@@ -228,17 +383,31 @@ APPLY
 
 
 
+
+
+
+<!-- ==========================
+WEBSITE
+========================== -->
+
+
 <div id="website">
 
 
-<section class="page active">
+
+<section 
+class="page active"
+data-page="1"
+>
+
 
 
 <div class="hero">
 
 
 
-<h1 class="editable text">
+<h1 
+class="editable textObject">
 
 BANO KE
 
@@ -246,7 +415,10 @@ BANO KE
 
 
 
-<p class="editable text">
+
+
+<p 
+class="editable textObject">
 
 THE KING OF AFRICAN MARBLES
 
@@ -255,13 +427,18 @@ THE KING OF AFRICAN MARBLES
 
 
 
+
+
 <img
 
 src="assets/marble.png"
 
-class="editable image"
+class="editable imageObject"
 
 >
+
+
+
 
 
 
@@ -272,6 +449,7 @@ class="editable image"
 
 
 
+
 </div>
 
 
@@ -279,14 +457,20 @@ class="editable image"
 
 
 
+
+
+<script src="project.js"></script>
+
 <script src="pages.js"></script>
+
+<script src="background.js"></script>
 
 <script src="animations.js"></script>
 
 <script src="editor.js"></script>
 
 
-
 </body>
+
 
 </html>
