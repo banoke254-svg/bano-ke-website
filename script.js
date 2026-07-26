@@ -7,17 +7,18 @@ document.addEventListener(
 (e)=>{
 
 
-let x =
-(e.clientX / window.innerWidth - .5)*20;
+let moveX =
+(e.clientX/window.innerWidth-.5)*25;
 
 
-let y =
-(e.clientY / window.innerHeight - .5)*20;
+let moveY =
+(e.clientY/window.innerHeight-.5)*25;
+
 
 
 marble.style.transform =
 `
-translate(${x}px,${y}px)
+translate(${moveX}px,${moveY}px)
 `;
 
 
