@@ -284,6 +284,30 @@ newPage.classList.add(
 );
 
 
+setTimeout(()=>{
+
+
+let newMarble =
+newPage.querySelector(
+".hero-marble"
+);
+
+
+
+if(newMarble){
+
+
+newMarble.style.animation =
+"marbleAppear 1s ease";
+
+
+}
+
+
+
+},100);
+
+
 
 
 
