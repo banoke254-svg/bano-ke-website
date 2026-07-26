@@ -1,129 +1,69 @@
-// =====================================
-// BANO EDITOR SYSTEM V4
-// =====================================
+let editorMode=false;
 
+let selectedObject=null;
 
-let editorMode = false;
+let dragging=false;
 
-let selectedObject = null;
-
-let isDragging = false;
-
-let offsetX = 0;
-
-let offsetY = 0;
+let offsetX=0;
+let offsetY=0;
 
 
 
+const editorToggle=document.getElementById("editorToggle");
 
-const editorToggle =
-document.getElementById(
-"editorToggle"
-);
+const editorPanel=document.getElementById("editorPanel");
 
-
-const editorPanel =
-document.getElementById(
-"editorPanel"
-);
-
-
-
-
-// =====================================
-// OPEN EDITOR
-// =====================================
 
 
 editorToggle.onclick=function(){
 
+editorMode=!editorMode;
 
-editorMode = !editorMode;
-
-
-editorPanel.style.display =
+editorPanel.style.display=
 editorMode ? "block":"none";
 
-
-
 activateEditorObjects();
-
 
 };
 
 
 
-
-
-
-
-// =====================================
-// ACTIVATE OBJECTS
-// =====================================
 
 
 function activateEditorObjects(){
 
 
-
-document
-.querySelectorAll(
+document.querySelectorAll(
 ".editable,.glass"
 )
 .forEach(obj=>{
 
 
-
-obj.onclick=function(e){
-
-
-if(!editorMode)
-return;
-
-
-e.stopPropagation();
-
-
-selectObject(this);
-
-
-
-};
-
-
-
-
-
 obj.onmousedown=function(e){
 
 
-if(!editorMode)
-return;
+if(!editorMode)return;
+
+
+selectObject(obj);
+
+
+dragging=true;
+
+
+offsetX=
+e.clientX-obj.offsetLeft;
+
+
+offsetY=
+e.clientY-obj.offsetTop;
 
 
 
-selectObject(this);
-
-
-
-isDragging=true;
-
-
-
-offsetX =
-e.clientX -
-obj.offsetLeft;
-
-
-
-offsetY =
-e.clientY -
-obj.offsetTop;
-
+e.preventDefault();
 
 
 };
-
 
 
 
@@ -138,32 +78,21 @@ obj.offsetTop;
 
 
 
-
-
-
-// =====================================
-// SELECT
-// =====================================
-
-
 function selectObject(obj){
 
 
-
-if(selectedObject){
+if(selectedObject)
 
 selectedObject.classList.remove(
 "selected"
 );
-
-}
 
 
 
 selectedObject=obj;
 
 
-obj.classList.add(
+selectedObject.classList.add(
 "selected"
 );
 
@@ -172,7 +101,6 @@ obj.classList.add(
 updateControls();
 
 
-
 }
 
 
@@ -180,40 +108,21 @@ updateControls();
 
 
 
-
-
-
-// =====================================
-// MOVE OBJECT
-// =====================================
-
-
 document.onmousemove=function(e){
 
 
-
-if(
-!isDragging ||
-!selectedObject
-)
-
+if(!dragging || !selectedObject)
 return;
 
 
 
-selectedObject.style.left =
-
-(
-e.clientX-offsetX
-)+"px";
+selectedObject.style.left=
+(e.clientX-offsetX)+"px";
 
 
 
-selectedObject.style.top =
-
-(
-e.clientY-offsetY
-)+"px";
+selectedObject.style.top=
+(e.clientY-offsetY)+"px";
 
 
 
@@ -226,18 +135,14 @@ e.clientY-offsetY
 document.onmouseup=function(){
 
 
-
-if(isDragging){
-
+if(dragging){
 
 saveProject();
-
 
 }
 
 
-
-isDragging=false;
+dragging=false;
 
 
 };
@@ -250,18 +155,11 @@ isDragging=false;
 
 
 
-// =====================================
-// DELETE
-// =====================================
-
 
 function deleteSelected(){
 
 
-
-if(!selectedObject)
-return;
-
+if(selectedObject){
 
 
 selectedObject.remove();
@@ -273,60 +171,8 @@ selectedObject=null;
 saveProject();
 
 
-
 }
 
-
-
-
-
-
-
-
-
-// =====================================
-// DUPLICATE
-// =====================================
-
-
-function duplicateSelected(){
-
-
-
-if(!selectedObject)
-return;
-
-
-
-let copy =
-selectedObject.cloneNode(true);
-
-
-
-copy.style.left =
-
-(selectedObject.offsetLeft+50)
-+"px";
-
-
-
-copy.style.top =
-
-(selectedObject.offsetTop+50)
-+"px";
-
-
-
-document
-.querySelector(".page.active .hero")
-.appendChild(copy);
-
-
-
-activateEditorObjects();
-
-
-saveProject();
 
 
 }
@@ -337,58 +183,37 @@ saveProject();
 
 
 
-
-// =====================================
-// ADD TEXT
-// =====================================
 
 
 function addText(){
 
 
-
-let text =
-document.createElement(
-"h1"
-);
+let t=document.createElement("h1");
 
 
-
-text.innerHTML =
-"NEW TEXT";
+t.innerHTML="NEW TEXT";
 
 
-
-text.className =
-"editable textObject";
+t.className="editable textObject";
 
 
-
-text.style.position =
-"absolute";
+t.style.position="absolute";
 
 
-
-text.style.left =
-"40%";
+t.style.left="40%";
 
 
-
-text.style.top =
-"40%";
+t.style.top="40%";
 
 
-
-document
-.querySelector(".page.active .hero")
-.appendChild(text);
+document.querySelector(
+".page.active .hero"
+)
+.appendChild(t);
 
 
 
 activateEditorObjects();
-
-
-saveProject();
 
 
 
@@ -400,227 +225,36 @@ saveProject();
 
 
 
-
-
-// =====================================
-// ADD EMOJI
-// =====================================
-
-
-function addEmoji(){
-
-
-
-let emoji =
-document.createElement(
-"div"
-);
-
-
-
-emoji.innerHTML =
-"🔥";
-
-
-
-emoji.className =
-"editable";
-
-
-
-emoji.style.position =
-"absolute";
-
-
-
-emoji.style.fontSize =
-"100px";
-
-
-
-emoji.style.left =
-"50%";
-
-
-
-emoji.style.top =
-"50%";
-
-
-
-document
-.querySelector(".page.active .hero")
-.appendChild(emoji);
-
-
-
-activateEditorObjects();
-
-
-saveProject();
-
-
-}
-
-
-
-
-
-
-
-
-
-// =====================================
-// ADD IMAGE
-// =====================================
-
-
-function addImage(){
-
-
-let input =
-document.createElement(
-"input"
-);
-
-
-
-input.type="file";
-
-
-input.accept="image/*";
-
-
-
-input.onchange=function(e){
-
-
-
-let reader =
-new FileReader();
-
-
-
-
-reader.onload=function(){
-
-
-
-let img =
-document.createElement(
-"img"
-);
-
-
-
-img.src =
-reader.result;
-
-
-
-img.className =
-"editable imageObject";
-
-
-
-img.style.position =
-"absolute";
-
-
-
-img.style.width =
-"300px";
-
-
-
-img.style.left =
-"50%";
-
-
-
-img.style.top =
-"50%";
-
-
-
-document
-.querySelector(".page.active .hero")
-.appendChild(img);
-
-
-
-activateEditorObjects();
-
-
-saveProject();
-
-
-
-};
-
-
-
-reader.readAsDataURL(
-e.target.files[0]
-);
-
-
-
-};
-
-
-
-input.click();
-
-
-}
-
-
-
-
-
-
-
-
-
-// =====================================
-// ADD GLASS PANEL
-// =====================================
 
 
 function addGlassPanel(){
 
 
-
-let panel =
-document.createElement(
-"div"
-);
+let panel=document.createElement("div");
 
 
-
-panel.className =
-"glass";
+panel.className="editable glass";
 
 
-
-panel.style.position =
-"absolute";
+panel.style.position="absolute";
 
 
-
-panel.style.left =
-"40%";
+panel.style.width="300px";
 
 
+panel.style.height="200px";
 
-panel.style.top =
-"40%";
+
+panel.style.left="40%";
+
+
+panel.style.top="40%";
 
 
 
-document
-.querySelector(".page.active .hero")
+document.querySelector(
+".page.active .hero"
+)
 .appendChild(panel);
 
 
@@ -628,8 +262,6 @@ document
 activateEditorObjects();
 
 
-saveProject();
-
 
 }
 
@@ -641,30 +273,16 @@ saveProject();
 
 
 
-// =====================================
-// WIDTH
-// =====================================
-
-
-document
-.getElementById(
+document.getElementById(
 "widthControl"
-)
-.oninput=function(){
+).oninput=function(){
 
 
-
-if(!selectedObject)
-return;
+if(!selectedObject)return;
 
 
-
-selectedObject.style.width =
+selectedObject.style.width=
 this.value+"px";
-
-
-
-saveProject();
 
 
 };
@@ -675,31 +293,16 @@ saveProject();
 
 
 
-
-// =====================================
-// HEIGHT
-// =====================================
-
-
-document
-.getElementById(
+document.getElementById(
 "heightControl"
-)
-.oninput=function(){
+).oninput=function(){
 
 
-
-if(!selectedObject)
-return;
+if(!selectedObject)return;
 
 
-
-selectedObject.style.height =
+selectedObject.style.height=
 this.value+"px";
-
-
-
-saveProject();
 
 
 };
@@ -712,17 +315,9 @@ saveProject();
 
 
 
-// =====================================
-// FONT SIZE
-// =====================================
-
-
-document
-.getElementById(
+document.getElementById(
 "fontControl"
-)
-.oninput=function(){
-
+).oninput=function(){
 
 
 if(
@@ -730,17 +325,11 @@ selectedObject &&
 selectedObject.classList.contains(
 "textObject"
 )
-
 ){
 
 
-selectedObject.style.fontSize =
+selectedObject.style.fontSize=
 this.value+"px";
-
-
-
-saveProject();
-
 
 
 }
@@ -757,34 +346,21 @@ saveProject();
 
 
 
-// =====================================
-// GLASS OPACITY
-// =====================================
 
-
-document
-.getElementById(
+document.getElementById(
 "opacityControl"
-)
-.oninput=function(){
+).oninput=function(){
+
+
+if(!selectedObject)return;
 
 
 
-if(!selectedObject)
-return;
-
-
-
-selectedObject.style.background =
-
+selectedObject.style.background=
 `rgba(255,255,255,${this.value/100})`;
 
 
 
-saveProject();
-
-
-
 };
 
 
@@ -795,34 +371,20 @@ saveProject();
 
 
 
-// =====================================
-// GLASS BLUR
-// =====================================
 
-
-document
-.getElementById(
+document.getElementById(
 "blurControl"
-)
-.oninput=function(){
+).oninput=function(){
 
 
-
-if(!selectedObject)
-return;
+if(!selectedObject)return;
 
 
-
-selectedObject.style.backdropFilter =
-
+selectedObject.style.backdropFilter=
 `blur(${this.value}px)`;
 
 
 
-saveProject();
-
-
-
 };
 
 
@@ -833,32 +395,20 @@ saveProject();
 
 
 
-// =====================================
-// RADIUS
-// =====================================
 
-
-document
-.getElementById(
+document.getElementById(
 "radiusControl"
-)
-.oninput=function(){
+).oninput=function(){
 
 
-
-if(!selectedObject)
-return;
+if(!selectedObject)return;
 
 
-
-selectedObject.style.borderRadius =
+selectedObject.style.borderRadius=
 this.value+"px";
 
 
 
-saveProject();
-
-
 };
 
 
@@ -868,40 +418,24 @@ saveProject();
 
 
 
-
-// =====================================
-// UPDATE CONTROLS
-// =====================================
 
 
 function updateControls(){
 
 
-if(!selectedObject)
-return;
+if(!selectedObject)return;
 
 
-
-let width =
 document.getElementById(
 "widthControl"
-);
-
-
-
-let height =
-document.getElementById(
-"heightControl"
-);
-
-
-
-width.value =
+).value=
 selectedObject.offsetWidth;
 
 
 
-height.value =
+document.getElementById(
+"heightControl"
+).value=
 selectedObject.offsetHeight;
 
 
@@ -910,50 +444,6 @@ selectedObject.offsetHeight;
 
 
 
-
-
-
-
-
-
-// =====================================
-// KEYBOARD DELETE
-// =====================================
-
-
-document.addEventListener(
-"keydown",
-function(e){
-
-
-
-if(
-e.key==="Delete"
-&&
-selectedObject
-){
-
-
-deleteSelected();
-
-
-}
-
-
-
-});
-
-
-
-
-
-
-
-
-
-// =====================================
-// START
-// =====================================
 
 
 window.addEventListener(
