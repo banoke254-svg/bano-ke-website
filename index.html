@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html>
 
 <head>
@@ -8,7 +7,9 @@
 
 <link rel="stylesheet" href="style.css">
 
+
 <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+
 
 </head>
 
@@ -19,7 +20,7 @@
 <!-- EDITOR BUTTON -->
 
 <button id="editorToggle">
-🛠 EDITOR
+🛠 EDITOR MODE
 </button>
 
 
@@ -44,7 +45,6 @@ accept="image/*"
 >
 
 
-
 <button onclick="saveLayout()">
 💾 Save
 </button>
@@ -55,8 +55,8 @@ accept="image/*"
 </button>
 
 
-
 </div>
+
 
 
 
@@ -69,7 +69,7 @@ accept="image/*"
 
 <img 
 src="assets/bano-logo.png"
-id="logo"
+class="editable-object"
 >
 
 
@@ -77,16 +77,27 @@ id="logo"
 
 
 
-
 <nav>
 
-<a>NEWS</a>
+<a>
+NEWS
+</a>
 
-<a>FORUM</a>
 
-<a>ABOUT US</a>
+<a>
+FORUM
+</a>
 
-<a>OTHER GAMES</a>
+
+<a>
+ABOUT US
+</a>
+
+
+<a>
+OTHER GAMES
+</a>
+
 
 
 <button>
@@ -94,11 +105,12 @@ JOIN BETA
 </button>
 
 
+
 </nav>
 
 
-
 </header>
+
 
 
 
@@ -109,18 +121,22 @@ JOIN BETA
 
 
 
-<h1 id="title">
+<h1 class="editable-object">
 
 BANO KE
 
 </h1>
 
 
-<p id="subtitle">
+
+<p class="editable-object">
+
 
 THE KING OF AFRICAN MARBLES
 
+
 </p>
+
 
 
 
@@ -129,11 +145,12 @@ THE KING OF AFRICAN MARBLES
 
 src="assets/marble.png"
 
-id="marble"
+class="editable-object marble"
 
-class="moveable"
 
 >
+
+
 
 
 
@@ -143,11 +160,13 @@ class="moveable"
 
 
 
-<div class="card moveable">
+<div class="card editable-object">
+
 
 <h2>
 BEST GAMEPLAY
 </h2>
+
 
 <p>
 Experience competitive marble battles.
@@ -158,12 +177,15 @@ Experience competitive marble battles.
 
 
 
-<div class="card moveable">
+
+
+<div class="card editable-object">
 
 
 <h2>
 NEW MARBLES
 </h2>
+
 
 <p>
 Collect legendary marbles.
@@ -175,7 +197,8 @@ Collect legendary marbles.
 
 
 
-<div class="card moveable">
+
+<div class="card editable-object">
 
 
 <h2>
@@ -192,13 +215,14 @@ Become number one.
 
 
 
-
 </div>
 
 
 
 
 </section>
+
+
 
 
 
