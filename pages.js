@@ -1,22 +1,31 @@
-// =====================================
-// BANO PAGE SYSTEM V3
-// =====================================
+// ======================================
+// BANO PAGE SYSTEM V5
+// ======================================
 
 
 let currentPage = 0;
 
-let transitionType = "fade";
+
+
+let pageChanging = false;
 
 
 
 
 
-// GET ALL PAGES
+
+// ======================================
+// GET PAGES
+// ======================================
 
 
 function getPages(){
 
-return document.querySelectorAll(".page");
+
+return document.querySelectorAll(
+".page"
+);
+
 
 }
 
@@ -26,49 +35,52 @@ return document.querySelectorAll(".page");
 
 
 
-// ===============================
-// CREATE PAGE
-// ===============================
+
+
+// ======================================
+// ADD PAGE
+// ======================================
 
 
 function addPage(){
 
 
-let pages = getPages();
+
+let website =
+document.getElementById(
+"website"
+);
 
 
-let newPage =
-document.createElement("section");
+
+let page =
+document.createElement(
+"section"
+);
 
 
 
-newPage.className =
+page.className =
 "page";
 
 
 
-newPage.dataset.page =
-pages.length + 1;
+page.innerHTML = `
 
-
-
-
-newPage.innerHTML = `
 
 <div class="hero">
 
 
 <h1 class="editable textObject">
 
-NEW PAGE
+NEW BANO PAGE
 
 </h1>
 
 
-
 <p class="editable textObject">
 
-BANO KE SECTION
+NEW SECTION
 
 </p>
 
@@ -76,15 +88,15 @@ BANO KE SECTION
 
 </div>
 
+
 `;
 
 
 
 
-document
-.getElementById("website")
-.appendChild(newPage);
-
+website.appendChild(
+page
+);
 
 
 
@@ -92,13 +104,14 @@ activateEditorObjects();
 
 
 
+markChanged();
+
+
+
+
 alert(
-"New page created"
+"New page added"
 );
-
-
-
-saveProject();
 
 
 
@@ -111,12 +124,14 @@ saveProject();
 
 
 
-// ===============================
+
+// ======================================
 // REMOVE PAGE
-// ===============================
+// ======================================
 
 
 function removePage(){
+
 
 
 let pages =
@@ -124,18 +139,21 @@ getPages();
 
 
 
-if(pages.length <=1){
+if(pages.length <= 1){
 
 
 alert(
-"You need at least one page"
+"Cannot remove the last page"
 );
+
 
 
 return;
 
 
 }
+
+
 
 
 
@@ -151,7 +169,6 @@ active.remove();
 
 
 
-
 currentPage=0;
 
 
@@ -163,7 +180,7 @@ getPages()[0]
 
 
 
-saveProject();
+markChanged();
 
 
 
@@ -176,15 +193,18 @@ saveProject();
 
 
 
-// ===============================
+
+// ======================================
 // NEXT PAGE
-// ===============================
+// ======================================
 
 
 function nextPage(){
 
 
-animateHeroMarble("next");
+
+if(pageChanging)
+return;
 
 
 
@@ -195,6 +215,28 @@ getPages();
 
 if(pages.length<=1)
 return;
+
+
+
+
+
+pageChanging=true;
+
+
+
+
+
+// MARBLE MOTION
+
+if(typeof animateHeroMarble === "function"){
+
+animateHeroMarble(
+"next"
+);
+
+}
+
+
 
 
 
@@ -210,15 +252,25 @@ oldPage.classList.remove(
 
 
 
+
+
+
+
 currentPage++;
 
 
 
-if(currentPage>=pages.length){
+
+
+if(currentPage >= pages.length){
+
 
 currentPage=0;
 
+
 }
+
+
 
 
 
@@ -233,30 +285,24 @@ newPage.classList.add(
 
 
 
-playTransition(
+
+
+playPageTransition(
 newPage
 );
 
 
 
-}
 
 
 
-let newPage =
-pages[currentPage];
+setTimeout(()=>{
 
 
-
-newPage.classList.add(
-"active"
-);
+pageChanging=false;
 
 
-
-playTransition(
-newPage
-);
+},1400);
 
 
 
@@ -270,16 +316,50 @@ newPage
 
 
 
-// ===============================
+// ======================================
 // PREVIOUS PAGE
-// ===============================
+// ======================================
 
 
 function previousPage(){
 
 
+
+if(pageChanging)
+return;
+
+
+
 let pages =
 getPages();
+
+
+
+if(pages.length<=1)
+return;
+
+
+
+
+
+pageChanging=true;
+
+
+
+
+
+if(typeof animateHeroMarble === "function"){
+
+
+animateHeroMarble(
+"previous"
+);
+
+
+
+}
+
+
 
 
 
@@ -290,16 +370,24 @@ pages[currentPage]
 
 
 
+
+
 currentPage--;
 
 
 
-if(currentPage <0){
+
+
+if(currentPage<0){
+
 
 currentPage =
 pages.length-1;
 
+
 }
+
+
 
 
 
@@ -314,9 +402,24 @@ newPage.classList.add(
 
 
 
-playTransition(
+
+
+playPageTransition(
 newPage
 );
+
+
+
+
+
+
+setTimeout(()=>{
+
+
+pageChanging=false;
+
+
+},1400);
 
 
 
@@ -329,23 +432,38 @@ newPage
 
 
 
-// ===============================
-// TRANSITION ENGINE
-// ===============================
+
+// ======================================
+// PAGE TRANSITION
+// ======================================
 
 
-function playTransition(page){
+function playPageTransition(page){
+
+
+
+let type =
+document.getElementById(
+"pageTransition"
+).value;
+
+
 
 
 
 page.classList.remove(
 
 "fade",
+
 "zoom",
+
 "morph",
+
 "slide"
 
 );
+
+
 
 
 
@@ -354,9 +472,11 @@ void page.offsetWidth;
 
 
 
+
 page.classList.add(
-transitionType
+type
 );
+
 
 
 
@@ -365,12 +485,11 @@ setTimeout(()=>{
 
 
 page.classList.remove(
-transitionType
+type
 );
 
 
-
-},1200);
+},1400);
 
 
 
@@ -383,18 +502,20 @@ transitionType
 
 
 
-// ===============================
-// SCROLL PAGE CONTROL
-// ===============================
+
+// ======================================
+// SCROLL CONTROL
+// ======================================
 
 
 let scrollLock=false;
 
 
 
+
 window.addEventListener(
 "wheel",
-function(e){
+(e)=>{
 
 
 
@@ -410,16 +531,20 @@ return;
 
 
 
+
+
 scrollLock=true;
+
 
 
 
 if(e.deltaY>0){
 
+
 nextPage();
 
-}
 
+}
 else{
 
 
@@ -431,13 +556,14 @@ previousPage();
 
 
 
+
 setTimeout(()=>{
 
 
 scrollLock=false;
 
 
-},1200);
+},1500);
 
 
 
@@ -451,15 +577,14 @@ scrollLock=false;
 
 
 
-// ===============================
+// ======================================
 // KEYBOARD CONTROL
-// ===============================
-
+// ======================================
 
 
 document.addEventListener(
 "keydown",
-function(e){
+(e)=>{
 
 
 
@@ -470,6 +595,7 @@ nextPage();
 
 
 }
+
 
 
 
