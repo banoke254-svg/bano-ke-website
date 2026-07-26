@@ -1,44 +1,49 @@
-// ===================================
-// BANO WEBSITE BUILDER EDITOR SYSTEM
-// ===================================
+// =====================================
+// BANO EDITOR SYSTEM V4
+// =====================================
 
 
 let editorMode = false;
 
 let selectedObject = null;
 
-let dragging = false;
+let isDragging = false;
 
-let dragOffsetX = 0;
+let offsetX = 0;
 
-let dragOffsetY = 0;
+let offsetY = 0;
 
 
 
 
 const editorToggle =
-document.getElementById("editorToggle");
+document.getElementById(
+"editorToggle"
+);
 
 
 const editorPanel =
-document.getElementById("editorPanel");
+document.getElementById(
+"editorPanel"
+);
 
 
 
 
-// ===============================
-// OPEN / CLOSE EDITOR
-// ===============================
+// =====================================
+// OPEN EDITOR
+// =====================================
 
 
-editorToggle.onclick = function(){
+editorToggle.onclick=function(){
 
 
 editorMode = !editorMode;
 
 
 editorPanel.style.display =
-editorMode ? "block" : "none";
+editorMode ? "block":"none";
+
 
 
 activateEditorObjects();
@@ -50,46 +55,15 @@ activateEditorObjects();
 
 
 
-// ===============================
-// SELECT OBJECT
-// ===============================
 
 
-function selectObject(obj){
-
-
-if(selectedObject){
-
-selectedObject.classList.remove(
-"selected"
-);
-
-}
-
-
-
-selectedObject = obj;
-
-
-selectedObject.classList.add(
-"selected"
-);
-
-
-
-updateControls();
-
-
-
-}
-
-
-
-
-
+// =====================================
+// ACTIVATE OBJECTS
+// =====================================
 
 
 function activateEditorObjects(){
+
 
 
 document
@@ -97,6 +71,7 @@ document
 ".editable,.glass"
 )
 .forEach(obj=>{
+
 
 
 obj.onclick=function(e){
@@ -117,6 +92,8 @@ selectObject(this);
 
 
 
+
+
 obj.onmousedown=function(e){
 
 
@@ -125,30 +102,28 @@ return;
 
 
 
-if(e.target.tagName==="INPUT")
-return;
-
-
-
 selectObject(this);
 
 
-dragging=true;
+
+isDragging=true;
 
 
 
-dragOffsetX =
+offsetX =
 e.clientX -
-this.offsetLeft;
+obj.offsetLeft;
 
 
-dragOffsetY =
+
+offsetY =
 e.clientY -
-this.offsetTop;
+obj.offsetTop;
 
 
 
 };
+
 
 
 
@@ -162,17 +137,63 @@ this.offsetTop;
 
 
 
-// ===============================
-// MOVE OBJECTS
-// ===============================
 
+
+
+
+// =====================================
+// SELECT
+// =====================================
+
+
+function selectObject(obj){
+
+
+
+if(selectedObject){
+
+selectedObject.classList.remove(
+"selected"
+);
+
+}
+
+
+
+selectedObject=obj;
+
+
+obj.classList.add(
+"selected"
+);
+
+
+
+updateControls();
+
+
+
+}
+
+
+
+
+
+
+
+
+
+// =====================================
+// MOVE OBJECT
+// =====================================
 
 
 document.onmousemove=function(e){
 
 
+
 if(
-!dragging ||
+!isDragging ||
 !selectedObject
 )
 
@@ -182,15 +203,17 @@ return;
 
 selectedObject.style.left =
 
-(e.clientX - dragOffsetX)
-+"px";
+(
+e.clientX-offsetX
+)+"px";
 
 
 
 selectedObject.style.top =
 
-(e.clientY - dragOffsetY)
-+"px";
+(
+e.clientY-offsetY
+)+"px";
 
 
 
@@ -203,141 +226,18 @@ selectedObject.style.top =
 document.onmouseup=function(){
 
 
-dragging=false;
+
+if(isDragging){
 
 
-};
-
-
-
-
-
-
-
-// ===============================
-// RESIZE WIDTH
-// ===============================
-
-
-
-document
-.getElementById("widthSlider")
-.oninput=function(){
-
-
-if(!selectedObject)
-return;
-
-
-
-selectedObject.style.width =
-this.value+"px";
-
-
-
-};
-
-
-
-
-
-
-
-// ===============================
-// RESIZE HEIGHT
-// ===============================
-
-
-document
-.getElementById("heightSlider")
-.oninput=function(){
-
-
-if(!selectedObject)
-return;
-
-
-
-selectedObject.style.height =
-this.value+"px";
-
-
-
-};
-
-
-
-
-
-
-
-// ===============================
-// TEXT SIZE
-// ===============================
-
-
-document
-.getElementById("fontSlider")
-.oninput=function(){
-
-
-if(!selectedObject)
-return;
-
-
-
-if(
-selectedObject.classList.contains("text")
-){
-
-
-
-selectedObject.style.fontSize =
-this.value+"px";
+saveProject();
 
 
 }
 
 
 
-};
-
-
-
-
-
-
-
-// ===============================
-// OPACITY
-// ===============================
-
-
-
-document
-.getElementById("opacitySlider")
-.oninput=function(){
-
-
-if(!selectedObject)
-return;
-
-
-
-if(
-selectedObject.classList.contains("glass")
-){
-
-
-
-selectedObject.style.background =
-
-`rgba(255,255,255,${this.value/100})`;
-
-
-
-}
-
+isDragging=false;
 
 
 };
@@ -348,127 +248,11 @@ selectedObject.style.background =
 
 
 
-// ===============================
-// BLUR
-// ===============================
 
 
-document
-.getElementById("blurSlider")
-.oninput=function(){
-
-
-if(!selectedObject)
-return;
-
-
-
-selectedObject.style.backdropFilter =
-
-`blur(${this.value}px)`;
-
-
-
-};
-
-
-
-
-
-
-
-// ===============================
-// BORDER RADIUS
-// ===============================
-
-
-document
-.getElementById("radiusSlider")
-.oninput=function(){
-
-
-if(!selectedObject)
-return;
-
-
-
-selectedObject.style.borderRadius =
-
-this.value+"px";
-
-
-};
-
-
-
-
-
-
-
-// ===============================
-// UPDATE SLIDERS
-// ===============================
-
-
-function updateControls(){
-
-
-if(!selectedObject)
-return;
-
-
-
-document
-.getElementById("widthSlider")
-.value =
-selectedObject.offsetWidth;
-
-
-
-
-document
-.getElementById("heightSlider")
-.value =
-selectedObject.offsetHeight;
-
-
-
-
-if(
-selectedObject.classList.contains("text")
-){
-
-
-let size =
-parseInt(
-window.getComputedStyle(
-selectedObject
-).fontSize
-);
-
-
-
-document
-.getElementById("fontSlider")
-.value=size;
-
-
-
-}
-
-
-
-}
-
-
-
-
-
-
-
-// ===============================
+// =====================================
 // DELETE
-// ===============================
+// =====================================
 
 
 function deleteSelected(){
@@ -486,6 +270,9 @@ selectedObject.remove();
 selectedObject=null;
 
 
+saveProject();
+
+
 
 }
 
@@ -495,12 +282,15 @@ selectedObject=null;
 
 
 
-// ===============================
+
+
+// =====================================
 // DUPLICATE
-// ===============================
+// =====================================
 
 
 function duplicateSelected(){
+
 
 
 if(!selectedObject)
@@ -508,31 +298,35 @@ return;
 
 
 
-let clone =
+let copy =
 selectedObject.cloneNode(true);
 
 
 
-clone.style.left =
-(selectedObject.offsetLeft+40)
+copy.style.left =
+
+(selectedObject.offsetLeft+50)
 +"px";
 
 
 
-clone.style.top =
-(selectedObject.offsetTop+40)
+copy.style.top =
+
+(selectedObject.offsetTop+50)
 +"px";
 
 
 
 document
-.querySelector(".page.active")
-.appendChild(clone);
+.querySelector(".page.active .hero")
+.appendChild(copy);
 
 
 
 activateEditorObjects();
 
+
+saveProject();
 
 
 }
@@ -543,10 +337,10 @@ activateEditorObjects();
 
 
 
-// ===============================
-// ADD TEXT
-// ===============================
 
+// =====================================
+// ADD TEXT
+// =====================================
 
 
 function addText(){
@@ -554,7 +348,9 @@ function addText(){
 
 
 let text =
-document.createElement("h1");
+document.createElement(
+"h1"
+);
 
 
 
@@ -564,7 +360,7 @@ text.innerHTML =
 
 
 text.className =
-"editable text";
+"editable textObject";
 
 
 
@@ -572,20 +368,27 @@ text.style.position =
 "absolute";
 
 
-text.style.left="50%";
+
+text.style.left =
+"40%";
 
 
-text.style.top="50%";
+
+text.style.top =
+"40%";
 
 
 
 document
-.querySelector(".page.active")
+.querySelector(".page.active .hero")
 .appendChild(text);
 
 
 
 activateEditorObjects();
+
+
+saveProject();
 
 
 
@@ -598,10 +401,10 @@ activateEditorObjects();
 
 
 
-// ===============================
-// ADD EMOJI
-// ===============================
 
+// =====================================
+// ADD EMOJI
+// =====================================
 
 
 function addEmoji(){
@@ -609,11 +412,14 @@ function addEmoji(){
 
 
 let emoji =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 
 
-emoji.innerHTML="🔥";
+emoji.innerHTML =
+"🔥";
 
 
 
@@ -626,26 +432,32 @@ emoji.style.position =
 "absolute";
 
 
+
 emoji.style.fontSize =
 "100px";
 
 
 
-emoji.style.left="50%";
+emoji.style.left =
+"50%";
 
 
-emoji.style.top="50%";
+
+emoji.style.top =
+"50%";
 
 
 
 document
-.querySelector(".page.active")
+.querySelector(".page.active .hero")
 .appendChild(emoji);
 
 
 
 activateEditorObjects();
 
+
+saveProject();
 
 
 }
@@ -657,17 +469,20 @@ activateEditorObjects();
 
 
 
-// ===============================
-// ADD IMAGE
-// ===============================
 
+// =====================================
+// ADD IMAGE
+// =====================================
 
 
 function addImage(){
 
 
 let input =
-document.createElement("input");
+document.createElement(
+"input"
+);
+
 
 
 input.type="file";
@@ -686,12 +501,15 @@ new FileReader();
 
 
 
+
 reader.onload=function(){
 
 
 
 let img =
-document.createElement("img");
+document.createElement(
+"img"
+);
 
 
 
@@ -701,7 +519,7 @@ reader.result;
 
 
 img.className =
-"editable image";
+"editable imageObject";
 
 
 
@@ -726,12 +544,15 @@ img.style.top =
 
 
 document
-.querySelector(".page.active")
+.querySelector(".page.active .hero")
 .appendChild(img);
 
 
 
 activateEditorObjects();
+
+
+saveProject();
 
 
 
@@ -752,7 +573,6 @@ e.target.files[0]
 input.click();
 
 
-
 }
 
 
@@ -763,18 +583,19 @@ input.click();
 
 
 
-// ===============================
+// =====================================
 // ADD GLASS PANEL
-// ===============================
+// =====================================
 
 
-
-function addGlass(){
+function addGlassPanel(){
 
 
 
 let panel =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 
 
@@ -799,12 +620,289 @@ panel.style.top =
 
 
 document
-.querySelector(".page.active")
+.querySelector(".page.active .hero")
 .appendChild(panel);
 
 
 
 activateEditorObjects();
+
+
+saveProject();
+
+
+}
+
+
+
+
+
+
+
+
+
+// =====================================
+// WIDTH
+// =====================================
+
+
+document
+.getElementById(
+"widthControl"
+)
+.oninput=function(){
+
+
+
+if(!selectedObject)
+return;
+
+
+
+selectedObject.style.width =
+this.value+"px";
+
+
+
+saveProject();
+
+
+};
+
+
+
+
+
+
+
+
+// =====================================
+// HEIGHT
+// =====================================
+
+
+document
+.getElementById(
+"heightControl"
+)
+.oninput=function(){
+
+
+
+if(!selectedObject)
+return;
+
+
+
+selectedObject.style.height =
+this.value+"px";
+
+
+
+saveProject();
+
+
+};
+
+
+
+
+
+
+
+
+
+// =====================================
+// FONT SIZE
+// =====================================
+
+
+document
+.getElementById(
+"fontControl"
+)
+.oninput=function(){
+
+
+
+if(
+selectedObject &&
+selectedObject.classList.contains(
+"textObject"
+)
+
+){
+
+
+selectedObject.style.fontSize =
+this.value+"px";
+
+
+
+saveProject();
+
+
+
+}
+
+
+
+};
+
+
+
+
+
+
+
+
+
+// =====================================
+// GLASS OPACITY
+// =====================================
+
+
+document
+.getElementById(
+"opacityControl"
+)
+.oninput=function(){
+
+
+
+if(!selectedObject)
+return;
+
+
+
+selectedObject.style.background =
+
+`rgba(255,255,255,${this.value/100})`;
+
+
+
+saveProject();
+
+
+
+};
+
+
+
+
+
+
+
+
+
+// =====================================
+// GLASS BLUR
+// =====================================
+
+
+document
+.getElementById(
+"blurControl"
+)
+.oninput=function(){
+
+
+
+if(!selectedObject)
+return;
+
+
+
+selectedObject.style.backdropFilter =
+
+`blur(${this.value}px)`;
+
+
+
+saveProject();
+
+
+
+};
+
+
+
+
+
+
+
+
+
+// =====================================
+// RADIUS
+// =====================================
+
+
+document
+.getElementById(
+"radiusControl"
+)
+.oninput=function(){
+
+
+
+if(!selectedObject)
+return;
+
+
+
+selectedObject.style.borderRadius =
+this.value+"px";
+
+
+
+saveProject();
+
+
+};
+
+
+
+
+
+
+
+
+
+// =====================================
+// UPDATE CONTROLS
+// =====================================
+
+
+function updateControls(){
+
+
+if(!selectedObject)
+return;
+
+
+
+let width =
+document.getElementById(
+"widthControl"
+);
+
+
+
+let height =
+document.getElementById(
+"heightControl"
+);
+
+
+
+width.value =
+selectedObject.offsetWidth;
+
+
+
+height.value =
+selectedObject.offsetHeight;
 
 
 
@@ -818,15 +916,15 @@ activateEditorObjects();
 
 
 
-// ===============================
+// =====================================
 // KEYBOARD DELETE
-// ===============================
-
+// =====================================
 
 
 document.addEventListener(
 "keydown",
 function(e){
+
 
 
 if(
@@ -853,9 +951,9 @@ deleteSelected();
 
 
 
-// ===============================
-// START EDITOR
-// ===============================
+// =====================================
+// START
+// =====================================
 
 
 window.addEventListener(
