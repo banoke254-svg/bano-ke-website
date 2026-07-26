@@ -1,11 +1,18 @@
+// ===================================
+// BANO WEBSITE BUILDER EDITOR SYSTEM
+// ===================================
+
+
 let editorMode = false;
 
 let selectedObject = null;
 
-let startX = 0;
-let startY = 0;
+let dragging = false;
 
-let resizing = false;
+let dragOffsetX = 0;
+
+let dragOffsetY = 0;
+
 
 
 
@@ -19,11 +26,13 @@ document.getElementById("editorPanel");
 
 
 
-
-/* OPEN EDITOR */
+// ===============================
+// OPEN / CLOSE EDITOR
+// ===============================
 
 
 editorToggle.onclick = function(){
+
 
 editorMode = !editorMode;
 
@@ -32,19 +41,83 @@ editorPanel.style.display =
 editorMode ? "block" : "none";
 
 
+activateEditorObjects();
+
+
 };
 
 
 
 
 
+// ===============================
+// SELECT OBJECT
+// ===============================
 
-/* SELECT OBJECT */
+
+function selectObject(obj){
 
 
-document.addEventListener(
-"click",
-function(e){
+if(selectedObject){
+
+selectedObject.classList.remove(
+"selected"
+);
+
+}
+
+
+
+selectedObject = obj;
+
+
+selectedObject.classList.add(
+"selected"
+);
+
+
+
+updateControls();
+
+
+
+}
+
+
+
+
+
+
+
+function activateEditorObjects(){
+
+
+document
+.querySelectorAll(
+".editable,.glass"
+)
+.forEach(obj=>{
+
+
+obj.onclick=function(e){
+
+
+if(!editorMode)
+return;
+
+
+e.stopPropagation();
+
+
+selectObject(this);
+
+
+
+};
+
+
+
+obj.onmousedown=function(e){
 
 
 if(!editorMode)
@@ -52,17 +125,30 @@ return;
 
 
 
-if(
-e.target.classList.contains("editable")
-||
-e.target.classList.contains("glass")
-){
+if(e.target.tagName==="INPUT")
+return;
 
 
-selectObject(e.target);
+
+selectObject(this);
 
 
-}
+dragging=true;
+
+
+
+dragOffsetX =
+e.clientX -
+this.offsetLeft;
+
+
+dragOffsetY =
+e.clientY -
+this.offsetTop;
+
+
+
+};
 
 
 
@@ -70,119 +156,67 @@ selectObject(e.target);
 
 
 
-
-
-
-
-
-function selectObject(obj){
-
-
-if(selectedObject)
-
-selectedObject.classList.remove(
-"selected"
-);
-
-
-
-selectedObject=obj;
-
-
-obj.classList.add(
-"selected"
-);
-
-
-
-updateSliders();
-
-
-
 }
 
 
 
 
 
-/* DRAG SYSTEM */
-
-
-document.addEventListener(
-"mousedown",
-function(e){
-
-
-
-if(!editorMode)
-return;
-
-
-
-if(
-!e.target.classList.contains("editable")
-&&
-!e.target.classList.contains("glass")
-)
-
-return;
-
-
-
-selectedObject=e.target;
-
-
-
-startX =
-e.clientX -
-selectedObject.offsetLeft;
-
-
-startY =
-e.clientY -
-selectedObject.offsetTop;
+// ===============================
+// MOVE OBJECTS
+// ===============================
 
 
 
 document.onmousemove=function(e){
 
 
+if(
+!dragging ||
+!selectedObject
+)
+
+return;
+
+
 
 selectedObject.style.left =
 
-(e.clientX-startX)+"px";
+(e.clientX - dragOffsetX)
++"px";
 
 
 
 selectedObject.style.top =
 
-(e.clientY-startY)+"px";
+(e.clientY - dragOffsetY)
++"px";
 
 
 
 };
+
+
 
 
 
 document.onmouseup=function(){
 
 
-document.onmousemove=null;
+dragging=false;
 
 
 };
 
 
 
-});
 
 
 
 
-
-
-
-/* RESIZE CONTROLS */
+// ===============================
+// RESIZE WIDTH
+// ===============================
 
 
 
@@ -208,10 +242,15 @@ this.value+"px";
 
 
 
+
+// ===============================
+// RESIZE HEIGHT
+// ===============================
+
+
 document
 .getElementById("heightSlider")
 .oninput=function(){
-
 
 
 if(!selectedObject)
@@ -223,6 +262,7 @@ selectedObject.style.height =
 this.value+"px";
 
 
+
 };
 
 
@@ -230,7 +270,10 @@ this.value+"px";
 
 
 
-/* TEXT SIZE */
+
+// ===============================
+// TEXT SIZE
+// ===============================
 
 
 document
@@ -238,11 +281,15 @@ document
 .oninput=function(){
 
 
+if(!selectedObject)
+return;
+
+
 
 if(
-selectedObject &&
 selectedObject.classList.contains("text")
 ){
+
 
 
 selectedObject.style.fontSize =
@@ -252,6 +299,7 @@ this.value+"px";
 }
 
 
+
 };
 
 
@@ -260,9 +308,9 @@ this.value+"px";
 
 
 
-
-
-/* GLASS OPACITY */
+// ===============================
+// OPACITY
+// ===============================
 
 
 
@@ -276,9 +324,19 @@ return;
 
 
 
+if(
+selectedObject.classList.contains("glass")
+){
+
+
+
 selectedObject.style.background =
 
 `rgba(255,255,255,${this.value/100})`;
+
+
+
+}
 
 
 
@@ -290,7 +348,9 @@ selectedObject.style.background =
 
 
 
-/* BLUR */
+// ===============================
+// BLUR
+// ===============================
 
 
 document
@@ -308,6 +368,7 @@ selectedObject.style.backdropFilter =
 `blur(${this.value}px)`;
 
 
+
 };
 
 
@@ -315,8 +376,10 @@ selectedObject.style.backdropFilter =
 
 
 
-/* ROUND CORNERS */
 
+// ===============================
+// BORDER RADIUS
+// ===============================
 
 
 document
@@ -342,11 +405,12 @@ this.value+"px";
 
 
 
+// ===============================
+// UPDATE SLIDERS
+// ===============================
 
-/* UPDATE CONTROLS */
 
-
-function updateSliders(){
+function updateControls(){
 
 
 if(!selectedObject)
@@ -357,16 +421,16 @@ return;
 document
 .getElementById("widthSlider")
 .value =
-
 selectedObject.offsetWidth;
+
 
 
 
 document
 .getElementById("heightSlider")
 .value =
-
 selectedObject.offsetHeight;
+
 
 
 
@@ -377,9 +441,11 @@ selectedObject.classList.contains("text")
 
 let size =
 parseInt(
-window.getComputedStyle(selectedObject)
-.fontSize
+window.getComputedStyle(
+selectedObject
+).fontSize
 );
+
 
 
 document
@@ -387,28 +453,31 @@ document
 .value=size;
 
 
-}
-
-
 
 }
 
 
 
+}
 
 
 
 
 
 
-/* DELETE */
+
+// ===============================
+// DELETE
+// ===============================
 
 
 function deleteSelected(){
 
 
 
-if(selectedObject){
+if(!selectedObject)
+return;
+
 
 
 selectedObject.remove();
@@ -417,9 +486,6 @@ selectedObject.remove();
 selectedObject=null;
 
 
-}
-
-
 
 }
 
@@ -429,9 +495,9 @@ selectedObject=null;
 
 
 
-
-/* DUPLICATE */
-
+// ===============================
+// DUPLICATE
+// ===============================
 
 
 function duplicateSelected(){
@@ -442,26 +508,30 @@ return;
 
 
 
-let copy =
+let clone =
 selectedObject.cloneNode(true);
 
 
 
-copy.style.left =
+clone.style.left =
+(selectedObject.offsetLeft+40)
++"px";
 
-(selectedObject.offsetLeft+50)+"px";
 
 
-
-copy.style.top =
-
-(selectedObject.offsetTop+50)+"px";
+clone.style.top =
+(selectedObject.offsetTop+40)
++"px";
 
 
 
 document
 .querySelector(".page.active")
-.appendChild(copy);
+.appendChild(clone);
+
+
+
+activateEditorObjects();
 
 
 
@@ -473,9 +543,9 @@ document
 
 
 
-
-
-/* ADD TEXT */
+// ===============================
+// ADD TEXT
+// ===============================
 
 
 
@@ -498,9 +568,12 @@ text.className =
 
 
 
-text.style.position="absolute";
+text.style.position =
+"absolute";
+
 
 text.style.left="50%";
+
 
 text.style.top="50%";
 
@@ -509,6 +582,10 @@ text.style.top="50%";
 document
 .querySelector(".page.active")
 .appendChild(text);
+
+
+
+activateEditorObjects();
 
 
 
@@ -521,11 +598,14 @@ document
 
 
 
-/* ADD EMOJI */
+// ===============================
+// ADD EMOJI
+// ===============================
 
 
 
 function addEmoji(){
+
 
 
 let emoji =
@@ -537,13 +617,18 @@ emoji.innerHTML="🔥";
 
 
 
-emoji.className="editable";
+emoji.className =
+"editable";
 
 
-emoji.style.position="absolute";
+
+emoji.style.position =
+"absolute";
 
 
-emoji.style.fontSize="100px";
+emoji.style.fontSize =
+"100px";
+
 
 
 emoji.style.left="50%";
@@ -559,6 +644,10 @@ document
 
 
 
+activateEditorObjects();
+
+
+
 }
 
 
@@ -568,8 +657,9 @@ document
 
 
 
-
-/* ADD IMAGE */
+// ===============================
+// ADD IMAGE
+// ===============================
 
 
 
@@ -578,7 +668,6 @@ function addImage(){
 
 let input =
 document.createElement("input");
-
 
 
 input.type="file";
@@ -600,6 +689,7 @@ new FileReader();
 reader.onload=function(){
 
 
+
 let img =
 document.createElement("img");
 
@@ -615,23 +705,33 @@ img.className =
 
 
 
-img.style.position="absolute";
+img.style.position =
+"absolute";
 
 
 
-img.style.width="300px";
+img.style.width =
+"300px";
 
 
-img.style.left="50%";
+
+img.style.left =
+"50%";
 
 
-img.style.top="50%";
+
+img.style.top =
+"50%";
 
 
 
 document
 .querySelector(".page.active")
 .appendChild(img);
+
+
+
+activateEditorObjects();
 
 
 
@@ -663,7 +763,9 @@ input.click();
 
 
 
-/* ADD GLASS PANEL */
+// ===============================
+// ADD GLASS PANEL
+// ===============================
 
 
 
@@ -681,16 +783,28 @@ panel.className =
 
 
 
-panel.style.left="40%";
+panel.style.position =
+"absolute";
 
 
-panel.style.top="40%";
+
+panel.style.left =
+"40%";
+
+
+
+panel.style.top =
+"40%";
 
 
 
 document
 .querySelector(".page.active")
 .appendChild(panel);
+
+
+
+activateEditorObjects();
 
 
 
@@ -704,14 +818,15 @@ document
 
 
 
-/* KEY DELETE */
+// ===============================
+// KEYBOARD DELETE
+// ===============================
 
 
 
 document.addEventListener(
 "keydown",
 function(e){
-
 
 
 if(
@@ -726,6 +841,29 @@ deleteSelected();
 
 }
 
+
+
+});
+
+
+
+
+
+
+
+
+
+// ===============================
+// START EDITOR
+// ===============================
+
+
+window.addEventListener(
+"load",
+()=>{
+
+
+activateEditorObjects();
 
 
 });
