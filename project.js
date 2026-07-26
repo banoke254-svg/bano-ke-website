@@ -1,29 +1,33 @@
-// =====================================
-// BANO PROJECT SAVE / LOAD SYSTEM V3
-// =====================================
+// ======================================
+// BANO PROJECT SAVE SYSTEM V5
+// ======================================
 
 
-const PROJECT_KEY = "BANO_PROJECT_V3";
+const BANO_PROJECT_KEY =
+"BANO_PROJECT_DATA";
 
 
 
 
-// =====================================
+
+// ======================================
 // SAVE PROJECT
-// =====================================
+// ======================================
 
 
 function saveProject(){
 
 
+
 let project = {
 
 
+pages: [],
+
+
 currentPage:
-window.currentPage || 0,
+window.currentPage || 0
 
-
-pages: []
 
 };
 
@@ -37,14 +41,19 @@ document
 .forEach(page=>{
 
 
-let pageData = {
+
+let pageData={
+
 
 
 background:
 page.dataset.background || "",
 
 
+
 objects: []
+
+
 
 };
 
@@ -53,19 +62,28 @@ objects: []
 
 
 
+
 page
-.querySelectorAll(".editable")
+.querySelector(".hero")
+.querySelectorAll(
+".editable,.glass"
+)
 .forEach(obj=>{
 
 
-let data = {
 
 
-type:
+
+let object={
+
+
+
+tag:
 obj.tagName,
 
 
-class:
+
+className:
 obj.className,
 
 
@@ -80,49 +98,65 @@ obj.src || "",
 
 
 
-x:
+left:
 obj.style.left,
 
 
 
-y:
+top:
 obj.style.top,
 
 
 
 width:
-obj.style.width || "",
-
+obj.style.width,
 
 
 height:
-obj.style.height || "",
+obj.style.height,
 
 
 
 fontSize:
-obj.style.fontSize || "",
+obj.style.fontSize,
 
 
 
-opacity:
-obj.style.opacity || "",
+background:
+obj.style.background,
+
+
+
+blur:
+obj.style.backdropFilter,
+
+
+
+radius:
+obj.style.borderRadius,
 
 
 
 animation:
+
 obj.classList.contains("bounce")
 ?
 "bounce"
+
 :
+
 obj.classList.contains("float")
 ?
 "float"
+
 :
+
 obj.classList.contains("pulse")
 ?
 "pulse"
+
 :
+
 ""
 
 
@@ -133,21 +167,28 @@ obj.classList.contains("pulse")
 
 
 
-pageData.objects.push(data);
+pageData.objects.push(
+object
+);
+
+
+
+
+});
+
+
+
+
+
+
+project.pages.push(
+pageData
+);
 
 
 
 });
 
-
-
-
-
-project.pages.push(pageData);
-
-
-
-});
 
 
 
@@ -156,11 +197,34 @@ project.pages.push(pageData);
 
 localStorage.setItem(
 
-PROJECT_KEY,
+BANO_PROJECT_KEY,
 
 JSON.stringify(project)
 
 );
+
+
+
+
+
+
+projectChanged=false;
+
+
+
+let status =
+document.getElementById(
+"saveStatus"
+);
+
+
+
+if(status){
+
+status.innerHTML =
+"✓ Saved";
+
+}
 
 
 
@@ -180,9 +244,11 @@ alert(
 
 
 
-// =====================================
+
+
+// ======================================
 // LOAD PROJECT
-// =====================================
+// ======================================
 
 
 function loadProject(){
@@ -192,7 +258,7 @@ function loadProject(){
 let saved =
 
 localStorage.getItem(
-PROJECT_KEY
+BANO_PROJECT_KEY
 );
 
 
@@ -200,15 +266,19 @@ PROJECT_KEY
 if(!saved){
 
 
+
 alert(
-"No saved project found"
+"No saved project"
 );
+
 
 
 return;
 
 
+
 }
+
 
 
 
@@ -222,16 +292,17 @@ JSON.parse(saved);
 
 
 
-let website =
 
+let website =
 document.getElementById(
 "website"
 );
 
 
 
-
 website.innerHTML="";
+
+
 
 
 
@@ -242,47 +313,33 @@ project.pages.forEach(
 
 
 
-let page =
 
+
+let page =
 document.createElement(
 "section"
 );
 
 
 
-page.className="page";
+page.className =
+"page";
 
 
 
-if(index === project.currentPage){
-
+if(index===0){
 
 page.classList.add(
 "active"
 );
 
-
 }
 
 
 
+page.dataset.background =
+pageData.background || "";
 
-
-
-
-
-// BACKGROUND RESTORE
-
-
-if(pageData.background){
-
-
-page.style.backgroundImage =
-
-pageData.background;
-
-
-}
 
 
 
@@ -290,14 +347,54 @@ pageData.background;
 
 
 let hero =
-
 document.createElement(
 "div"
 );
 
 
 
-hero.className="hero";
+hero.className =
+"hero";
+
+
+
+
+
+
+
+// RESTORE BACKGROUND
+
+
+if(
+pageData.background
+){
+
+
+
+hero.style.backgroundImage =
+
+`
+
+linear-gradient(
+90deg,
+rgba(0,0,0,.6),
+rgba(0,0,0,.2)
+),
+
+url(${pageData.background})
+
+`;
+
+
+
+hero.style.backgroundSize =
+"cover";
+
+
+
+}
+
+
 
 
 
@@ -310,55 +407,54 @@ page.appendChild(hero);
 
 
 
+
+
+
+// RESTORE OBJECTS
+
+
 pageData.objects.forEach(
-(objData)=>{
+(data)=>{
 
 
 
-let element;
+let obj;
 
 
 
-// IMAGE
-
-
-if(
-objData.type === "IMG"
-){
 
 
 
-element =
+if(data.tag==="IMG"){
+
+
+
+obj =
 document.createElement(
 "img"
 );
 
 
 
-element.src =
-objData.src;
+obj.src =
+data.src;
 
 
 
 }
 
-
-
-// TEXT
-
-
 else{
 
 
-element =
+obj =
 document.createElement(
 "div"
 );
 
 
 
-element.innerHTML =
-objData.html;
+obj.innerHTML =
+data.html;
 
 
 
@@ -369,12 +465,14 @@ objData.html;
 
 
 
-element.className =
-objData.class;
+
+
+obj.className =
+data.className;
 
 
 
-element.classList.add(
+obj.classList.add(
 "editable"
 );
 
@@ -382,48 +480,62 @@ element.classList.add(
 
 
 
-element.style.position =
+obj.style.position =
 "absolute";
 
 
 
-element.style.left =
-objData.x;
+obj.style.left =
+data.left;
 
 
 
-element.style.top =
-objData.y;
+obj.style.top =
+data.top;
 
 
 
-element.style.width =
-objData.width;
+obj.style.width =
+data.width;
 
 
 
-element.style.height =
-objData.height;
+obj.style.height =
+data.height;
 
 
 
-element.style.fontSize =
-objData.fontSize;
+obj.style.fontSize =
+data.fontSize;
+
+
+
+obj.style.background =
+data.background;
+
+
+
+obj.style.backdropFilter =
+data.blur;
+
+
+
+obj.style.borderRadius =
+data.radius;
 
 
 
 
 
 
-// RESTORE ANIMATION
+
+if(data.animation){
 
 
-if(objData.animation){
-
-
-element.classList.add(
-objData.animation
+obj.classList.add(
+data.animation
 );
+
 
 
 }
@@ -432,16 +544,13 @@ objData.animation
 
 
 
-
 hero.appendChild(
-element
+obj
 );
 
 
 
-
 });
-
 
 
 
@@ -462,16 +571,22 @@ page
 
 
 
+// restart editor
 
-// refresh editor
+
 
 if(
 typeof activateEditorObjects === "function"
 ){
 
+
+
 activateEditorObjects();
 
+
+
 }
+
 
 
 
@@ -492,9 +607,12 @@ alert(
 
 
 
-// =====================================
+
+
+
+// ======================================
 // AUTO LOAD
-// =====================================
+// ======================================
 
 
 window.addEventListener(
@@ -505,7 +623,7 @@ window.addEventListener(
 let saved =
 
 localStorage.getItem(
-PROJECT_KEY
+BANO_PROJECT_KEY
 );
 
 
