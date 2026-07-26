@@ -1,13 +1,21 @@
-// ===========================
-// BANO PAGE SYSTEM
-// ===========================
+// =============================
+// BANO PAGE SYSTEM V2
+// =============================
 
 
-let pageNumber = 1;
+let pages = [];
+
+let currentPage = 0;
 
 
-let currentPage = 1;
 
+// LOAD WHEN STARTING
+
+window.onload=function(){
+
+loadWebsite();
+
+};
 
 
 
@@ -16,29 +24,20 @@ let currentPage = 1;
 function createPage(){
 
 
-pageNumber++;
+let page =
+document.createElement("section");
 
 
-
-let newPage =
-document.createElement(
-"section"
-);
+page.className="page";
 
 
-
-newPage.className =
-"page";
-
-
-
-newPage.innerHTML = `
+page.innerHTML=`
 
 <div class="hero">
 
 <h1 class="editable text">
 
-NEW PAGE
+NEW BANO PAGE
 
 </h1>
 
@@ -51,18 +50,25 @@ NEW PAGE
 
 document
 .getElementById("website")
-.appendChild(newPage);
+.appendChild(page);
+
+
+
+pages =
+document.querySelectorAll(".page");
 
 
 
 alert(
-"Created Page "+pageNumber
+"New page created"
 );
 
 
 
-}
+saveWebsite();
 
+
+}
 
 
 
@@ -73,15 +79,22 @@ alert(
 function nextPage(){
 
 
-
-let pages =
-document.querySelectorAll(
-".page"
-);
+pages =
+document.querySelectorAll(".page");
 
 
 
-pages[currentPage-1]
+if(pages.length <=1){
+
+alert("Create another page first");
+
+return;
+
+}
+
+
+
+pages[currentPage]
 .classList.remove(
 "active"
 );
@@ -92,15 +105,15 @@ currentPage++;
 
 
 
-if(currentPage > pages.length){
+if(currentPage >= pages.length){
 
-currentPage=1;
+currentPage=0;
 
 }
 
 
 
-pages[currentPage-1]
+pages[currentPage]
 .classList.add(
 "active"
 );
@@ -119,11 +132,142 @@ pages[currentPage-1]
 function applyTransition(){
 
 
-
-let transition =
+let type =
 document.getElementById(
 "transition"
 ).value;
+
+
+
+let page =
+document.querySelector(
+".page.active"
+);
+
+
+
+page.classList.remove(
+"fade",
+"zoom",
+"morph",
+"slide"
+);
+
+
+
+void page.offsetWidth;
+
+
+
+page.classList.add(type);
+
+
+
+setTimeout(()=>{
+
+
+page.classList.remove(type);
+
+
+},1000);
+
+
+
+}
+
+
+
+
+
+
+
+
+// =============================
+// SAVE SYSTEM
+// =============================
+
+
+function saveWebsite(){
+
+
+
+let data =
+document.getElementById(
+"website"
+).innerHTML;
+
+
+
+localStorage.setItem(
+
+"BANO_WEBSITE",
+
+data
+
+);
+
+
+
+localStorage.setItem(
+
+"BANO_PAGE",
+
+currentPage
+
+);
+
+
+
+alert(
+"BANO website saved"
+);
+
+
+
+}
+
+
+
+
+
+
+
+
+// =============================
+// LOAD SYSTEM
+// =============================
+
+
+function loadWebsite(){
+
+
+
+let saved =
+localStorage.getItem(
+"BANO_WEBSITE"
+);
+
+
+
+if(saved){
+
+
+
+document
+.getElementById(
+"website"
+)
+.innerHTML=saved;
+
+
+
+currentPage =
+Number(
+localStorage.getItem(
+"BANO_PAGE"
+)
+)
+||0;
 
 
 
@@ -134,28 +278,22 @@ document.querySelectorAll(
 
 
 
-let active =
-document.querySelector(
-".page.active"
+pages.forEach(p=>{
+
+p.classList.remove(
+"active"
 );
 
 
-
-active.classList.remove(
-"fade",
-"zoom",
-"morph",
-"slide"
-);
+});
 
 
 
-void active.offsetWidth;
+if(pages[currentPage])
 
-
-
-active.classList.add(
-transition
+pages[currentPage]
+.classList.add(
+"active"
 );
 
 
@@ -164,74 +302,4 @@ transition
 
 
 
-
-
-
-
-
-
-// SAVE PAGES
-
-
-function savePages(){
-
-
-localStorage.setItem(
-
-"banoPages",
-
-document.getElementById(
-"website"
-).innerHTML
-
-);
-
-
-
-alert(
-"Pages saved"
-);
-
-
-
 }
-
-
-
-
-
-
-
-
-
-// LOAD PAGES
-
-
-window.addEventListener(
-"load",
-()=>{
-
-
-let saved =
-localStorage.getItem(
-"banoPages"
-);
-
-
-
-if(saved){
-
-
-
-document.getElementById(
-"website"
-).innerHTML=saved;
-
-
-
-}
-
-
-}
-
-);
