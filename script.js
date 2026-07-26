@@ -1,54 +1,27 @@
 let editor=false;
 
-
 let selected=null;
 
 
 
-const toggle =
-document.getElementById(
-"editorToggle"
-);
+const editorButton=
+document.getElementById("editorButton");
 
 
-
-const panel =
-document.getElementById(
-"editorPanel"
-);
+const tools=
+document.getElementById("editorTools");
 
 
 
 
 
-toggle.onclick=function(){
-
+editorButton.onclick=function(){
 
 editor=!editor;
 
 
-
-if(editor){
-
-
-panel.style.display="block";
-
-
-enableEditor();
-
-
-}
-
-else{
-
-
-panel.style.display="none";
-
-
-disableEditor();
-
-
-}
+tools.style.display =
+editor ? "block":"none";
 
 
 }
@@ -57,60 +30,48 @@ disableEditor();
 
 
 
-function enableEditor(){
+document.addEventListener(
+"click",
+function(e){
 
 
-document
-.querySelectorAll(
-".editable-object"
-)
-
-.forEach(element=>{
-
-
-element.classList.add(
-"editing"
-);
-
-
-element.onmousedown =
-drag;
+if(!editor)return;
 
 
 
-});
+if(
+e.target.classList.contains("editable") ||
+e.target.classList.contains("glassObject")
+){
+
+
+selectObject(e.target);
 
 
 }
-
-
-
-
-
-
-function disableEditor(){
-
-
-document
-.querySelectorAll(
-".editable-object"
-)
-
-.forEach(element=>{
-
-
-element.classList.remove(
-"editing"
-);
-
-
-element.onmousedown=null;
 
 
 });
 
 
 
+
+
+function selectObject(obj){
+
+
+if(selected)
+
+selected.classList.remove("selected");
+
+
+
+selected=obj;
+
+
+selected.classList.add("selected");
+
+
 }
 
 
@@ -119,75 +80,109 @@ element.onmousedown=null;
 
 
 
-
-function drag(e){
-
-
-
-selected=this;
+document.addEventListener(
+"keydown",
+function(e){
 
 
+if(
+e.key==="Delete" &&
+selected
+){
 
-let offsetX =
-e.clientX -
-selected.offsetLeft;
+selected.remove();
+
+selected=null;
+
+}
 
 
 
-let offsetY =
-e.clientY -
-selected.offsetTop;
+});
 
 
+
+
+
+
+
+
+
+function dragObject(obj){
+
+
+let startX;
+
+let startY;
+
+
+obj.onmousedown=function(e){
+
+
+if(!editor)return;
+
+
+startX=e.clientX-obj.offsetLeft;
+
+startY=e.clientY-obj.offsetTop;
 
 
 
 document.onmousemove=function(e){
 
 
-if(selected){
+obj.style.position="absolute";
 
 
-
-selected.style.position=
-"absolute";
-
+obj.style.left=
+e.clientX-startX+"px";
 
 
-selected.style.left =
-(e.clientX-offsetX)
-+"px";
-
-
-
-selected.style.top =
-(e.clientY-offsetY)
-+"px";
-
+obj.style.top=
+e.clientY-startY+"px";
 
 
 }
-
-
-}
-
-
 
 
 document.onmouseup=function(){
 
-
-selected=null;
-
-
 document.onmousemove=null;
 
-
 }
 
 
 
 }
+
+
+}
+
+
+
+
+
+function activateAll(){
+
+
+document
+.querySelectorAll(".editable,.glassObject")
+.forEach(obj=>{
+
+
+dragObject(obj);
+
+
+
+});
+
+
+
+}
+
+
+
+activateAll();
 
 
 
@@ -199,50 +194,34 @@ document.onmousemove=null;
 function addText(){
 
 
-
-let text =
-document.createElement(
-"div"
-);
+let t=document.createElement("div");
 
 
-
-text.innerHTML=
-"NEW TEXT";
+t.innerHTML="NEW TEXT";
 
 
-text.className=
-"editable-object editing";
+t.className="editable";
 
 
-
-text.style.position=
-"absolute";
+t.style.position="absolute";
 
 
-text.style.left="50%";
+t.style.fontSize="50px";
 
 
-text.style.top="50%";
+t.style.left="50%";
 
 
-text.style.fontSize="50px";
+t.style.top="50%";
 
 
-text.style.color="white";
+document.body.appendChild(t);
 
 
-
-document.body.appendChild(text);
-
-
-
-text.onmousedown=drag;
+dragObject(t);
 
 
 }
-
-
 
 
 
@@ -253,43 +232,31 @@ text.onmousedown=drag;
 function addEmoji(){
 
 
-let emoji =
-document.createElement(
-"div"
-);
+let e=document.createElement("div");
 
 
-
-emoji.innerHTML="🔥";
-
-
-emoji.className=
-"editable-object editing";
+e.innerHTML="🔥";
 
 
-
-emoji.style.position=
-"absolute";
+e.className="editable";
 
 
-emoji.style.fontSize=
-"100px";
+e.style.position="absolute";
 
 
-emoji.style.left="50%";
+e.style.fontSize="100px";
 
 
-emoji.style.top="50%";
+e.style.left="50%";
 
 
-
-document.body.appendChild(
-emoji
-);
+e.style.top="50%";
 
 
+document.body.appendChild(e);
 
-emoji.onmousedown=drag;
+
+dragObject(e);
 
 
 
@@ -301,74 +268,103 @@ emoji.onmousedown=drag;
 
 
 
+function addGlass(){
 
 
-document
-.getElementById(
-"imageUpload"
-)
-
-.onchange=function(e){
+let panel=document.createElement("div");
 
 
-
-let file =
-e.target.files[0];
+panel.className="glassObject";
 
 
+panel.style.left="40%";
 
-let reader =
-new FileReader();
 
+panel.style.top="40%";
+
+
+document.body.appendChild(panel);
+
+
+
+dragObject(panel);
+
+
+}
+
+
+
+
+
+
+
+
+function addImage(){
+
+
+let input=document.createElement("input");
+
+
+input.type="file";
+
+
+input.accept="image/*";
+
+
+input.onchange=function(e){
+
+
+let file=e.target.files[0];
+
+
+let reader=new FileReader();
 
 
 
 reader.onload=function(){
 
 
-
-let img =
-document.createElement(
-"img"
-);
+let img=document.createElement("img");
 
 
-
-img.src =
-reader.result;
+img.src=reader.result;
 
 
-
-img.className=
-"editable-object editing";
+img.className="editable";
 
 
-
-img.style.position=
-"absolute";
+img.style.width="250px";
 
 
-img.style.width=
-"250px";
+img.style.position="absolute";
+
+
+img.style.left="50%";
+
+
+img.style.top="50%";
 
 
 
 document.body.appendChild(img);
 
 
-
-img.onmousedown=drag;
-
+dragObject(img);
 
 
 }
-
-
 
 
 reader.readAsDataURL(file);
 
 
+}
+
+
+
+input.click();
+
+
 
 }
 
@@ -379,71 +375,34 @@ reader.readAsDataURL(file);
 
 
 
-function saveLayout(){
+function deleteObject(){
 
 
-let objects=[];
+if(selected){
 
 
-
-document
-.querySelectorAll(
-".editable-object"
-)
-
-.forEach(el=>{
+selected.remove();
 
 
-objects.push({
-
-html:el.outerHTML,
-
-left:el.style.left,
-
-top:el.style.top
+selected=null;
 
 
-});
+}
 
 
-});
+}
 
 
 
-localStorage.setItem(
 
-"banoLayout",
 
-JSON.stringify(objects)
 
-);
-
+function savePage(){
 
 
 alert(
 "Layout saved"
 );
-
-
-
-}
-
-
-
-
-
-
-
-
-function clearLayout(){
-
-
-localStorage.removeItem(
-"banoLayout"
-);
-
-
-location.reload();
 
 
 }
