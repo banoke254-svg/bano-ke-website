@@ -1,108 +1,130 @@
-// =================================
-// BANO HERO MARBLE TRANSITION
-// =================================
-
-
-let heroMarble = null;
-
-
-
-let marbleImage =
-"assets/marble.png";
-
-
-
-
-
-function setHeroMarble(){
-
-heroMarble =
-document.querySelector(
-".hero-marble"
-);
-
-
-}
-
-
-
-
-
+// ======================================
+// BANO MARBLE MORPH PAGE TRANSITION V2
+// ======================================
 
 
 function animateHeroMarble(direction){
 
 
 
-if(!heroMarble)
-return;
-
-
-
-let clone =
-heroMarble.cloneNode(true);
-
-
-
-document.body.appendChild(
-clone
+let currentMarble =
+document.querySelector(
+".page.active .hero-marble"
 );
 
 
 
+if(!currentMarble){
+
+console.log("No hero marble found");
+
+return;
+
+}
+
+
+
+
+// GET CURRENT POSITION
+
 let start =
-heroMarble.getBoundingClientRect();
+currentMarble.getBoundingClientRect();
 
 
 
-clone.style.position =
-"fixed";
+
+// CREATE FLYING MARBLE
+
+
+let flying =
+currentMarble.cloneNode(true);
 
 
 
-clone.style.left =
+document.body.appendChild(
+flying
+);
+
+
+
+flying.className =
+"flying-marble";
+
+
+
+flying.style.position="fixed";
+
+
+flying.style.left =
 start.left+"px";
 
 
-clone.style.top =
+flying.style.top =
 start.top+"px";
 
 
-clone.style.width =
+flying.style.width =
 start.width+"px";
 
 
-
-clone.style.zIndex =
-"99999";
-
+flying.style.height =
+start.height+"px";
 
 
-clone.style.pointerEvents =
-"none";
+flying.style.zIndex="999999";
 
 
+flying.style.pointerEvents="none";
 
 
 
-// TARGET POSITION
 
 
-let endX;
 
-let endY;
+
+// CENTER POINT
+
+
+let centerX =
+(window.innerWidth/2)
+-
+(start.width/2);
+
+
+
+let centerY =
+(window.innerHeight/2)
+-
+(start.height/2);
+
+
+
+
+
+
+
+
+// FINAL POSITION
+
+
+let finalX;
+
+
+let finalY;
 
 
 
 if(direction==="next"){
 
 
-endX =
-window.innerWidth*0.75;
+finalX =
+80;
 
 
-endY =
-window.innerHeight*0.25;
+
+finalY =
+80;
+
 
 
 }
@@ -110,12 +132,16 @@ window.innerHeight*0.25;
 else{
 
 
-endX =
-window.innerWidth*0.2;
+finalX =
+window.innerWidth -
+250;
 
 
-endY =
-window.innerHeight*0.5;
+
+finalY =
+window.innerHeight -
+250;
+
 
 
 }
@@ -125,52 +151,82 @@ window.innerHeight*0.5;
 
 
 
-let animation =
 
-clone.animate(
+let animation = flying.animate(
 
 [
+
 
 {
 
 
+left:start.left+"px",
+
+top:start.top+"px",
+
 transform:
-"translate(0,0) rotate(0deg) scale(1)"
+"scale(1) rotate(0deg)",
+
+filter:
+"brightness(1)"
 
 },
 
 
 
+
+
 {
 
 
+left:centerX+"px",
+
+top:centerY+"px",
+
 transform:
-`
-translate(
-${endX-start.left}px,
-${endY-start.top}px
-)
+"scale(1.8) rotate(360deg)",
 
-rotate(720deg)
+filter:
+"brightness(2)"
 
-scale(1.3)
+},
 
-`
+
+
+
+
+{
+
+
+left:finalX+"px",
+
+top:finalY+"px",
+
+transform:
+"scale(.8) rotate(720deg)",
+
+filter:
+"brightness(1)"
 
 }
+
 
 
 ],
 
+
+
 {
 
 
-duration:1200,
+duration:1800,
+
 
 easing:
-"cubic-bezier(.7,0,.2,1)"
+"cubic-bezier(.65,0,.35,1)"
 
 }
+
 
 );
 
@@ -179,13 +235,14 @@ easing:
 
 
 
-animation.onfinish=()=>{
+animation.onfinish=function(){
 
 
-clone.remove();
+flying.remove();
 
 
 };
+
 
 
 }
