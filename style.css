@@ -861,3 +861,82 @@ width:220px;
 
 
 }
+/* ==================================
+BANO CINEMATIC HERO MARBLE
+================================== */
+
+
+.hero-marble{
+
+
+position:absolute;
+
+
+right:40px;
+
+
+bottom:40px;
+
+
+width:180px;
+
+
+height:auto;
+
+
+z-index:50;
+
+
+
+filter:
+
+drop-shadow(
+0px 20px 35px rgba(0,0,0,.6)
+);
+
+
+
+cursor:pointer;
+
+
+
+transition:
+
+transform .5s ease;
+
+
+
+}
+
+
+
+
+
+.hero-marble:hover{
+
+
+transform:
+
+scale(1.12)
+rotate(10deg);
+
+
+
+}
+
+
+
+
+
+
+/* Flying marble clone */
+
+body > .hero-marble{
+
+
+pointer-events:none;
+
+
+}
+
+
