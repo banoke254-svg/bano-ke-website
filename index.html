@@ -7,7 +7,9 @@
 
 <link rel="stylesheet" href="style.css">
 
+
 <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+
 
 </head>
 
@@ -15,10 +17,16 @@
 <body>
 
 
-<!-- ==========================
-EDITOR BUTTON
-========================== -->
+<!-- SAVE STATUS -->
 
+<div id="saveStatus">
+✓ Saved
+</div>
+
+
+
+
+<!-- EDITOR OPEN BUTTON -->
 
 <button id="editorToggle">
 🛠
@@ -28,10 +36,7 @@ EDITOR BUTTON
 
 
 
-<!-- ==========================
-EDITOR PANEL
-========================== -->
-
+<!-- EDITOR PANEL -->
 
 <div id="editorPanel">
 
@@ -43,7 +48,6 @@ BANO BUILDER
 
 
 <!-- PROJECT -->
-
 
 <h3>
 PROJECT
@@ -68,12 +72,14 @@ PROJECT
 
 
 
-<!-- PAGES -->
+
+<!-- PAGE SYSTEM -->
 
 
 <h3>
 PAGES
 </h3>
+
 
 
 <button onclick="addPage()">
@@ -94,7 +100,6 @@ PAGES
 <button onclick="nextPage()">
 NEXT ➡
 </button>
-
 
 
 
@@ -129,25 +134,28 @@ Slide
 
 
 
-
 <hr>
+
+
 
 
 
 
 <!-- BACKGROUND -->
 
-
 <h3>
 BACKGROUND
 </h3>
 
 
+<input
 
-<input 
-type="file"
 id="backgroundUpload"
+
+type="file"
+
 accept="image/*"
+
 >
 
 
@@ -167,8 +175,9 @@ REMOVE BACKGROUND
 
 
 
-
 <hr>
+
+
 
 
 
@@ -180,7 +189,6 @@ REMOVE BACKGROUND
 <h3>
 OBJECTS
 </h3>
-
 
 
 <button onclick="addText()">
@@ -205,10 +213,16 @@ OBJECTS
 
 
 
-
 <button onclick="deleteSelected()">
-🗑 DELETE SELECTED
+🗑 DELETE
 </button>
+
+
+
+<button onclick="duplicateSelected()">
+📋 DUPLICATE
+</button>
+
 
 
 
@@ -222,8 +236,9 @@ OBJECTS
 
 
 
-<!-- SIZE -->
 
+
+<!-- SIZE -->
 
 <h3>
 SIZE
@@ -236,12 +251,20 @@ Width
 </label>
 
 
-<input 
-type="range"
+<input
+
 id="widthControl"
+
+type="range"
+
 min="20"
+
 max="1200"
+
+value="300"
+
 >
+
 
 
 
@@ -250,12 +273,22 @@ Height
 </label>
 
 
-<input 
-type="range"
+<input
+
 id="heightControl"
+
+type="range"
+
 min="20"
+
 max="1000"
+
+value="200"
+
 >
+
+
+
 
 
 
@@ -264,11 +297,18 @@ Text Size
 </label>
 
 
-<input 
-type="range"
+<input
+
 id="fontControl"
+
+type="range"
+
 min="10"
+
 max="200"
+
+value="50"
+
 >
 
 
@@ -278,6 +318,7 @@ max="200"
 
 
 <hr>
+
 
 
 
@@ -292,17 +333,26 @@ GLASS
 </h3>
 
 
+
 <label>
 Opacity
 </label>
 
 
-<input 
-type="range"
+<input
+
 id="opacityControl"
+
+type="range"
+
 min="0"
+
 max="100"
+
+value="50"
+
 >
+
 
 
 
@@ -311,12 +361,20 @@ Blur
 </label>
 
 
-<input 
-type="range"
+<input
+
 id="blurControl"
+
+type="range"
+
 min="0"
+
 max="60"
+
+value="20"
+
 >
+
 
 
 
@@ -325,11 +383,18 @@ Radius
 </label>
 
 
-<input 
-type="range"
+<input
+
 id="radiusControl"
+
+type="range"
+
 min="0"
+
 max="100"
+
+value="30"
+
 >
 
 
@@ -337,9 +402,9 @@ max="100"
 
 
 
-
-
 <hr>
+
+
 
 
 
@@ -353,9 +418,11 @@ ANIMATION
 </h3>
 
 
+
 <button onclick="addBounce()">
 🪂 BOUNCE
 </button>
+
 
 
 <button onclick="addFloat()">
@@ -363,14 +430,17 @@ ANIMATION
 </button>
 
 
+
 <button onclick="addPulse()">
 ✨ PULSE
 </button>
 
 
+
 <button onclick="stopAnimation()">
 STOP
 </button>
+
 
 
 
@@ -386,19 +456,13 @@ STOP
 
 
 
-<!-- ==========================
-WEBSITE
-========================== -->
-
+<!-- WEBSITE -->
 
 <div id="website">
 
 
 
-<section 
-class="page active"
-data-page="1"
->
+<section class="page active" data-page="1">
 
 
 
@@ -406,8 +470,7 @@ data-page="1"
 
 
 
-<h1 
-class="editable textObject">
+<h1 class="editable textObject">
 
 BANO KE
 
@@ -416,15 +479,11 @@ BANO KE
 
 
 
-
-<p 
-class="editable textObject">
+<p class="editable textObject">
 
 THE KING OF AFRICAN MARBLES
 
 </p>
-
-
 
 
 
@@ -441,11 +500,11 @@ class="editable imageObject"
 
 
 
-
 </div>
 
 
 </section>
+
 
 
 
@@ -468,6 +527,7 @@ class="editable imageObject"
 <script src="animations.js"></script>
 
 <script src="editor.js"></script>
+
 
 
 </body>
