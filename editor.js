@@ -1,28 +1,61 @@
-let editorMode=false;
-
-let selectedObject=null;
-
-let dragging=false;
-
-let offsetX=0;
-let offsetY=0;
+// ======================================
+// BANO BUILDER EDITOR SYSTEM V5
+// ======================================
 
 
+let editorMode = false;
 
-const editorToggle=document.getElementById("editorToggle");
+let selectedObject = null;
 
-const editorPanel=document.getElementById("editorPanel");
+let dragging = false;
 
+let offsetX = 0;
+
+let offsetY = 0;
+
+let projectChanged = false;
+
+
+
+
+
+const editorToggle =
+document.getElementById(
+"editorToggle"
+);
+
+
+
+const editorPanel =
+document.getElementById(
+"editorPanel"
+);
+
+
+
+
+
+
+
+// ======================================
+// EDITOR OPEN
+// ======================================
 
 
 editorToggle.onclick=function(){
 
-editorMode=!editorMode;
 
-editorPanel.style.display=
-editorMode ? "block":"none";
+editorMode = !editorMode;
+
+
+editorPanel.style.display =
+editorMode ? "block" : "none";
+
+
 
 activateEditorObjects();
+
+
 
 };
 
@@ -30,10 +63,103 @@ activateEditorObjects();
 
 
 
+
+
+
+
+// ======================================
+// CHANGE TRACKER
+// ======================================
+
+
+function markChanged(){
+
+
+projectChanged = true;
+
+
+
+let status =
+document.getElementById(
+"saveStatus"
+);
+
+
+
+if(status){
+
+status.innerHTML =
+"● Unsaved changes";
+
+
+}
+
+
+}
+
+
+
+
+
+
+
+
+
+// ======================================
+// SELECT OBJECT
+// ======================================
+
+
+function selectObject(obj){
+
+
+
+if(selectedObject){
+
+selectedObject.classList.remove(
+"selected"
+);
+
+
+}
+
+
+
+selectedObject = obj;
+
+
+
+selectedObject.classList.add(
+"selected"
+);
+
+
+
+updateControls();
+
+
+
+}
+
+
+
+
+
+
+
+
+
+// ======================================
+// ACTIVATE OBJECTS
+// ======================================
+
+
 function activateEditorObjects(){
 
 
-document.querySelectorAll(
+
+document
+.querySelectorAll(
 ".editable,.glass"
 )
 .forEach(obj=>{
@@ -42,25 +168,34 @@ document.querySelectorAll(
 obj.onmousedown=function(e){
 
 
-if(!editorMode)return;
+
+if(!editorMode)
+return;
+
 
 
 selectObject(obj);
 
 
-dragging=true;
+
+dragging = true;
 
 
-offsetX=
-e.clientX-obj.offsetLeft;
+
+offsetX =
+e.clientX -
+obj.offsetLeft;
 
 
-offsetY=
-e.clientY-obj.offsetTop;
+
+offsetY =
+e.clientY -
+obj.offsetTop;
 
 
 
 e.preventDefault();
+
 
 
 };
@@ -78,51 +213,46 @@ e.preventDefault();
 
 
 
-function selectObject(obj){
-
-
-if(selectedObject)
-
-selectedObject.classList.remove(
-"selected"
-);
 
 
 
-selectedObject=obj;
-
-
-selectedObject.classList.add(
-"selected"
-);
-
-
-
-updateControls();
-
-
-}
-
-
-
-
+// ======================================
+// DRAGGING
+// ======================================
 
 
 document.onmousemove=function(e){
 
 
-if(!dragging || !selectedObject)
+
+if(
+!dragging ||
+!selectedObject
+)
+
 return;
 
 
 
-selectedObject.style.left=
-(e.clientX-offsetX)+"px";
+selectedObject.style.left =
+
+(
+e.clientX-offsetX
+)+"px";
 
 
 
-selectedObject.style.top=
-(e.clientY-offsetY)+"px";
+
+selectedObject.style.top =
+
+(
+e.clientY-offsetY
+)+"px";
+
+
+
+
+markChanged();
 
 
 
@@ -132,14 +262,9 @@ selectedObject.style.top=
 
 
 
+
+
 document.onmouseup=function(){
-
-
-if(dragging){
-
-saveProject();
-
-}
 
 
 dragging=false;
@@ -155,61 +280,82 @@ dragging=false;
 
 
 
+// ======================================
+// DELETE
+// ======================================
+
 
 function deleteSelected(){
 
 
-if(selectedObject){
+if(!selectedObject)
+return;
+
 
 
 selectedObject.remove();
 
 
+
 selectedObject=null;
 
 
-saveProject();
+
+markChanged();
+
 
 
 }
 
 
 
-}
 
 
 
 
 
 
+// ======================================
+// DUPLICATE
+// ======================================
+
+
+function duplicateSelected(){
+
+
+if(!selectedObject)
+return;
 
 
 
-function addText(){
+let clone =
+selectedObject.cloneNode(true);
 
 
-let t=document.createElement("h1");
+
+clone.style.left =
+
+(
+selectedObject.offsetLeft+50
+)+"px";
 
 
-t.innerHTML="NEW TEXT";
+
+clone.style.top =
+
+(
+selectedObject.offsetTop+50
+)+"px";
 
 
-t.className="editable textObject";
 
 
-t.style.position="absolute";
-
-
-t.style.left="40%";
-
-
-t.style.top="40%";
-
-
-document.querySelector(
+document
+.querySelector(
 ".page.active .hero"
 )
-.appendChild(t);
+.appendChild(clone);
+
 
 
 
@@ -217,6 +363,10 @@ activateEditorObjects();
 
 
 
+markChanged();
+
+
+
 }
 
 
@@ -227,39 +377,369 @@ activateEditorObjects();
 
 
 
+// ======================================
+// ADD TEXT
+// ======================================
+
+
+function addText(){
+
+
+
+let text =
+document.createElement(
+"h1"
+);
+
+
+
+text.innerHTML =
+"NEW TEXT";
+
+
+
+text.className =
+"editable textObject";
+
+
+
+text.style.position =
+"absolute";
+
+
+
+text.style.left =
+"40%";
+
+
+
+text.style.top =
+"40%";
+
+
+
+document
+.querySelector(
+".page.active .hero"
+)
+.appendChild(text);
+
+
+
+activateEditorObjects();
+
+
+
+markChanged();
+
+
+
+}
+
+
+
+
+
+
+
+
+
+// ======================================
+// ADD EMOJI
+// ======================================
+
+
+function addEmoji(){
+
+
+
+let emoji =
+document.createElement(
+"div"
+);
+
+
+
+emoji.innerHTML =
+"🔥";
+
+
+
+emoji.className =
+"editable";
+
+
+
+emoji.style.position =
+"absolute";
+
+
+
+emoji.style.fontSize =
+"100px";
+
+
+
+emoji.style.left =
+"50%";
+
+
+
+emoji.style.top =
+"50%";
+
+
+
+document
+.querySelector(
+".page.active .hero"
+)
+.appendChild(emoji);
+
+
+
+activateEditorObjects();
+
+
+
+markChanged();
+
+
+
+}
+
+
+
+
+
+
+
+
+
+// ======================================
+// ADD IMAGE
+// ======================================
+
+
+function addImage(){
+
+
+
+let input =
+document.createElement(
+"input"
+);
+
+
+
+input.type =
+"file";
+
+
+
+input.accept =
+"image/*";
+
+
+
+
+
+input.onchange=function(e){
+
+
+
+let file =
+e.target.files[0];
+
+
+
+if(!file)
+return;
+
+
+
+let reader =
+new FileReader();
+
+
+
+
+
+reader.onload=function(event){
+
+
+
+let img =
+document.createElement(
+"img"
+);
+
+
+
+img.src =
+event.target.result;
+
+
+
+img.className =
+"editable imageObject";
+
+
+
+img.style.position =
+"absolute";
+
+
+
+img.style.width =
+"300px";
+
+
+
+img.style.height =
+"auto";
+
+
+
+img.style.left =
+"50%";
+
+
+
+img.style.top =
+"50%";
+
+
+
+
+document
+.querySelector(
+".page.active .hero"
+)
+.appendChild(img);
+
+
+
+
+activateEditorObjects();
+
+
+
+selectObject(img);
+
+
+
+markChanged();
+
+
+
+};
+
+
+
+
+reader.readAsDataURL(file);
+
+
+
+};
+
+
+
+input.click();
+
+
+
+}
+
+
+
+
+
+
+
+
+
+// ======================================
+// ADD GLASS PANEL
+// ======================================
+
+
 function addGlassPanel(){
 
 
-let panel=document.createElement("div");
 
-
-panel.className="editable glass";
-
-
-panel.style.position="absolute";
-
-
-panel.style.width="300px";
-
-
-panel.style.height="200px";
-
-
-panel.style.left="40%";
-
-
-panel.style.top="40%";
+let panel =
+document.createElement(
+"div"
+);
 
 
 
-document.querySelector(
+panel.className =
+"editable glass";
+
+
+
+panel.style.position =
+"absolute";
+
+
+
+panel.style.width =
+"300px";
+
+
+
+panel.style.height =
+"200px";
+
+
+
+panel.style.left =
+"40%";
+
+
+
+panel.style.top =
+"40%";
+
+
+
+panel.style.background =
+"rgba(255,255,255,0.2)";
+
+
+
+panel.style.backdropFilter =
+"blur(20px)";
+
+
+
+panel.style.borderRadius =
+"30px";
+
+
+
+
+document
+.querySelector(
 ".page.active .hero"
 )
 .appendChild(panel);
 
 
 
+
 activateEditorObjects();
+
+
+
+selectObject(panel);
+
+
+
+markChanged();
 
 
 
@@ -273,16 +753,31 @@ activateEditorObjects();
 
 
 
-document.getElementById(
+// ======================================
+// SIZE CONTROLS
+// ======================================
+
+
+document
+.getElementById(
 "widthControl"
-).oninput=function(){
+)
+.oninput=function(){
 
 
-if(!selectedObject)return;
+
+if(!selectedObject)
+return;
 
 
-selectedObject.style.width=
+
+selectedObject.style.width =
 this.value+"px";
+
+
+
+markChanged();
+
 
 
 };
@@ -293,16 +788,28 @@ this.value+"px";
 
 
 
-document.getElementById(
+
+
+document
+.getElementById(
 "heightControl"
-).oninput=function(){
+)
+.oninput=function(){
 
 
-if(!selectedObject)return;
+
+if(!selectedObject)
+return;
 
 
-selectedObject.style.height=
+
+selectedObject.style.height =
 this.value+"px";
+
+
+
+markChanged();
+
 
 
 };
@@ -315,9 +822,17 @@ this.value+"px";
 
 
 
-document.getElementById(
+// ======================================
+// TEXT SIZE
+// ======================================
+
+
+document
+.getElementById(
 "fontControl"
-).oninput=function(){
+)
+.oninput=function(){
+
 
 
 if(
@@ -325,11 +840,18 @@ selectedObject &&
 selectedObject.classList.contains(
 "textObject"
 )
+
 ){
 
 
-selectedObject.style.fontSize=
+
+selectedObject.style.fontSize =
 this.value+"px";
+
+
+
+markChanged();
+
 
 
 }
@@ -346,21 +868,34 @@ this.value+"px";
 
 
 
+// ======================================
+// GLASS CONTROLS
+// ======================================
 
-document.getElementById(
+
+document
+.getElementById(
 "opacityControl"
-).oninput=function(){
-
-
-if(!selectedObject)return;
+)
+.oninput=function(){
 
 
 
-selectedObject.style.background=
+if(!selectedObject)
+return;
+
+
+
+selectedObject.style.background =
+
 `rgba(255,255,255,${this.value/100})`;
 
 
 
+markChanged();
+
+
+
 };
 
 
@@ -371,20 +906,29 @@ selectedObject.style.background=
 
 
 
-
-document.getElementById(
+document
+.getElementById(
 "blurControl"
-).oninput=function(){
+)
+.oninput=function(){
 
 
-if(!selectedObject)return;
+
+if(!selectedObject)
+return;
 
 
-selectedObject.style.backdropFilter=
+
+selectedObject.style.backdropFilter =
+
 `blur(${this.value}px)`;
 
 
 
+markChanged();
+
+
+
 };
 
 
@@ -395,20 +939,29 @@ selectedObject.style.backdropFilter=
 
 
 
-
-document.getElementById(
+document
+.getElementById(
 "radiusControl"
-).oninput=function(){
+)
+.oninput=function(){
 
 
-if(!selectedObject)return;
+
+if(!selectedObject)
+return;
 
 
-selectedObject.style.borderRadius=
+
+selectedObject.style.borderRadius =
+
 this.value+"px";
 
 
 
+markChanged();
+
+
+
 };
 
 
@@ -418,24 +971,33 @@ this.value+"px";
 
 
 
+
+// ======================================
+// UPDATE CONTROLS
+// ======================================
 
 
 function updateControls(){
 
 
-if(!selectedObject)return;
+
+if(!selectedObject)
+return;
+
+
 
 
 document.getElementById(
 "widthControl"
-).value=
+).value =
 selectedObject.offsetWidth;
+
 
 
 
 document.getElementById(
 "heightControl"
-).value=
+).value =
 selectedObject.offsetHeight;
 
 
@@ -446,12 +1008,58 @@ selectedObject.offsetHeight;
 
 
 
+
+
+
+
+// ======================================
+// KEY DELETE
+// ======================================
+
+
+document.addEventListener(
+"keydown",
+function(e){
+
+
+
+if(
+e.key==="Delete"
+&&
+selectedObject
+){
+
+
+
+deleteSelected();
+
+
+
+}
+
+
+
+});
+
+
+
+
+
+
+
+
+// ======================================
+// START
+// ======================================
+
+
 window.addEventListener(
 "load",
 ()=>{
 
 
 activateEditorObjects();
+
 
 
 });
