@@ -3,7 +3,7 @@
 
 <head>
 
-<title>BANO KE</title>
+<title>BANO KE Website Builder</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -15,18 +15,20 @@
 <body>
 
 
-<!-- EDITOR -->
+<!-- EDITOR BUTTON -->
 
-<button id="editorButton">
+<button id="editorToggle">
 🛠
 </button>
 
 
 
-<div id="editorTools">
+<!-- EDITOR PANEL -->
+
+<div id="editorPanel">
 
 
-<h3>BANO EDITOR</h3>
+<h2>BANO EDITOR</h2>
 
 
 <button onclick="addText()">
@@ -44,21 +46,209 @@
 </button>
 
 
-<button onclick="addGlass()">
+<button onclick="addGlassPanel()">
 + Glass Panel
 </button>
 
 
 
-<button onclick="deleteObject()">
+<hr>
+
+
+<h3>OBJECT</h3>
+
+
+<button onclick="deleteSelected()">
 🗑 Delete
 </button>
 
 
 
-<button onclick="savePage()">
-💾 Save
+<button onclick="duplicateSelected()">
+📋 Duplicate
 </button>
+
+
+
+
+<hr>
+
+
+<h3>SIZE</h3>
+
+
+<label>
+Width
+</label>
+
+<input 
+type="range"
+id="widthControl"
+min="50"
+max="1000"
+value="300"
+>
+
+
+
+<label>
+Height
+</label>
+
+
+<input 
+type="range"
+id="heightControl"
+min="50"
+max="800"
+value="200"
+>
+
+
+
+<hr>
+
+
+<h3>GLASS</h3>
+
+
+<label>
+Opacity
+</label>
+
+
+<input 
+type="range"
+id="opacityControl"
+min="0"
+max="100"
+value="50"
+>
+
+
+
+
+<label>
+Blur
+</label>
+
+
+<input 
+type="range"
+id="blurControl"
+min="0"
+max="50"
+value="20"
+>
+
+
+
+
+<label>
+Corners
+</label>
+
+
+<input 
+type="range"
+id="radiusControl"
+min="0"
+max="100"
+value="30"
+>
+
+
+
+
+<hr>
+
+
+
+<h3>ANIMATION</h3>
+
+
+
+<button onclick="addBounce()">
+
+🪂 Bounce
+
+</button>
+
+
+
+<button onclick="removeAnimation()">
+
+Stop
+
+</button>
+
+
+
+
+<hr>
+
+
+<h3>PAGES</h3>
+
+
+<button onclick="newPage()">
+
++ New Page
+
+</button>
+
+
+<button onclick="nextPage()">
+
+Next Page
+
+</button>
+
+
+
+<select id="transitionSelect">
+
+<option value="fade">
+Fade
+</option>
+
+
+<option value="zoom">
+Zoom
+</option>
+
+
+<option value="morph">
+Morph
+</option>
+
+
+<option value="slide">
+Slide
+</option>
+
+
+</select>
+
+
+
+<button onclick="changePage()">
+
+Apply Transition
+
+</button>
+
+
+
+<br><br>
+
+
+<button onclick="saveWebsite()">
+
+💾 Save
+
+</button>
+
 
 
 </div>
@@ -67,56 +257,20 @@
 
 
 
-<header>
+
+<!-- PAGE CONTAINER -->
+
+<div id="website">
 
 
-<img 
-src="assets/bano-logo.png"
-class="editable"
->
+<section class="page active" id="page1">
 
 
-<nav>
-
-<a class="editable">
-NEWS
-</a>
-
-
-<a class="editable">
-FORUM
-</a>
-
-
-<a class="editable">
-ABOUT US
-</a>
-
-
-<a class="editable">
-OTHER GAMES
-</a>
-
-
-<button class="editable">
-JOIN BETA
-</button>
-
-
-</nav>
-
-
-</header>
+<div class="hero">
 
 
 
-
-
-
-<section class="hero">
-
-
-<h1 class="editable">
+<h1 class="object textObject">
 
 BANO KE
 
@@ -124,7 +278,8 @@ BANO KE
 
 
 
-<p class="editable">
+
+<p class="object textObject">
 
 THE KING OF AFRICAN MARBLES
 
@@ -137,7 +292,9 @@ THE KING OF AFRICAN MARBLES
 
 src="assets/marble.png"
 
-class="editable marble"
+class="object imageObject"
+
+id="mainMarble"
 
 >
 
@@ -145,63 +302,28 @@ class="editable marble"
 
 
 
-<div class="cards">
-
-
-<div class="glass editable">
-
-<h2>
-BEST GAMEPLAY
-</h2>
-
-<p>
-Experience competitive marble battles.
-</p>
-
 </div>
-
-
-
-
-<div class="glass editable">
-
-<h2>
-NEW MARBLES
-</h2>
-
-<p>
-Collect legendary marbles.
-</p>
-
-</div>
-
-
-
-<div class="glass editable">
-
-<h2>
-RANKED MODE
-</h2>
-
-<p>
-Become number one.
-</p>
-
-</div>
-
-
-</div>
-
 
 
 </section>
 
 
 
+</div>
 
 
-<script src="script.js"></script>
+
+
+
+
+<script src="animations.js"></script>
+
+<script src="pages.js"></script>
+
+<script src="editor.js"></script>
+
 
 </body>
+
 
 </html>
