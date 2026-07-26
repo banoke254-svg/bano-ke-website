@@ -3,7 +3,7 @@
 
 <head>
 
-<title>BANO KE Website Builder</title>
+<title>BANO KE Builder</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -15,7 +15,7 @@
 <body>
 
 
-<!-- EDITOR BUTTON -->
+<!-- EDIT BUTTON -->
 
 <button id="editorToggle">
 🛠
@@ -23,31 +23,31 @@
 
 
 
-<!-- EDITOR PANEL -->
+<!-- TOOL PANEL -->
 
 <div id="editorPanel">
 
 
-<h2>BANO EDITOR</h2>
+<h2>BANO BUILDER</h2>
 
 
 <button onclick="addText()">
-+ Text
++ TEXT
 </button>
 
 
 <button onclick="addEmoji()">
-+ Emoji
++ EMOJI
 </button>
 
 
 <button onclick="addImage()">
-+ Image
++ IMAGE
 </button>
 
 
-<button onclick="addGlassPanel()">
-+ Glass Panel
+<button onclick="addGlass()">
++ GLASS PANEL
 </button>
 
 
@@ -59,13 +59,13 @@
 
 
 <button onclick="deleteSelected()">
-🗑 Delete
+DELETE
 </button>
 
 
 
 <button onclick="duplicateSelected()">
-📋 Duplicate
+DUPLICATE
 </button>
 
 
@@ -81,13 +81,7 @@
 Width
 </label>
 
-<input 
-type="range"
-id="widthControl"
-min="50"
-max="1000"
-value="300"
->
+<input id="widthSlider" type="range" min="20" max="1000">
 
 
 
@@ -95,14 +89,21 @@ value="300"
 Height
 </label>
 
+<input id="heightSlider" type="range" min="20" max="1000">
 
-<input 
-type="range"
-id="heightControl"
-min="50"
-max="800"
-value="200"
->
+
+
+
+
+<label>
+Text Size
+</label>
+
+
+<input id="fontSlider" type="range" min="10" max="200">
+
+
+
 
 
 
@@ -117,14 +118,7 @@ Opacity
 </label>
 
 
-<input 
-type="range"
-id="opacityControl"
-min="0"
-max="100"
-value="50"
->
-
+<input id="opacitySlider" type="range" min="0" max="100">
 
 
 
@@ -133,14 +127,7 @@ Blur
 </label>
 
 
-<input 
-type="range"
-id="blurControl"
-min="0"
-max="50"
-value="20"
->
-
+<input id="blurSlider" type="range" min="0" max="50">
 
 
 
@@ -149,13 +136,8 @@ Corners
 </label>
 
 
-<input 
-type="range"
-id="radiusControl"
-min="0"
-max="100"
-value="30"
->
+<input id="radiusSlider" type="range" min="0" max="100">
+
 
 
 
@@ -163,23 +145,27 @@ value="30"
 <hr>
 
 
-
 <h3>ANIMATION</h3>
 
 
+<button onclick="bounceObject()">
+🪂 BOUNCE
+</button>
 
-<button onclick="addBounce()">
 
-🪂 Bounce
+<button onclick="floatObject()">
+🌊 FLOAT
+</button>
 
+
+<button onclick="pulseObject()">
+✨ PULSE
 </button>
 
 
 
-<button onclick="removeAnimation()">
-
-Stop
-
+<button onclick="stopAnimation()">
+STOP
 </button>
 
 
@@ -191,22 +177,18 @@ Stop
 <h3>PAGES</h3>
 
 
-<button onclick="newPage()">
-
-+ New Page
-
+<button onclick="createPage()">
++ NEW PAGE
 </button>
 
 
 <button onclick="nextPage()">
-
-Next Page
-
+NEXT PAGE
 </button>
 
 
 
-<select id="transitionSelect">
+<select id="transition">
 
 <option value="fade">
 Fade
@@ -232,22 +214,10 @@ Slide
 
 
 
-<button onclick="changePage()">
-
-Apply Transition
-
+<button onclick="applyTransition()">
+APPLY
 </button>
 
-
-
-<br><br>
-
-
-<button onclick="saveWebsite()">
-
-💾 Save
-
-</button>
 
 
 
@@ -258,19 +228,17 @@ Apply Transition
 
 
 
-<!-- PAGE CONTAINER -->
-
 <div id="website">
 
 
-<section class="page active" id="page1">
+<section class="page active">
 
 
 <div class="hero">
 
 
 
-<h1 class="object textObject">
+<h1 class="editable text">
 
 BANO KE
 
@@ -278,8 +246,7 @@ BANO KE
 
 
 
-
-<p class="object textObject">
+<p class="editable text">
 
 THE KING OF AFRICAN MARBLES
 
@@ -292,13 +259,9 @@ THE KING OF AFRICAN MARBLES
 
 src="assets/marble.png"
 
-class="object imageObject"
-
-id="mainMarble"
+class="editable image"
 
 >
-
-
 
 
 
@@ -316,14 +279,14 @@ id="mainMarble"
 
 
 
+<script src="editor.js"></script>
+
 <script src="animations.js"></script>
 
 <script src="pages.js"></script>
 
-<script src="editor.js"></script>
 
 
 </body>
-
 
 </html>
