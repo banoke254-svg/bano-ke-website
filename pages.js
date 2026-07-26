@@ -184,6 +184,10 @@ saveProject();
 function nextPage(){
 
 
+animateHeroMarble("next");
+
+
+
 let pages =
 getPages();
 
@@ -191,15 +195,6 @@ getPages();
 
 if(pages.length<=1)
 return;
-
-
-
-
-transitionType =
-document.getElementById(
-"pageTransition"
-).value;
-
 
 
 
@@ -219,9 +214,30 @@ currentPage++;
 
 
 
-if(currentPage >= pages.length){
+if(currentPage>=pages.length){
 
 currentPage=0;
+
+}
+
+
+
+let newPage =
+pages[currentPage];
+
+
+
+newPage.classList.add(
+"active"
+);
+
+
+
+playTransition(
+newPage
+);
+
+
 
 }
 
