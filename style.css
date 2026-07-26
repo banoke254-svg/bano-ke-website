@@ -939,4 +939,49 @@ pointer-events:none;
 
 }
 
+/* ==============================
+BANO FLYING MARBLE
+============================== */
 
+
+.flying-marble{
+
+
+position:fixed;
+
+
+border-radius:50%;
+
+
+object-fit:contain;
+
+
+
+filter:
+
+drop-shadow(
+0 0 40px rgba(180,80,255,.8)
+);
+
+
+
+}
+
+
+
+.hero-marble{
+
+
+position:absolute;
+
+
+right:50px;
+
+
+bottom:50px;
+
+
+width:180px;
+
+
+}
