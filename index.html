@@ -7,9 +7,7 @@
 
 <link rel="stylesheet" href="style.css">
 
-
 <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
-
 
 </head>
 
@@ -17,41 +15,49 @@
 <body>
 
 
-<!-- EDITOR BUTTON -->
+<!-- EDITOR -->
 
-<button id="editorToggle">
-🛠 EDITOR MODE
+<button id="editorButton">
+🛠
 </button>
 
 
 
-<div id="editorPanel">
+<div id="editorTools">
+
+
+<h3>BANO EDITOR</h3>
 
 
 <button onclick="addText()">
-➕ Add Text
++ Text
 </button>
 
 
 <button onclick="addEmoji()">
-🔥 Add Emoji
++ Emoji
 </button>
 
 
-<input 
-type="file"
-id="imageUpload"
-accept="image/*"
->
+<button onclick="addImage()">
++ Image
+</button>
 
 
-<button onclick="saveLayout()">
+<button onclick="addGlass()">
++ Glass Panel
+</button>
+
+
+
+<button onclick="deleteObject()">
+🗑 Delete
+</button>
+
+
+
+<button onclick="savePage()">
 💾 Save
-</button>
-
-
-<button onclick="clearLayout()">
-🗑 Clear
 </button>
 
 
@@ -64,46 +70,37 @@ accept="image/*"
 <header>
 
 
-<div class="brand">
-
-
 <img 
 src="assets/bano-logo.png"
-class="editable-object"
+class="editable"
 >
-
-
-</div>
-
 
 
 <nav>
 
-<a>
+<a class="editable">
 NEWS
 </a>
 
 
-<a>
+<a class="editable">
 FORUM
 </a>
 
 
-<a>
+<a class="editable">
 ABOUT US
 </a>
 
 
-<a>
+<a class="editable">
 OTHER GAMES
 </a>
 
 
-
-<button>
+<button class="editable">
 JOIN BETA
 </button>
-
 
 
 </nav>
@@ -116,12 +113,10 @@ JOIN BETA
 
 
 
-
 <section class="hero">
 
 
-
-<h1 class="editable-object">
+<h1 class="editable">
 
 BANO KE
 
@@ -129,14 +124,11 @@ BANO KE
 
 
 
-<p class="editable-object">
-
+<p class="editable">
 
 THE KING OF AFRICAN MARBLES
 
-
 </p>
-
 
 
 
@@ -145,12 +137,9 @@ THE KING OF AFRICAN MARBLES
 
 src="assets/marble.png"
 
-class="editable-object marble"
-
+class="editable marble"
 
 >
-
-
 
 
 
@@ -159,64 +148,49 @@ class="editable-object marble"
 <div class="cards">
 
 
-
-<div class="card editable-object">
-
+<div class="glass editable">
 
 <h2>
 BEST GAMEPLAY
 </h2>
 
-
 <p>
 Experience competitive marble battles.
 </p>
-
 
 </div>
 
 
 
 
-
-<div class="card editable-object">
-
+<div class="glass editable">
 
 <h2>
 NEW MARBLES
 </h2>
 
-
 <p>
 Collect legendary marbles.
 </p>
-
 
 </div>
 
 
 
-
-
-<div class="card editable-object">
-
+<div class="glass editable">
 
 <h2>
 RANKED MODE
 </h2>
 
-
 <p>
 Become number one.
 </p>
 
-
 </div>
 
 
-
 </div>
-
 
 
 
@@ -227,7 +201,6 @@ Become number one.
 
 
 <script src="script.js"></script>
-
 
 </body>
 
