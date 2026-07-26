@@ -1,9 +1,7 @@
 *{
 
 margin:0;
-
 padding:0;
-
 box-sizing:border-box;
 
 }
@@ -12,16 +10,13 @@ box-sizing:border-box;
 
 body{
 
-
 background:black;
 
 color:white;
 
 font-family:Arial;
 
-
 overflow:hidden;
-
 
 }
 
@@ -40,15 +35,13 @@ background:
 linear-gradient(
 90deg,
 rgba(0,0,0,.8),
-rgba(0,0,0,.2)
+rgba(0,0,0,.3)
 ),
 
 url("./assets/background.png");
 
 
-
 background-size:cover;
-
 
 background-position:center;
 
@@ -57,6 +50,7 @@ position:relative;
 
 
 }
+
 
 
 
@@ -79,13 +73,10 @@ display:flex;
 justify-content:space-between;
 
 
-align-items:center;
-
-
 padding:30px 60px;
 
 
-z-index:50;
+z-index:10;
 
 
 }
@@ -93,13 +84,14 @@ z-index:50;
 
 
 
-.brand img{
+header img{
 
 
-width:170px;
+width:180px;
 
 
 }
+
 
 
 
@@ -119,26 +111,16 @@ align-items:center;
 
 
 
-nav a{
-
-
-letter-spacing:3px;
-
-
-}
-
-
-
 nav button{
 
 
-background:#8500ff;
+background:#8700ff;
 
 
-border:none;
+border:0;
 
 
-padding:15px 35px;
+padding:15px 30px;
 
 
 color:white;
@@ -151,25 +133,24 @@ border-radius:30px;
 
 
 
+
+
 h1{
 
 
 position:absolute;
 
 
-left:5%;
-
-
 top:30%;
+
+
+left:5%;
 
 
 font-family:"Luckiest Guy";
 
 
-font-size:140px;
-
-
-font-style:italic;
+font-size:150px;
 
 
 text-shadow:
@@ -181,28 +162,30 @@ text-shadow:
 
 
 
-.hero p{
+
+.hero>p{
 
 
 position:absolute;
 
 
-left:6%;
-
-
 top:52%;
+
+
+left:6%;
 
 
 font-size:30px;
 
 
-letter-spacing:7px;
+letter-spacing:6px;
 
 
-color:#e000ff;
+color:#ff00dd;
 
 
 }
+
 
 
 
@@ -222,36 +205,7 @@ top:15%;
 width:550px;
 
 
-filter:
-
-drop-shadow(
-0 0 50px blue
-);
-
-
-animation:
-
-float 5s infinite;
-
-
 }
-
-
-
-@keyframes float{
-
-
-50%{
-
-
-transform:translateY(-30px);
-
-
-}
-
-
-}
-
 
 
 
@@ -263,7 +217,7 @@ transform:translateY(-30px);
 position:absolute;
 
 
-bottom:20px;
+bottom:30px;
 
 
 width:100%;
@@ -283,25 +237,17 @@ padding:20px;
 
 
 
-.card{
-
-
-flex:1;
-
-
-padding:25px;
+.glass{
 
 
 background:
 
-rgba(20,0,40,.7);
-
+rgba(255,255,255,.08);
 
 
 border:
 
-1px solid purple;
-
+1px solid rgba(255,0,255,.5);
 
 
 backdrop-filter:
@@ -309,13 +255,20 @@ backdrop-filter:
 blur(20px);
 
 
+padding:25px;
+
+
+flex:1;
+
+
+border-radius:20px;
+
 
 }
 
 
 
-
-.card h2{
+.glass h2{
 
 
 color:#ff00dd;
@@ -330,7 +283,7 @@ color:#ff00dd;
 /* EDITOR */
 
 
-#editorToggle{
+#editorButton{
 
 
 position:fixed;
@@ -345,26 +298,28 @@ left:20px;
 z-index:99999;
 
 
-background:#8500ff;
+background:#8b00ff;
 
 
 color:white;
 
 
-border:none;
+border:0;
 
 
-padding:15px 25px;
+padding:15px;
 
 
-border-radius:30px;
+border-radius:50%;
 
 
 }
 
 
 
-#editorPanel{
+
+
+#editorTools{
 
 
 display:none;
@@ -379,10 +334,20 @@ top:80px;
 left:20px;
 
 
-z-index:99999;
+width:220px;
 
 
-background:#120020;
+background:
+
+rgba(20,0,40,.55);
+
+
+backdrop-filter:
+
+blur(20px);
+
+
+opacity:.75;
 
 
 padding:20px;
@@ -391,29 +356,43 @@ padding:20px;
 border-radius:20px;
 
 
+z-index:99999;
+
+
 }
 
 
 
-#editorPanel button,
-#editorPanel input{
+#editorTools button{
 
 
-display:block;
+width:100%;
 
 
-margin:10px;
+margin:6px 0;
 
 
 padding:10px;
 
 
+background:#8500ff;
+
+
+border:0;
+
+
+color:white;
+
+
+border-radius:10px;
+
+
 }
 
 
 
 
-.editing{
+.selected{
 
 
 outline:
@@ -421,11 +400,43 @@ outline:
 3px dashed #ff00ff;
 
 
-cursor:move;
+}
+
+
+
+
+
+.glassObject{
+
+
+position:absolute;
+
+
+width:300px;
+
+
+height:150px;
+
+
+background:
+
+rgba(255,255,255,.15);
+
+
+backdrop-filter:
+
+blur(20px);
+
+
+border:
+
+1px solid purple;
+
+
+border-radius:30px;
 
 
 }
-
 
 
 
@@ -433,37 +444,19 @@ cursor:move;
 @media(max-width:900px){
 
 
-
 h1{
-
 
 font-size:70px;
 
-
 }
-
 
 
 .marble{
 
-
 width:350px;
 
-
 }
 
-
-
-.cards{
-
-
-flex-direction:column;
-
-
-overflow:auto;
-
-
-}
 
 
 }
