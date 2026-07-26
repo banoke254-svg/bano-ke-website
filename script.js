@@ -5,10 +5,11 @@ let selected=null;
 
 
 
-const button =
+const toggle =
 document.getElementById(
 "editorToggle"
 );
+
 
 
 const panel =
@@ -18,34 +19,22 @@ document.getElementById(
 
 
 
-button.onclick=()=>{
+
+
+toggle.onclick=function(){
 
 
 editor=!editor;
 
 
-panel.style.display =
-editor ? "block":"none";
-
-
-
-document.querySelectorAll(
-".moveable, h1, p, img"
-)
-.forEach(item=>{
-
 
 if(editor){
 
 
-item.classList.add(
-"editing"
-);
+panel.style.display="block";
 
 
-item.onmousedown=
-dragStart;
-
+enableEditor();
 
 
 }
@@ -53,28 +42,86 @@ dragStart;
 else{
 
 
-item.classList.remove(
-"editing"
-);
+panel.style.display="none";
 
 
-item.onmousedown=null;
+disableEditor();
+
+
+}
 
 
 }
 
 
 
+
+
+function enableEditor(){
+
+
+document
+.querySelectorAll(
+".editable-object"
+)
+
+.forEach(element=>{
+
+
+element.classList.add(
+"editing"
+);
+
+
+element.onmousedown =
+drag;
+
+
+
 });
 
 
-};
+}
 
 
 
 
 
-function dragStart(e){
+
+function disableEditor(){
+
+
+document
+.querySelectorAll(
+".editable-object"
+)
+
+.forEach(element=>{
+
+
+element.classList.remove(
+"editing"
+);
+
+
+element.onmousedown=null;
+
+
+});
+
+
+
+}
+
+
+
+
+
+
+
+
+function drag(e){
+
 
 
 selected=this;
@@ -82,40 +129,52 @@ selected=this;
 
 
 let offsetX =
-e.clientX-selected.offsetLeft;
+e.clientX -
+selected.offsetLeft;
+
 
 
 let offsetY =
-e.clientY-selected.offsetTop;
+e.clientY -
+selected.offsetTop;
 
 
 
-document.onmousemove=(e)=>{
+
+
+document.onmousemove=function(e){
 
 
 if(selected){
 
 
-selected.style.position="absolute";
+
+selected.style.position=
+"absolute";
+
 
 
 selected.style.left =
-e.clientX-offsetX+"px";
+(e.clientX-offsetX)
++"px";
+
 
 
 selected.style.top =
-e.clientY-offsetY+"px";
+(e.clientY-offsetY)
++"px";
+
+
+
+}
 
 
 }
 
 
 
-}
 
-
-
-document.onmouseup=()=>{
+document.onmouseup=function(){
 
 
 selected=null;
@@ -127,13 +186,18 @@ document.onmousemove=null;
 }
 
 
+
 }
 
 
 
 
 
+
+
+
 function addText(){
+
 
 
 let text =
@@ -148,33 +212,37 @@ text.innerHTML=
 
 
 text.className=
-"moveable editing";
+"editable-object editing";
 
 
 
 text.style.position=
 "absolute";
 
+
 text.style.left="50%";
+
 
 text.style.top="50%";
 
-text.style.fontSize=
-"50px";
+
+text.style.fontSize="50px";
 
 
-text.style.color=
-"white";
+text.style.color="white";
+
 
 
 document.body.appendChild(text);
 
 
-text.onmousedown=
-dragStart;
+
+text.onmousedown=drag;
 
 
 }
+
+
 
 
 
@@ -191,11 +259,13 @@ document.createElement(
 );
 
 
+
 emoji.innerHTML="🔥";
 
 
 emoji.className=
-"moveable editing";
+"editable-object editing";
+
 
 
 emoji.style.position=
@@ -208,7 +278,9 @@ emoji.style.fontSize=
 
 emoji.style.left="50%";
 
+
 emoji.style.top="50%";
+
 
 
 document.body.appendChild(
@@ -217,8 +289,8 @@ emoji
 
 
 
-emoji.onmousedown=
-dragStart;
+emoji.onmousedown=drag;
+
 
 
 }
@@ -228,13 +300,21 @@ dragStart;
 
 
 
-document.getElementById(
+
+
+
+document
+.getElementById(
 "imageUpload"
 )
-.onchange=(e)=>{
+
+.onchange=function(e){
 
 
-let file=e.target.files[0];
+
+let file =
+e.target.files[0];
+
 
 
 let reader =
@@ -242,7 +322,9 @@ new FileReader();
 
 
 
-reader.onload=()=>{
+
+reader.onload=function(){
+
 
 
 let img =
@@ -256,36 +338,31 @@ img.src =
 reader.result;
 
 
+
 img.className=
-"moveable editing";
+"editable-object editing";
 
-
-img.style.width=
-"200px";
 
 
 img.style.position=
 "absolute";
 
 
-img.style.left="50%";
-
-
-img.style.top="50%";
-
-
-document.body.appendChild(
-img
-);
+img.style.width=
+"250px";
 
 
 
-img.onmousedown=
-dragStart;
+document.body.appendChild(img);
+
+
+
+img.onmousedown=drag;
 
 
 
 }
+
 
 
 
@@ -301,25 +378,29 @@ reader.readAsDataURL(file);
 
 
 
+
 function saveLayout(){
 
 
-let data=[];
+let objects=[];
 
 
-document.querySelectorAll(
-".moveable"
+
+document
+.querySelectorAll(
+".editable-object"
 )
+
 .forEach(el=>{
 
 
-data.push({
+objects.push({
 
 html:el.outerHTML,
 
-x:el.style.left,
+left:el.style.left,
 
-y:el.style.top
+top:el.style.top
 
 
 });
@@ -330,18 +411,23 @@ y:el.style.top
 
 
 localStorage.setItem(
-"bano_editor",
-JSON.stringify(data)
+
+"banoLayout",
+
+JSON.stringify(objects)
+
 );
 
 
 
 alert(
-"Saved!"
+"Layout saved"
 );
 
 
+
 }
+
 
 
 
@@ -353,39 +439,11 @@ function clearLayout(){
 
 
 localStorage.removeItem(
-"bano_editor"
+"banoLayout"
 );
 
 
 location.reload();
-
-
-}
-
-
-
-
-
-
-window.onload=()=>{
-
-
-let saved =
-localStorage.getItem(
-"bano_editor"
-);
-
-
-if(saved){
-
-
-console.log(
-"Layout found"
-);
-
-
-}
-
 
 
 }
