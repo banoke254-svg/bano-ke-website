@@ -219,7 +219,8 @@ filter:
 {
 
 
-duration:1800,
+duration:
+Number(marbleSettings.speed),
 
 
 easing:
