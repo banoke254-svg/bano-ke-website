@@ -203,8 +203,7 @@ left:finalX+"px",
 top:finalY+"px",
 
 transform:
-"scale(.8) rotate(720deg)",
-
+"scale(.8) rotate(${marbleSettings.rotation}deg)
 filter:
 "brightness(1)"
 
