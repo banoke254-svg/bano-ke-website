@@ -1145,3 +1145,192 @@ NEWS SECTION
     justify-content:space-between;
 
 }
+
+
+/*=================================
+DOWNLOAD
+=================================*/
+
+#download{
+
+    background:linear-gradient(180deg,#13345A,#0B1E36);
+
+    padding:140px 80px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+.download-container{
+
+    width:100%;
+
+    max-width:1200px;
+
+    text-align:center;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:blur(20px);
+
+    border-radius:36px;
+
+    padding:70px;
+
+}
+
+.download-tag{
+
+    color:#58C8FF;
+
+    letter-spacing:6px;
+
+    font-size:15px;
+
+}
+
+.download-container h2{
+
+    font-size:64px;
+
+    margin:25px 0;
+
+}
+
+.download-container p{
+
+    color:#D7E7FF;
+
+    font-size:21px;
+
+    line-height:36px;
+
+    max-width:760px;
+
+    margin:0 auto 50px;
+
+}
+
+.download-buttons{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:25px;
+
+    flex-wrap:wrap;
+
+}
+
+.download-btn{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    text-decoration:none;
+
+    color:white;
+
+    border-radius:20px;
+
+    padding:18px 30px;
+
+    transition:.35s;
+
+}
+
+.download-btn.primary{
+
+    background:#19AAFF;
+
+}
+
+.download-btn.secondary{
+
+    background:rgba(255,255,255,.08);
+
+    border:1px solid rgba(255,255,255,.08);
+
+}
+
+.download-btn:hover{
+
+    transform:translateY(-6px);
+
+}
+
+.download-btn img{
+
+    width:42px;
+
+}
+
+.download-btn small{
+
+    display:block;
+
+    opacity:.75;
+
+    font-size:12px;
+
+    letter-spacing:2px;
+
+}
+
+.download-btn strong{
+
+    font-size:22px;
+
+}
+
+.download-info{
+
+    margin-top:70px;
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:30px;
+
+}
+
+.info-box{
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:24px;
+
+    padding:30px;
+
+}
+
+.info-box h3{
+
+    font-size:28px;
+
+    margin-bottom:15px;
+
+}
+
+.info-box p{
+
+    font-size:17px;
+
+    line-height:28px;
+
+    margin:0;
+
+}
