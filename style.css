@@ -177,15 +177,24 @@ see each section while building */
 
 #home{
 
-    background-image:url("assets/backgrounds/blue-background.png");
+    position:relative;
+
+    overflow:hidden;
+
+    background-image:
+
+        linear-gradient(
+            rgba(2,5,10,.78),
+            rgba(2,5,10,.88)
+        ),
+
+        url("assets/backgrounds/blue-background.png");
 
     background-size:cover;
 
     background-position:center;
 
     background-repeat:no-repeat;
-
-    position:relative;
 
 }
 
