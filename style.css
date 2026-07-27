@@ -1075,7 +1075,7 @@ NEWS SECTION
 
 .news-content{
 
-    padding:30px;
+    padding:24px;
 
 }
 
@@ -1093,19 +1093,23 @@ NEWS SECTION
 
 .news-content h3{
 
-    font-size:30px;
+    font-size:26px;
 
-    margin-bottom:18px;
+    line-height:34px;
+
+    margin:12px 0 16px;
 
 }
 
 .news-content p{
 
-    color:#D8E8FF;
+    color:#C9DFFF;
 
-    line-height:30px;
+    font-size:17px;
 
-    margin-bottom:30px;
+    line-height:28px;
+
+    margin-bottom:24px;
 
 }
 
@@ -1134,5 +1138,15 @@ NEWS SECTION
     background:#35B8FF;
 
     transform:translateY(-3px);
+
+}
+
+.news-card{
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:space-between;
 
 }
