@@ -85,9 +85,11 @@ nav ul{
 
     display:flex;
 
-    list-style:none;
+    align-items:center;
 
-    gap:30px;
+    gap:42px;
+
+    list-style:none;
 
 }
 
