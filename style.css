@@ -111,7 +111,7 @@ nav a{
 
 nav a:hover{
 
-    color:#3EB9FF;
+    color:#5FC8FF;
 
 }
 
@@ -378,5 +378,40 @@ see each section while building */
             rotate(0deg);
 
     }
+
+}
+
+
+/* ===========================
+   Navigation Underline
+=========================== */
+
+nav a::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    bottom:-8px;
+
+    width:0%;
+
+    height:2px;
+
+    background:#4EC6FF;
+
+    transition:.35s;
+
+    box-shadow:
+
+        0 0 12px #4EC6FF;
+
+}
+
+nav a:hover::after{
+
+    width:100%;
 
 }
