@@ -1334,3 +1334,132 @@ DOWNLOAD
     margin:0;
 
 }
+
+
+/*=================================
+ABOUT
+=================================*/
+
+#about{
+
+    background:#0B1A2C;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:120px 80px;
+
+}
+
+.about-container{
+
+    width:100%;
+
+    max-width:1450px;
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:80px;
+
+    align-items:center;
+
+}
+
+.about-image{
+
+    display:flex;
+
+    justify-content:center;
+
+}
+
+.about-image img{
+
+    width:420px;
+
+    filter:drop-shadow(0 0 45px rgba(40,170,255,.4));
+
+    animation:floatMarble 6s ease-in-out infinite;
+
+}
+
+.about-tag{
+
+    color:#59C8FF;
+
+    letter-spacing:5px;
+
+    font-size:15px;
+
+}
+
+.about-content h2{
+
+    font-size:64px;
+
+    margin:20px 0 30px;
+
+}
+
+.about-content p{
+
+    color:#D5E8FF;
+
+    font-size:20px;
+
+    line-height:36px;
+
+    margin-bottom:25px;
+
+}
+
+.about-stats{
+
+    display:flex;
+
+    gap:30px;
+
+    margin-top:50px;
+
+}
+
+.about-stat{
+
+    flex:1;
+
+    text-align:center;
+
+    padding:25px;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:24px;
+
+    backdrop-filter:blur(20px);
+
+}
+
+.about-stat h3{
+
+    color:#58C9FF;
+
+    font-size:44px;
+
+    margin-bottom:10px;
+
+}
+
+.about-stat span{
+
+    color:#D5E8FF;
+
+    font-size:18px;
+
+}
