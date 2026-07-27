@@ -709,3 +709,140 @@ GAMEPLAY SECTION
         0 15px 40px rgba(24,169,255,.35);
 
 }
+
+
+/*=================================
+MARBLE SHOWCASE
+=================================*/
+
+#marbles{
+
+    background:#0B1D32;
+
+    padding:120px 80px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+}
+
+.marbles-header{
+
+    text-align:center;
+
+    max-width:700px;
+
+    margin-bottom:80px;
+
+}
+
+.marbles-header span{
+
+    color:#55C7FF;
+
+    letter-spacing:6px;
+
+    font-size:15px;
+
+}
+
+.marbles-header h2{
+
+    font-size:64px;
+
+    margin:18px 0;
+
+}
+
+.marbles-header p{
+
+    color:#CFE5FF;
+
+    font-size:20px;
+
+    line-height:36px;
+
+}
+
+.marble-grid{
+
+    width:100%;
+
+    max-width:1500px;
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:35px;
+
+}
+
+.marble-card{
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:30px;
+
+    backdrop-filter:blur(18px);
+
+    text-align:center;
+
+    padding:40px 30px;
+
+    transition:.35s;
+
+    overflow:hidden;
+
+}
+
+.marble-card:hover{
+
+    transform:translateY(-12px);
+
+    border-color:#3AB7FF;
+
+    box-shadow:0 20px 60px rgba(0,180,255,.25);
+
+}
+
+.marble-card img{
+
+    width:220px;
+
+    transition:.4s;
+
+    filter:drop-shadow(0 0 25px rgba(50,180,255,.35));
+
+}
+
+.marble-card:hover img{
+
+    transform:scale(1.12) rotate(8deg);
+
+}
+
+.marble-card h3{
+
+    margin-top:30px;
+
+    font-size:34px;
+
+}
+
+.marble-card p{
+
+    margin-top:18px;
+
+    color:#D8E9FF;
+
+    line-height:32px;
+
+    font-size:18px;
+
+}
